@@ -1,0 +1,471 @@
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap');
+
+
+html {
+ height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+
+  /* background-color: #f8f8f8; */
+}
+.main-container {
+  min-height: 100vh; 
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; 
+ }
+/* * {
+  outline: solid 1px red;
+} */
+code {
+  font-family: 'Roboto', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+h1 {
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 900;
+  font-size: calc(1.75rem + 1.5vw);
+}
+h2 {
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 400;
+  font-size: calc(1.75rem + 1.5vw);
+}
+.titletxt {
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: calc(1.20rem + 0.2vw);
+}
+p {
+  font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.toastNotification {
+  font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 12px;
+  word-wrap: break-word;
+  text-align: center;
+}
+.loadingblockchain {
+  height: 80vh;
+}
+.seperator {
+  height: 1px;
+  width: 80%;
+  background-color: #D7D7D7;
+}
+.seperator100 {
+  height: 1px;
+  width: 100%;
+  background-color: #D7D7D7;
+}
+.txtinput {
+  background: #FFFFFF;
+  height: 52px;;
+/* shadow */
+padding-left: 20px;
+box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
+border-radius: 34px;
+}
+.frontCards {
+  background: #FFFFFF;
+  border-radius: 24px 24px 0px 0px;
+  min-height: 600px;
+}
+.frontCards .card{
+border: 1px solid #DEDEDE;
+box-sizing: border-box;
+border-radius: 12px;
+height: 100%;
+
+}
+.btn-dark {
+  height: 52px;
+  padding: 10px 40px;
+  background: #000000;
+/* shadow */
+  box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
+  border-radius: 34px;
+}
+.btn-outline-dark {
+  border-radius: 34px;
+  height: 52px;
+  padding: 10px 40px;
+}
+.btn-outline-danger {
+  border-radius: 34px;
+  height: 52px;
+  padding: 10px 40px;
+}
+.name {
+  font-size: 22px;
+  font-weight: bold
+}
+.cardprofile {
+  /* width: 350px; */
+  /* background-color: #ffffff;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06); */
+  background: #FFFFFF;
+  box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  transition: all 0.5s
+}
+.cardprofile .card{
+  /* width: 350px; */
+  /* background-color: #ffffff;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06); */
+border: none;
+}
+.cardprofile .list-group-item a{
+font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 27px;
+color: black;
+}
+.cardprofile .list-group-flush {
+  border: none !important;
+}
+.cardprofile .list-group-item {
+  border: none !important;
+
+}
+.copyicon {
+  cursor: pointer;
+}
+.profilePic img {
+  height: 110px;
+  width: 110px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
+  transition: 0.5s;
+}
+.cardprofileother {
+  background: #FFFFFF;
+  box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+.image img {
+  transition: all 0.5s;
+  border-radius: 50%;
+}
+.cardprofile:hover .image img {
+  transform: scale(1.15)
+}
+.idd {
+  font-size: 14px;
+  font-weight: 600
+}
+.idd1 {
+  font-size: 12px
+}
+.btn1 {
+  height: 40px;
+  /* width: 150px; */
+  border: none;
+  background-color: #000;
+  color: #aeaeae;
+  font-size: 15px
+}
+.text span {
+  font-size: 13px;
+  color: #545454;
+  font-weight: 500;
+  text-align: left;
+}
+.icons i {
+  font-size: 19px
+}
+.easy-edit-button {
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-radius: 34px !important;
+  height: 52px;
+  padding: 10px 40px;
+  min-width: 95px;
+  background-color: white;
+}
+.easy-edit-button:hover {
+  background-color: black;
+  color: white;
+}
+.easy-edit-component-wrapper input {
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  border-radius: 12px;
+  height: 52px;
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  /* identical to box height, or 100% */
+  padding-left: 10px;
+  letter-spacing: 0.2px;
+  color: #5C5C5C;
+  width: 100%;
+}
+.easy-edit-wrapper .easy-edit-hover-on {
+  background-color: black;
+  color: white;
+  text-decoration: none;
+}
+.easy-edit-wrapper {
+  color:black;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  width: 200px;
+  height: 52px;
+  border-top-left-radius: 34px;
+    border-top-right-radius: 34px;
+    border-bottom-right-radius: 34px;
+    border-bottom-left-radius: 34px;
+  line-height: 52px;
+  text-align: center;
+  align-content: space-around;
+}
+.cadencehint .accordion-item {
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  border-radius: 12px;
+  padding-top: 16px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+ }
+.footerlogo {
+  max-height: 60px;
+  min-height: 50px;
+  display: block;
+  margin-right: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.footersocials {
+  font-size: 20px;
+  color: #3C3D41
+}
+.copyright {
+  font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5C5C5C;
+}
+body:before {
+  content: " ";
+  width: 100%;
+  height: 110%;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.132) 0%, rgba(107, 211, 177, 0.498) 42.22%, rgba(255, 255, 255, 0.6) 77.06%);
+}
+.disclaimer {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+  width: 70%;
+  padding: 0 10px;
+  font-size: small;
+}
+.textToast {
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: xx-small;
+}
+.faqaccordion {
+  background-color: transparent !important;
+  border: none !important;
+}
+.faqaccordion .accordion-button{
+  background-color: transparent !important;
+  border: none !important;
+}
+.accordionNamesOwned .accordion-button{
+  background: #FFFFFF;
+  border: 1px solid #5C5C5C;
+  color: #5C5C5C;
+  box-sizing: border-box;
+  border-radius: 34px !important;
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 500;
+}
+.accordionNamesOwned .accordion-button:not(.collapsed){
+  background-color: rgba(0, 0, 0, 0.068);
+}
+.accordionNamesOwned .accordion-button:focus{
+  box-shadow: none;
+  }
+.accordionNamesOwned .accordion-item{
+  border: none
+}
+.accordionBids .accordion-button{
+  background: #FFFFFF;
+  border: 1px solid #5C5C5C;
+  color: #5C5C5C;
+  box-sizing: border-box;
+  border-radius: 34px !important;
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 500;
+}
+.accordionBids .accordion-button:not(.collapsed){
+  background-color: rgba(0, 0, 0, 0.068);
+}
+.accordionBids .accordion-button:focus{
+  box-shadow: none;
+  }
+  .accordionBids .accordion-item{
+    border: none
+    }
+#editProfile input {
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  border-radius: 12px;
+  height: 52px;
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #5C5C5C;
+}
+#editProfile textarea {
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  border-radius: 12px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 24px;
+  padding-top: 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #5C5C5C;
+}
+#editProfile select {
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  border-radius: 34px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 24px;
+  height: 52px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #5C5C5C;
+}
+
+#editProfile label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+#listAuction input, select{
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  border-radius: 12px !important;
+  height: 52px;
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #5C5C5C;
+}
+.nobidsnonames {
+  border-radius: 34px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #9B9B9B;
+  color: #9B9B9B;
+  min-height: 52px;
+  padding: 15px 52px;
+}
+.formSubLabel {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+.nameAvailable {
+  background: #E4F5E1;
+  border-radius: 34px;
+  min-height: 52px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 24px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+.nameLocked {
+  background: #f5e1e1;
+  border-radius: 34px;
+  min-height: 52px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 24px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+.formInputs input, select {
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  border-radius: 12px !important;
+  height: 52px;
+  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #5C5C5C;
+}

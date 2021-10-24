@@ -1,0 +1,107 @@
+.navmain{
+    display: block;
+    top: 0%;
+    height: 100px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    padding: 0%;
+    margin: 0%;
+}
+/* h1{
+    vertical-align: middle;
+    color:rgb(75, 57, 21)
+} */
+.mainbody{
+    background: rgb(255, 255, 255);
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+.pagefooter{
+    height: 100px;
+    background-color: dimgray;
+}
+.responsive {
+     max-width: 270px;
+    /* min-width: none; */
+    /* width: auto; */
+    width: 100%;
+    height: auto;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    display: block;
+    background-color: transparent;
+  }
+  .cardcolspace {
+      margin-bottom: 10px;
+  }
+  /* .navbrand {
+      max-height: 70px;
+      min-height: 25px;
+  } */
+  a {
+      text-decoration: none;
+  }
+  .logo {
+    max-height: 75px;
+    min-height: 50px;
+    width: auto;
+    display: block;
+    
+    margin-right: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  .number {
+    font-size: 22px;
+    font-weight: bold
+}
+
+.follow {
+    font-size: 12px;
+    font-weight: 500;
+    color: #444444
+}
+.dropdown-menu-end {
+    margin-right: 20px !important;
+    margin-top: 5px !important;
+}
+.dropdown-menu{
+    background-color: white;
+    cursor: default;
+    filter: drop-shadow(0px 1px 4px rgba(60, 61, 65, 0.2));
+    background: #FFFFFF;
+    border: 1px solid #D8D8D9;
+    border-radius: 8px;
+}
+.dropdown-item {
+    padding: 0 !important;
+}
+.dropdown-item a {
+    color: black;
+    padding: 12px 12px !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+}
+.dropdown-item:hover {
+    color: white !important;
+    background-color: black;
+    background-image: none !important;  
+}
+.dropdown-item a:hover {
+    color: white !important;
+    background-color: black;
+    background-image: none !important;
+}
+.dropdown-item.active{
+    background-color: black !important;
+    color: white !important;
+}
+.dropdown-item.active a{
+    background-color: black !important;
+    color: white !important;
+}
+.dropdown-item:focus{
+    background-color: black !important;
+    color: white !important;
+}

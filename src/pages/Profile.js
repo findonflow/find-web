@@ -33,16 +33,16 @@ export function Profile({ user }) {
   }
   if (findUser === "first_init") {
     //loading screen
-    return <div><LoadingBC />{JSON.stringify(findUser, null, 2)}</div>
+    return <div><LoadingBC /></div>
   }
   if (!findUser) {
     //no profile found
-    return <div><NoProfile />{JSON.stringify(findUser, null, 2)}</div>
+    return <div><NoProfile /></div>
   }
   if (findUser) {
     //something there but not a profile (catchall)
     if (findUser.profile === null) {
-      return <div><NoProfile />{JSON.stringify(findUser, null, 2)}</div>
+      return <div><NoProfile /></div>
     }
   }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useFormStatus } from "../functions/DisabledState";
-import { BuyerBid, BuyerFirstBid, BuyerOffer, BuyerPurchase, HighestBidder, HighestBidderEnded, AuctionEndedNoWinner } from "./lease/BuyerForms";
+import { BuyerBid, BuyerFirstBid, BuyerOffer, BuyerPurchase, HighestBidder, HighestBidderEnded, AuctionEndedNoWinner, OfferMade } from "./lease/BuyerForms";
 import { DurationLegend } from "./lease/SharedComponents";
 import * as fcl from "@onflow/fcl";
 
@@ -25,7 +25,7 @@ export function PublicLease({ lease }) {
   if (lease.salePrice !== null) {
     bidLegend = "Bid"
   }
-  if (lease.latestBidBy === user.addr) {
+  if (lease.latestBid !== null && lease.latestBidBy === user.addr && lease.auctionEnds !== null) {
     if (lease.auctionEnds > lease.currentTime) {
       bidLegend = "HighestBidder"
     }
@@ -33,6 +33,10 @@ export function PublicLease({ lease }) {
       bidLegend = "HighestBidderEnded"
     }
   }
+  if(lease.auctionStartPrice === null && lease.latestBid !== null && user.addr === lease.latestBidBy) {
+    bidLegend = "OfferMade"
+  }
+
   return (
     <div>
       {<DurationLegend lease={lease} />}
@@ -58,8 +62,12 @@ export function PublicLease({ lease }) {
         {bidLegend === "AuctionEndedNoWinner" &&
           <AuctionEndedNoWinner lease={lease} />
         }
+        {bidLegend === "OfferMade" &&
+          <OfferMade lease={lease} />
+        }
+
       </fieldset>
-      {/* <div>{JSON.stringify(lease, null, 2)}</div> */}
+      {/* <div>{JSON.stringify(lease, null, 2)} <br /><br />{user.addr}</div> */}
     </div>
   )
 }

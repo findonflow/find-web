@@ -49,7 +49,7 @@ export function Register({ enteredName }) {
             const event = document.createEvent("Event");
             event.initEvent("bid", true, true);
             document.dispatchEvent(event);
-            navigate("/me")
+            navigate("/"+searchName)
           },
           async onError(error) {
             if (error) {

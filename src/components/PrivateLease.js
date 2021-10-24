@@ -351,6 +351,9 @@ export function PrivateLease({ lease }) {
             <Col className='mt-md-auto' align="right" xs="12" md="6">
               <Button className='mt-3' text="auction" onClick={handleStartAuction} variant="outline-dark" style={{ width: "200px" }}>List</Button>
             </Col>
+            <Row>
+              <Col className="mt-3 p-0"><p className="formSubLabel">When you list an auction, the countdown timer will not start until somebody makes their first bid for the start price or higher.</p></Col>
+            </Row>
           </Row>
         </Form>
       </div>

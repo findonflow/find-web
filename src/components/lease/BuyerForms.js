@@ -39,13 +39,22 @@ export function BuyerBid({ lease }) {
                     <p>by: {lease.latestBidBy}</p>
                     <p>Auction ends: {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}</p>
                     <Form>
-                        <Form.Group>
-                            <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD</div>}</Form.Label>
-                            <Form.Control type="number" defaultValue={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
-                        </Form.Group>
-                        <Button onClick={() => handleBid(formValues)} variant="outline-dark" className="mt-3">Place Bid</Button>
+                        <Row>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD</div>}</Form.Label>
+                                    <Form.Control type="number" defaultValue={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Button onClick={() => handleBid(formValues)} variant="outline-dark" className="mt-3">Place Bid</Button>
+                            </Col>
+                        </Row>
                     </Form>
-                    {JSON.stringify(lease, null, 2)}
+                    <Row>
+                        <Col className="mt-3 p-0" xs="12"><p className="formSubLabel">Bids that take place within 5 minutes of the end time will trigger an automatic 5 minute extension on the auction time. This is to allow all bidders enough time to get their bids in.</p></Col>
+                    </Row>
+                    {/* {JSON.stringify(lease, null, 2)} */}
                 </div>
                 :
                 <div className="p-3">
@@ -164,15 +173,33 @@ export function BuyerFirstBid({ lease }) {
 
     return (
         <div className="p-3">
-            <h3>You can start an auction on {lease.name}.</h3>
-            <Form>
-                <Form.Group>
-                    <Form.Label>{<div>You must bid at least {lease.auctionStartPrice * 1} FUSD</div>}</Form.Label>
-                    <Form.Control type="number" defaultValue={lease.auctionStartPrice * 1} onChange={updateField} name="bidAmt" />
-                    <Form.Control type="hidden" value={lease.name} onLoad={updateField} name="name" />
-                </Form.Group>
-                <Button onClick={() => handleBid(formValues)} variant="outline-dark" className="mt-3">Place Bid</Button>
+            <Form className="formInputs">
+                <Row>
+                    <Col>
+                        <h3>You can start an auction on {lease.name}.</h3>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>{<div>Minimum bid {lease.auctionStartPrice * 1} FUSD</div>}</Form.Label>
+                            <Form.Control type="number" defaultValue={lease.auctionStartPrice * 1} onChange={updateField} name="bidAmt" />
+                            <Form.Control type="hidden" value={lease.name} onLoad={updateField} name="name" />
+                        </Form.Group>
+                    </Col>
+                    <Col className="mt-auto" align="right">
+                        <Button onClick={() => handleBid(formValues)} variant="outline-dark" className="mt-3">Place Bid</Button>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="mt-3 p-0" xs="12"><p className="formSubLabel">Bids that take place within 5 minutes of the end time will trigger an automatic 5 minute extension on the auction time. This is to allow all bidders enough time to get their bids in.</p></Col>
+                </Row>
             </Form>
+
+
+
+
+
         </div>
     )
 }
@@ -204,29 +231,27 @@ export function HighestBidder({ lease }) {
                     <Col xs="12" md="auto" className="my-3">
                         <p>{lease.name} has an active auction.</p>
                         <p>You are currently the highest bidder with <b>{lease.latestBid * 1} FUSD</b></p>
-                        <p>The reserve price is set at {lease.auctionReservePrice*1} FUSD</p>
+                        <p>The reserve price is set at {lease.auctionReservePrice * 1} FUSD</p>
                         <p>This auction ends: {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}</p>
                     </Col>
                 </Row>
-                <Row>
-                    <Col xs="12" md="auto" className="my-3">
-                    </Col>
-                    <Col className="my-3 mx-0">
                         <Form>
                             <Row>
-                                <Col xs="12" md="auto">
-                        <Form.Group>
-                            <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD</div>}</Form.Label>
-                            <Form.Control type="number" defaultValue={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
-                        </Form.Group>
-                        </Col>
-                        <Col className="mt-auto" align="right">
-                        <Button style={{width: "200px"}} onClick={() => handleBid(formValues)} variant="outline-dark">Increase</Button>
-                        </Col>
-                        </Row>
-                    </Form>
-                    </Col>
+                                <Col xs="12" md="auto" className="mb-3 mb-md-0">
+                                    <Form.Group>
+                                        <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD to increase your current bid</div>}</Form.Label>
+                                        <Form.Control type="number" Value={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
+                                    </Form.Group>
+                                </Col>
+                                <Col className="mt-auto" align="right">
+                                    <Button style={{ width: "200px" }} onClick={() => handleBid(formValues)} variant="outline-dark">Increase</Button>
+                                </Col>
+                            </Row>
+                        </Form>
+                <Row>
+                <Col className="mt-3" xs="12"><p className="formSubLabel">Bids that take place within 5 minutes of the end time will trigger an automatic 5 minute extension on the auction time. This is to allow all bidders enough time to get their bids in.</p></Col>
                 </Row>
+
             </Form.Group>
         </Form>
     )
@@ -292,11 +317,22 @@ export function HighestBidderEnded({ lease }) {
 
 export function AuctionEndedNoWinner({ lease }) {
 
-    return(
+    return (
         <Row className="my-3">
-        <Col>
-            <p>This name has been auctioned but the buyer and seller have not yet completed. You will be able to make an offer on this name as soon as completion has taken place.</p>
-        </Col>
+            <Col>
+                <p>This name has been auctioned but the buyer and seller have not yet completed. You will be able to make an offer on this name as soon as completion has taken place.</p>
+            </Col>
+        </Row>
+    )
+}
+
+export function OfferMade({ lease }) {
+    return (
+        <Row className="my-3">
+            <Col>
+                <p>You have made an offer on {lease.name} of {lease.latestBid} FUSD</p>
+                <p>The owner of the name has been notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</p>
+            </Col>
         </Row>
     )
 }

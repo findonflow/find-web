@@ -1,6 +1,5 @@
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
-import EasyEdit from 'react-easy-edit';
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { Tx } from "../functions/transaction";
 import { transactions } from 'find-flow-contracts'
@@ -15,14 +14,15 @@ export function PrivateLease({ lease }) {
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
 
-  const handleSell = async (value) => {
+  const [bidPrice, setBidPrice] = useState(null)
+  const handleSell = async (e) => {
     try {
       await Tx(
         [
           fcl.transaction(transactions.listForSale),
           fcl.args([
             fcl.arg(lease.name, t.String),
-            fcl.arg(parseFloat(value).toFixed(2), t.UFix64)
+            fcl.arg(parseFloat(bidPrice).toFixed(2), t.UFix64)
           ]),
           fcl.proposer(fcl.currentUser().authorization),
           fcl.payer(fcl.currentUser().authorization),
@@ -300,6 +300,11 @@ export function PrivateLease({ lease }) {
       <Col className='my-2' xs="12" md="12" align="right">
         <Button text="reject" onClick={handleCancel} style={{ width: "200px" }} variant="outline-dark">Reject</Button>
       </Col>
+      {/* ---FURTHER DISCUSSION NEEDD HERE. IS THE OFFER CANCELLED, CAN THEY SET A RESERVE AND DURATION ETC?---
+      
+      <Col className='my-2' xs="12" md="12" align="right">
+        <Button text="reject" onClick={handleCancel} style={{ width: "200px" }} variant="outline-dark">Auction</Button>
+      </Col> */}
     </Row>
   }
   //---HANDLE DIRECT SALE LISTINGS OR LIST AS AN AUCTION---
@@ -311,14 +316,22 @@ export function PrivateLease({ lease }) {
     listFor = <DelistName lease={lease} />
   }
   if (lease.salePrice === null && lease.auctionStartPrice === null) {
-    listFor = <Row>
-      <Col className='d-flex align-items-center' xs="12" md="auto">
-        <p style={{ marginBottom: "5px", color: "#5C5C5C", fontWeight: "500" }}>List for a fixed price</p>
-      </Col>
+    listFor = <Form onSubmit={handleSell} className="formInputs">
+    <Row>
       <Col>
-        <div align="right"><EasyEdit value={lease.salePrice} type="number" placeholder="Sell!" onSave={handleSell} saveButtonLabel="Sell" /></div>
+      <p style={{ marginBottom: "10px", color: "#5C5C5C", fontWeight: "500" }}>List for a fixed price</p>
       </Col>
     </Row>
+    <Row>
+      <Col xs="12" md="6">
+        <Form.Label className='formSubLabel'>Sale Price</Form.Label>
+        <Form.Control placeholder="Enter an amount in FUSD" onChange={(e) => setBidPrice(e.target.value)}></Form.Control>
+      </Col>
+      <Col className='mt-md-auto' align="right" xs="12" md="6">
+        <Button className='mt-3' text="auction" onClick={handleSell} variant="outline-dark" style={{ width: "200px" }}>Sell</Button>
+      </Col>
+    </Row>
+    </Form>
   }
   if (lease.auctionStartPrice === null && lease.salePrice === null) {
     auctionFor =

@@ -18,7 +18,7 @@ export function InfoCards() {
           </Row>
           <Row>
             <Col align="center">
-              <p className="p-3 px-5">Slate helps you see how many more days you need to work to reach your financial goal or the month and year.</p>
+              <p className="p-3 px-5">Find allows you to lease a name on the blockchain which you can give to your friends instead of a hard to remember 18 digit hex string</p>
             </Col>
           </Row>
         </Card>
@@ -37,7 +37,7 @@ export function InfoCards() {
           </Row>
           <Row>
             <Col align="center">
-              <p className="p-3 px-5">Slate helps you see how many more days you need to work to reach your financial goal or the month and year.</p>
+              <p className="p-3 px-5">Find uses the versus profile to show information about you as a user. You can add an avatar, a nick and a description as well as social links</p>
             </Col>
           </Row>
         </Card>

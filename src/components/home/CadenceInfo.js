@@ -7,7 +7,7 @@ export function CadenceInfo() {
       <Row className="d-flex justify-content-center mt-md-5 mt-3">
         <Col className="p-md-5" xs="12" md="5">
           <h2>Want to have .find on your site?</h2>
-          <p className="mt-4 fw-bold" style={{ color: '#5C5C5C' }}>.Find can be integrated into any site with some very easy code, making it easy for anyone to look up a name. There are just three steps, it's easy!</p>
+          <p className="mt-4 fw-bold" style={{ color: '#5C5C5C' }}>.Find can be integrated into any site with some very easy code, making it easy for anyone to look up a name.</p>
         </Col>
         <Col>
           <Accordion className="my-3 implementaccordion">

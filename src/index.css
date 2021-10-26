@@ -98,11 +98,13 @@ height: 100%;
   border-radius: 34px;
   height: 52px;
   padding: 10px 40px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
 }
 .btn-outline-danger {
   border-radius: 34px;
   height: 52px;
   padding: 10px 40px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
 }
 .name {
   font-size: 22px;
@@ -468,4 +470,18 @@ body:before {
   line-height: 16px;
   letter-spacing: 0.2px;
   color: #5C5C5C;
+}
+.offerBox {
+  background-color: #E4F5E1; 
+  border-radius: 10px;
+  border-color: olive;
+  border-width: 1px;
+  border-style: dashed;
+}
+.auctionBox {
+  background-color: #f5e9e1; 
+  border-radius: 10px;
+  border-color: orange;
+  border-width: 1px;
+  border-style: dashed;
 }

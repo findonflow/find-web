@@ -1,5 +1,5 @@
 import { Form, Button, Row, Col, Card } from "react-bootstrap"
-import { useEffect} from "react";
+import { useEffect } from "react";
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { Tx } from "../../functions/transaction";
@@ -12,7 +12,8 @@ function EditProfile({ profile }) {
     const [formValues2, setFormValues2] = useImmer([])
     const [tagsArray, setTagsArray] = useImmer([])
 
-    useEffect(() =>
+    useEffect(() => {
+        setFormValues2([])
         profile.profile.links.map((e) =>
             setFormValues2((formVals) => {
                 formVals.push({
@@ -23,7 +24,8 @@ function EditProfile({ profile }) {
                 })
             })
         )
-        , [])
+    }
+        , [profile])
 
     let addFormFields2 = () => {
         setFormValues2((formVals) => {
@@ -37,8 +39,8 @@ function EditProfile({ profile }) {
     }
 
     let removeFormFields2 = (i) => {
-        if (formValues2[i].type && profile.profile.links[i]) {
-            if (formValues2[i].type === profile.profile.links[i].type) {
+        if (formValues2[i].title && profile.profile.links[i]) {
+            if (formValues2[i].title === profile.profile.links[i].title) {
                 setFormValues2((formVals) => {
                     formVals[i].remove = "true"
                 })
@@ -59,7 +61,7 @@ function EditProfile({ profile }) {
         if (e.target.name === "type") {
             setFormValues2((formVals) => {
                 formVals[i].type = e.target.value
-                formVals[i].title = e.target.value
+                formVals[i].title = e.target.value + i
             })
         }
     }
@@ -96,7 +98,7 @@ function EditProfile({ profile }) {
             //var l = profile.profile.links[0]
             var dict = {};
             dict["key"] = "title"
-            dict["value"] = l.type.toString()
+            dict["value"] = l.title.toString()
             links2.push(dict)
             dict = {}
             dict["key"] = "type"

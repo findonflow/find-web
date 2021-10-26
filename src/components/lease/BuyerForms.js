@@ -1,13 +1,13 @@
 
 import { Button, Form, Col, Row } from "react-bootstrap";
 import { epochToJsDate, epochToJsTime } from "../../functions/epochtodate";
-import { handleBid, handleBuy, handleFullfillAuction, handleOffer } from "../../functions/txfunctions";
+import { handleBid, handleBuy, handleCancelBid, handleFullfillAuction, handleOffer } from "../../functions/txfunctions";
 import { useImmer } from "use-immer";
 import * as fcl from "@onflow/fcl";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-
+//Form to bid on an active auction
 export function BuyerBid({ lease }) {
 
     const [user, setUser] = useState({ loggedIn: null })
@@ -72,18 +72,17 @@ export function BuyerBid({ lease }) {
         </div>
     )
 }
-
+//Form to show bids on the profile page (not a form currently)
 export function PrivateBid({ bid }) {
     var bidDate = epochToJsDate(bid.timestamp) + " at " + epochToJsTime(bid.timestamp)
     return (
         <div>
             <p>You have a {bid.type} bid in for <b>{bid.amount * 1} FUSD</b> made on {bidDate}</p>
             <p><Link to={"/" + bid.name}>Click Here</Link> to go to this name</p>
-            {/* {JSON.stringify(bid, null, 2)} */}
         </div>
     )
 }
-
+//Form to make an initial offer on a name (blind bid)
 export function BuyerOffer({ lease }) {
     const [formValues, setFormValues] = useImmer([
         {
@@ -121,7 +120,7 @@ export function BuyerOffer({ lease }) {
         </Form>
     )
 }
-
+//Form to directly purchase a name that has been placed up for sale
 export function BuyerPurchase({ lease }) {
     const formValues = [{
         id: "salePrice",
@@ -150,7 +149,7 @@ export function BuyerPurchase({ lease }) {
         </Form>
     )
 }
-
+//Form to start an auction that is active but not yet started (first bid)
 export function BuyerFirstBid({ lease }) {
 
     const [formValues, setFormValues] = useImmer([
@@ -203,7 +202,7 @@ export function BuyerFirstBid({ lease }) {
         </div>
     )
 }
-
+//Form to show you are the highest bidder and allow increase of bid amount
 export function HighestBidder({ lease }) {
 
     const [formValues, setFormValues] = useImmer([
@@ -235,28 +234,28 @@ export function HighestBidder({ lease }) {
                         <p>This auction ends: {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}</p>
                     </Col>
                 </Row>
-                        <Form>
-                            <Row>
-                                <Col xs="12" md="auto" className="mb-3 mb-md-0">
-                                    <Form.Group>
-                                        <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD to increase your current bid</div>}</Form.Label>
-                                        <Form.Control type="number" Value={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
-                                    </Form.Group>
-                                </Col>
-                                <Col className="mt-auto" align="right">
-                                    <Button style={{ width: "200px" }} onClick={() => handleBid(formValues)} variant="outline-dark">Increase</Button>
-                                </Col>
-                            </Row>
-                        </Form>
+                <Form>
+                    <Row>
+                        <Col xs="12" md="auto" className="mb-3 mb-md-0">
+                            <Form.Group>
+                                <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD to increase your current bid</div>}</Form.Label>
+                                <Form.Control type="number" Value={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
+                            </Form.Group>
+                        </Col>
+                        <Col className="mt-auto" align="right">
+                            <Button style={{ width: "200px" }} onClick={() => handleBid(formValues)} variant="outline-dark">Increase</Button>
+                        </Col>
+                    </Row>
+                </Form>
                 <Row>
-                <Col className="mt-3" xs="12"><p className="formSubLabel">Bids that take place within 5 minutes of the end time will trigger an automatic 5 minute extension on the auction time. This is to allow all bidders enough time to get their bids in.</p></Col>
+                    <Col className="mt-3" xs="12"><p className="formSubLabel">Bids that take place within 5 minutes of the end time will trigger an automatic 5 minute extension on the auction time. This is to allow all bidders enough time to get their bids in.</p></Col>
                 </Row>
 
             </Form.Group>
         </Form>
     )
 }
-
+//Form to fulfill an ended auction
 export function HighestBidderEnded({ lease }) {
     const formValues = [{
         id: "address",
@@ -314,7 +313,7 @@ export function HighestBidderEnded({ lease }) {
             </Form>
         )
 }
-
+//Holding form to show to people in the interim period of auction ended and fulfillment
 export function AuctionEndedNoWinner({ lease }) {
 
     return (
@@ -325,14 +324,23 @@ export function AuctionEndedNoWinner({ lease }) {
         </Row>
     )
 }
-
+//Form to show that you have made an offer on a name.
 export function OfferMade({ lease }) {
     return (
+    <div>
         <Row className="my-3">
-            <Col>
-                <p>You have made an offer on {lease.name} of {lease.latestBid} FUSD</p>
-                <p>The owner of the name has been notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</p>
+            <Col className="m-auto">
+                <p>You have made an offer on {lease.name} of <b>{lease.latestBid * 1} FUSD</b></p>
+            </Col>
+            <Col className="my-3" align="right">
+                <Button style={{ width: "200px" }} onClick={() => handleCancelBid(lease.name)} variant="outline-dark">Cancel</Button>
             </Col>
         </Row>
+        <Row>
+            <Col>
+                <p className="formSubLabel">The owner of the name has been notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</p>
+            </Col>
+        </Row>
+    </div>
     )
 }

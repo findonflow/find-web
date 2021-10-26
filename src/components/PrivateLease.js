@@ -227,7 +227,7 @@ export function PrivateLease({ lease }) {
     let button = null
     if (lease.auctionEnds <= lease.currentTime) {
       if (lease.latestBid - lease.auctionReservePrice > 0)
-        bids = <Row>
+        bids = <Row className="offerBox shadow p-3">
           <Col className='d-flex align-items-center my-2' xs="12" md="12">
             This auction ended {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}
           </Col>
@@ -239,7 +239,7 @@ export function PrivateLease({ lease }) {
           </Col>
         </Row>
       else {
-        bids = <Row>
+        bids = <Row className="auctionBox shadow p-3">
           <Col className='d-flex align-items-center my-2' xs="12" md="12">
             This auction ended {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}
           </Col>
@@ -256,9 +256,12 @@ export function PrivateLease({ lease }) {
       }
     }
     else {
-      bids = <Row>
-        <Col className='d-flex align-items-center my-2' xs="12" md="12">
+      bids = <Row className="auctionBox shadow p-3">
+        <Col className='my-2' xs="12">
           <p>Ongoing auction until {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}</p>
+        </Col>
+        <Col className='my-2' xs="12">
+        <p>Reserve price: <b>{lease.auctionReservePrice*1} FUSD</b></p>
         </Col>
         <Col className='d-flex align-items-center my-2' xs="12" md="auto">
           <p>latest bid <b>{lease.latestBid * 1} FUSD</b> by {lease.latestBidBy}</p>
@@ -270,7 +273,7 @@ export function PrivateLease({ lease }) {
     }
     if (lease.auctionStartPrice !== null && lease.auctionEnds === null) {
       button = <Button text="cancel" style={{ width: "200px" }} onClick={handleCancel} variant="outline-dark">Cancel</Button>
-      bids = <Row>
+      bids = <Row className="auctionBox shadow p-3">
         <Col className='d-flex align-items-center my-2' xs="12" md="12">
           <p>{lease.name} is listed for sale by auction. The auction timer will start when the first bid is made</p>
         </Col>
@@ -290,17 +293,17 @@ export function PrivateLease({ lease }) {
     }
   }
   if (lease.latestBid !== null && lease.auctionEnds === null) {
-    bids = <Row className="mb-3 py-2" style={{ backgroundColor: "#E4F5E1", borderRadius: "10px" }}>
-      <Col className='d-flex align-items-center my-2' xs="12" md="12">
+    bids = <Row className="mb-3 py-2 shadow offerBox">
+      <Col className='d-flex align-items-center my-2' xs="12" md="auto">
         <p><b>{lease.latestBidBy}</b>&nbsp; has sent an offer of &nbsp;<b>{lease.latestBid * 1} FUSD</b>&nbsp; for {lease.name}</p>
       </Col>
-      <Col className='my-2' xs="12" md="12" align="right">
+      <Col className='my-2 ms-auto' xs="12" md="auto" align="right">
         <Button text="sell" onClick={handleFullfillSale} style={{ width: "200px" }} variant="outline-dark">Accept</Button>
       </Col>
       <Col className='my-2' xs="12" md="12" align="right">
         <Button text="reject" onClick={handleCancel} style={{ width: "200px" }} variant="outline-dark">Reject</Button>
       </Col>
-      {/* ---FURTHER DISCUSSION NEEDD HERE. IS THE OFFER CANCELLED, CAN THEY SET A RESERVE AND DURATION ETC?---
+      {/* ---FURTHER DISCUSSION NEEDED HERE. IS THE OFFER CANCELLED, CAN THEY SET A RESERVE AND DURATION ETC?---
       
       <Col className='my-2' xs="12" md="12" align="right">
         <Button text="reject" onClick={handleCancel} style={{ width: "200px" }} variant="outline-dark">Auction</Button>

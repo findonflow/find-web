@@ -232,7 +232,7 @@ export const handleBuy = async (e) => {
   try {
     await Tx(
       [
-        fcl.transaction(transactions.bid),
+        fcl.transaction(transactions.bid_profile),
         fcl.args([
           fcl.arg(d.name, t.String),
           fcl.arg(parseFloat(d.salePrice).toFixed(2), t.UFix64)
@@ -400,7 +400,7 @@ export const handleWithdrawSale = async (e) => {
     console.log(e);
   }
 }
-
+//buyer fullfill
 export const handleFullfillAuction = async (e) => {
   var d = {}
   for (var i in e) {
@@ -411,7 +411,7 @@ export const handleFullfillAuction = async (e) => {
   try {
     await Tx(
       [
-        fcl.transaction(transactions.fullfill_auction),
+        fcl.transaction(transactions.fullfill_auction_bidder),
         fcl.args([
           fcl.arg(d.address, t.Address),
           fcl.arg(d.name, t.String)

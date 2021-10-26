@@ -1,7 +1,7 @@
 
 import { Button, Form, Col, Row } from "react-bootstrap";
 import { epochToJsDate, epochToJsTime } from "../../functions/epochtodate";
-import { handleBid, handleBuy, handleCancelBid, handleFullfillAuction, handleOffer } from "../../functions/txfunctions";
+import { handleBid, handleBuy, handleCancelBid, handleFullfillAuction, handleIncreaseBid, handleOffer } from "../../functions/txfunctions";
 import { useImmer } from "use-immer";
 import * as fcl from "@onflow/fcl";
 import { useEffect, useState } from "react";
@@ -326,21 +326,54 @@ export function AuctionEndedNoWinner({ lease }) {
 }
 //Form to show that you have made an offer on a name.
 export function OfferMade({ lease }) {
+    const [formValues, setFormValues] = useImmer([
+        {
+            id: "bidAmt",
+            value: lease.latestBid
+        },
+        {
+            id: "name",
+            value: lease.name
+        }
+    ])
+
+    function updateField(e) {
+        setFormValues((draft) => {
+            const varVal = draft.find((varVal) => varVal.id === e.target.name);
+            varVal.value = e.target.value;
+        })
+    }
     return (
-    <div>
-        <Row className="my-3">
-            <Col className="m-auto">
-                <p>You have made an offer on {lease.name} of <b>{lease.latestBid * 1} FUSD</b></p>
-            </Col>
-            <Col className="my-3" align="right">
-                <Button style={{ width: "200px" }} onClick={() => handleCancelBid(lease.name)} variant="outline-dark">Cancel</Button>
-            </Col>
-        </Row>
-        <Row>
-            <Col>
-                <p className="formSubLabel">The owner of the name has been notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</p>
-            </Col>
-        </Row>
-    </div>
+        <div>
+            
+            <Row className="my-3">
+                <Col className="m-auto">
+                    <p>You have made an offer on {lease.name} of <b>{lease.latestBid * 1} FUSD</b></p>
+                </Col>
+                <Col className="my-3" align="right">
+                    <Button style={{ width: "200px" }} onClick={() => handleCancelBid(formValues)} variant="outline-dark">Cancel</Button>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Form className="formInputs">
+                        <Form.Group>
+                            <Row>
+                                <Col xs="12" md="auto">
+                                    <Form.Label>You can increase your offer at any time.</Form.Label>
+                                    <Form.Control type="number" placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
+                                </Col>
+                                <Col className="my-3 mt-auto" align="right">
+                                    <Button style={{ width: "200px" }} onClick={() => handleIncreaseBid(formValues)} variant="outline-dark">Increase</Button>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <span className="idd1 my-3">The owner of the name will be notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</span>
+                            </Row>
+                        </Form.Group>
+                    </Form>
+                </Col>
+            </Row>
+        </div>
     )
 }

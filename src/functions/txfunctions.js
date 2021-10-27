@@ -446,3 +446,42 @@ export const handleFullfillAuction = async (e) => {
     console.log(e);
   }
 }
+//SELLER TX's
+export const handleRejectBlindBid = async (e) => {
+  try {
+    await Tx(
+      [
+        fcl.transaction(transactions.rejectBlindBid),
+        fcl.args([
+          fcl.arg(e, t.String)
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start")
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          const event = document.createEvent("Event");
+          event.initEvent("bid", true, true);
+          document.dispatchEvent(event);
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}

@@ -8,7 +8,7 @@ import { useFormStatus } from '../functions/DisabledState';
 import { DurationLegend } from './lease/SharedComponents';
 import { DelistName } from './lease/SellerForms';
 import { epochToJsDate, epochToJsTime } from '../functions/epochtodate';
-import { handleCancelBid } from "../functions/txfunctions";
+import { handleCancelBid, handleRejectBlindBid } from "../functions/txfunctions";
 
 export function PrivateLease({ lease }) {
 
@@ -302,7 +302,7 @@ export function PrivateLease({ lease }) {
         <Button text="sell" onClick={handleFullfillSale} style={{ width: "200px" }} variant="outline-dark">Accept</Button>
       </Col>
       <Col className='my-2' xs="12" md="12" align="right">
-        <Button text="reject" onClick={() => handleCancelBid(lease.name)} style={{ width: "200px" }} variant="outline-dark">Reject</Button>
+        <Button text="reject" onClick={() => handleRejectBlindBid(lease.name)} style={{ width: "200px" }} variant="outline-dark">Reject</Button>
       </Col>
       {/* ---FURTHER DISCUSSION NEEDED HERE. IS THE OFFER CANCELLED, CAN THEY SET A RESERVE AND DURATION ETC?---
       

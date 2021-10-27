@@ -208,7 +208,7 @@ export function HighestBidder({ lease }) {
     const [formValues, setFormValues] = useImmer([
         {
             id: "bidAmt",
-            value: lease.latestBid * 1 + 1
+            value: lease.latestBid-lease.latestBid + 1
         },
         {
             id: "name",
@@ -219,7 +219,7 @@ export function HighestBidder({ lease }) {
     function updateField(e) {
         setFormValues((draft) => {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
-            varVal.value = e.target.value;
+            varVal.value = e.target.value-lease.latestBid;
         })
     }
 
@@ -243,7 +243,7 @@ export function HighestBidder({ lease }) {
                             </Form.Group>
                         </Col>
                         <Col className="mt-auto" align="right">
-                            <Button style={{ width: "200px" }} onClick={() => handleBid(formValues)} variant="outline-dark">Increase</Button>
+                            <Button style={{ width: "200px" }} onClick={() => handleIncreaseBid(formValues)} variant="outline-dark">Increase</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -329,7 +329,7 @@ export function OfferMade({ lease }) {
     const [formValues, setFormValues] = useImmer([
         {
             id: "bidAmt",
-            value: lease.latestBid
+            value: lease.latestBid-lease.latestBid+1
         },
         {
             id: "name",
@@ -360,10 +360,10 @@ export function OfferMade({ lease }) {
                         <Form.Group>
                             <Row>
                                 <Col xs="12" md="auto">
-                                    <Form.Label><p>To increase please enter at least <b>{lease.latestBid*1+1} FUSD</b></p></Form.Label>
+                                    <Form.Label>To increase please enter at least <b>{lease.latestBid*1+1} FUSD</b></Form.Label>
                                     <Form.Control type="number" defaultValue={lease.latestBid*1+1} placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
                                 </Col>
-                                <Col className="my-3 mt-auto" align="right">
+                                <Col className="mt-auto" align="right">
                                     <Button style={{ width: "200px" }} onClick={() => handleIncreaseBid(formValues)} variant="outline-dark">Increase</Button>
                                 </Col>
                             </Row>

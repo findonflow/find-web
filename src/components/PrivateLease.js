@@ -262,7 +262,7 @@ export function PrivateLease({ lease }) {
           <p>Ongoing auction until {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}</p>
         </Col>
         <Col className='my-2' xs="12">
-        <p>Reserve price: <b>{lease.auctionReservePrice*1} FUSD</b></p>
+          <p>Reserve price: <b>{lease.auctionReservePrice * 1} FUSD</b></p>
         </Col>
         <Col className='d-flex align-items-center my-2' xs="12" md="auto">
           <p>latest bid <b>{lease.latestBid * 1} FUSD</b> by {lease.latestBidBy}</p>
@@ -304,11 +304,6 @@ export function PrivateLease({ lease }) {
       <Col className='my-2' xs="12" md="12" align="right">
         <Button text="reject" onClick={() => handleRejectBlindBid(lease.name)} style={{ width: "200px" }} variant="outline-dark">Reject</Button>
       </Col>
-      {/* ---FURTHER DISCUSSION NEEDED HERE. IS THE OFFER CANCELLED, CAN THEY SET A RESERVE AND DURATION ETC?---
-      
-      <Col className='my-2' xs="12" md="12" align="right">
-        <Button text="reject" onClick={handleCancel} style={{ width: "200px" }} variant="outline-dark">Auction</Button>
-      </Col> */}
     </Row>
   }
   //---HANDLE DIRECT SALE LISTINGS OR LIST AS AN AUCTION---
@@ -321,20 +316,20 @@ export function PrivateLease({ lease }) {
   }
   if (lease.salePrice === null && lease.auctionStartPrice === null) {
     listFor = <Form onSubmit={handleSell} className="formInputs">
-    <Row>
-      <Col>
-      <p style={{ marginBottom: "10px", color: "#5C5C5C", fontWeight: "500" }}>List for a fixed price</p>
-      </Col>
-    </Row>
-    <Row>
-      <Col xs="12" md="6">
-        <Form.Label className='formSubLabel'>Sale Price</Form.Label>
-        <Form.Control placeholder="Enter an amount in FUSD" onChange={(e) => setBidPrice(e.target.value)}></Form.Control>
-      </Col>
-      <Col className='mt-md-auto' align="right" xs="12" md="6">
-        <Button className='mt-3' text="auction" onClick={handleSell} variant="outline-dark" style={{ width: "200px" }}>Sell</Button>
-      </Col>
-    </Row>
+      <Row>
+        <Col>
+          <p style={{ marginBottom: "10px", color: "#5C5C5C", fontWeight: "500" }}>List for a fixed price</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="12" md="6">
+          <Form.Label className='formSubLabel'>Sale Price</Form.Label>
+          <Form.Control placeholder="Enter an amount in FUSD" onChange={(e) => setBidPrice(e.target.value)}></Form.Control>
+        </Col>
+        <Col className='mt-md-auto' align="right" xs="12" md="6">
+          <Button className='mt-3' text="auction" onClick={handleSell} variant="outline-dark" style={{ width: "200px" }}>Sell</Button>
+        </Col>
+      </Row>
     </Form>
   }
   if (lease.auctionStartPrice === null && lease.salePrice === null) {

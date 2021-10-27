@@ -340,7 +340,7 @@ export function OfferMade({ lease }) {
     function updateField(e) {
         setFormValues((draft) => {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
-            varVal.value = e.target.value;
+            varVal.value = e.target.value-lease.latestBid;
         })
     }
     return (
@@ -360,8 +360,8 @@ export function OfferMade({ lease }) {
                         <Form.Group>
                             <Row>
                                 <Col xs="12" md="auto">
-                                    <Form.Label>You can increase your offer at any time.</Form.Label>
-                                    <Form.Control type="number" placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
+                                    <Form.Label><p>To increase please enter at least <b>{lease.latestBid*1+1} FUSD</b></p></Form.Label>
+                                    <Form.Control type="number" defaultValue={lease.latestBid*1+1} placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
                                 </Col>
                                 <Col className="my-3 mt-auto" align="right">
                                     <Button style={{ width: "200px" }} onClick={() => handleIncreaseBid(formValues)} variant="outline-dark">Increase</Button>

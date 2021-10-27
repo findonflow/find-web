@@ -11,6 +11,7 @@ function EditProfile({ profile }) {
 
     const [formValues2, setFormValues2] = useImmer([])
     const [tagsArray, setTagsArray] = useImmer([])
+    let tagArray = new Array()
 
     useEffect(() => {
         setFormValues2([])
@@ -51,6 +52,15 @@ function EditProfile({ profile }) {
                 formVals.splice(i, 1)
             })
     }
+    
+    let handleChangeTags = (e) => {
+        let tags = e.target.value
+        tags = tags.split(",")
+        for (var i = 0; i < tags.length; i++) {
+            tagArray.push(tags[i]);
+        }
+        setTagsArray(tagArray)
+    }
 
     let handleChangeLinks2 = (i, e) => {
         if (e.target.name === "url") {
@@ -70,12 +80,6 @@ function EditProfile({ profile }) {
         profile.profile[v.target.name] = v.target.value
     }
 
-    let handleChangeTags = (v) => {
-        setTagsArray([v.target.value])
-
-        console.log(tagsArray)
-    }
-
     let handleSubmit = async (event) => {
 
         var toBoolean = function (value) {
@@ -88,14 +92,11 @@ function EditProfile({ profile }) {
         };
 
         event.preventDefault();
-        //profile.profile.links = formValues
+
+
         const links = [];
         var links2 = [];
-        // const tags = [];
-        // tags.push(profile.profile.tags)
-        // eslint-disable-next-line
         formValues2.map((l) => {
-            //var l = profile.profile.links[0]
             var dict = {};
             dict["key"] = "title"
             dict["value"] = l.title.toString()
@@ -117,7 +118,6 @@ function EditProfile({ profile }) {
             }
             links.push(links2)
             links2 = []
-            console.log(links)
         })
 
         try {
@@ -128,7 +128,7 @@ function EditProfile({ profile }) {
                         fcl.arg(profile.profile.name, t.String),
                         fcl.arg(profile.profile.description, t.String),
                         fcl.arg(profile.profile.avatar, t.String),
-                        fcl.arg(tagsArray, t.Array()),
+                        fcl.arg(tagsArray, t.Array(t.String)),
                         fcl.arg(toBoolean(profile.profile.allowStoringfollowers), t.Bool),
                         fcl.arg(links, t.Array(t.Dictionary({ key: t.String, value: t.String }))),
 
@@ -170,8 +170,8 @@ function EditProfile({ profile }) {
                     <Form.Control className="mb-3" name="name" placeholder="Name" Value={profile.profile.name} onChange={e => handleChangeForm(e)} />
                     <Form.Label>Bio/Description</Form.Label>
                     <Form.Control className="mb-3 ms-0" name="description" as="textarea" rows={3} placeholder="description (max 255 characters)" defaultValue={profile.profile.description} onChange={e => handleChangeForm(e)} />
-                    <Form.Label>Tags (Seperate with a space)</Form.Label>
-                    <Form.Control className="mb-3" name="tags" placeholder="Tags seperated by a space" Value={profile.profile.tags} onChange={e => handleChangeTags(e)} />
+                    <Form.Label>Tags (Seperate with a comma)</Form.Label>
+                    <Form.Control className="mb-3" name="tags" placeholder="Tags seperated by a comma" Value={profile.profile.tags} onChange={e => handleChangeTags(e)} />
                     <Form.Label>Avatar URL</Form.Label>
                     <Form.Control className="mb-3" name="avatar" placeholder="URL to your avatar" Value={profile.profile.avatar} onChange={e => handleChangeForm(e)} />
                     <Form.Label>Links</Form.Label>

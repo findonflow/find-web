@@ -9,7 +9,7 @@ export const handleProfile = async (value) => {
   try {
     await Tx(
       [
-        fcl.transaction(transactions.create_profile),
+        fcl.transaction(transactions.createProfile),
         fcl.args([
           fcl.arg(value, t.String),
         ]),
@@ -411,7 +411,7 @@ export const handleFullfillAuction = async (e) => {
   try {
     await Tx(
       [
-        fcl.transaction(transactions.fullfill_auction_bidder),
+        fcl.transaction(transactions.fullfillAuctionBidder),
         fcl.args([
           fcl.arg(d.address, t.Address),
           fcl.arg(d.name, t.String)

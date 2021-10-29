@@ -123,7 +123,7 @@ function EditProfile({ profile }) {
         try {
             await Tx(
                 [
-                    fcl.transaction(transactions.edit_profile),
+                    fcl.transaction(transactions.editProfile),
                     fcl.args([
                         fcl.arg(profile.profile.name, t.String),
                         fcl.arg(profile.profile.description, t.String),

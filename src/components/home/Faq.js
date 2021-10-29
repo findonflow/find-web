@@ -34,7 +34,7 @@ export function Faq() {
                             <Accordion className="my-3">
                                 <Accordion.Item eventKey="0" className="faqaccordion m-md-3 mb-3 p-3">
                                     <Accordion.Header><span className="titletxt fw-bold">What characters can be in a name</span></Accordion.Header>
-                                    <Accordion.Body><p>A valid find name is 0-9 a-z, minimum 3 characters. Also it cannot be a Flow address, so no 0xAddresses</p><p>This is to ensure that it can be used in urls and to keep things simple.</p></Accordion.Body>
+                                    <Accordion.Body><p>A valid find name is 0-9 a-z -, minimum 3 characters. Also it cannot be a Flow address, so no 0xAddresses</p><p>This is to ensure that it can be used in urls and to keep things simple.</p></Accordion.Body>
                                 </Accordion.Item>
                             </Accordion>
                         </Col>

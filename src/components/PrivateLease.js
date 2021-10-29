@@ -186,7 +186,7 @@ export function PrivateLease({ lease }) {
     try {
       await Tx(
         [
-          fcl.transaction(transactions.fullfill_auction),
+          fcl.transaction(transactions.fullfillAauction),
           fcl.args([
             fcl.arg(user.addr, t.Address),
             fcl.arg(lease.name, t.String)

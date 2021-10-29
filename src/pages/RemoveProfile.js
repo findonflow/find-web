@@ -11,7 +11,7 @@ function RemoveProfile() {
     try {
       await Tx(
         [
-          fcl.transaction(transactions.remove_profile),
+          fcl.transaction(transactions.removeProfile),
           fcl.proposer(fcl.currentUser().authorization),
           fcl.payer(fcl.currentUser().authorization),
           fcl.authorizations([fcl.currentUser().authorization]),

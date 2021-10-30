@@ -6,6 +6,7 @@ import { useImmer } from "use-immer";
 import * as fcl from "@onflow/fcl";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useFormStatus } from "../../functions/DisabledState";
 
 //Form to bid on an active auction
 export function BuyerBid({ lease }) {
@@ -47,7 +48,7 @@ export function BuyerBid({ lease }) {
                                 </Form.Group>
                             </Col>
                             <Col>
-                                <Button onClick={() => handleBid(formValues)} variant="outline-dark" className="mt-3">Place Bid</Button>
+                                <Button onClick={() => handleBid(formValues)} variant="outline-dark" className="mt-3" type="submit">Place Bid</Button>
                             </Col>
                         </Row>
                     </Form>
@@ -74,12 +75,67 @@ export function BuyerBid({ lease }) {
 }
 //Form to show bids on the profile page (not a form currently)
 export function PrivateBid({ bid }) {
-    var bidDate = epochToJsDate(bid.timestamp) + " at " + epochToJsTime(bid.timestamp)
+    let lease = bid.lease
+    const [user, setUser] = useState({ loggedIn: null })
+    useEffect(() => fcl.currentUser().subscribe(setUser), [])
+  
+    let bidLegend = "Blind Bid"
+    if (lease.auctionEnds !== null && lease.latestBid !== null) {
+      if(lease.auctionEnds > lease.currentTime){
+        bidLegend = "Add auction bid"
+      }else {
+        bidLegend = "AuctionEndedNoWinner"
+      }
+    }
+    if (lease.auctionStartPrice !== null && lease.latestBid === null) {
+      bidLegend = "FirstBid"
+    }
+    if (lease.salePrice !== null) {
+      bidLegend = "Bid"
+    }
+    if (lease.latestBid !== null && lease.latestBidBy === user.addr && lease.auctionEnds !== null) {
+      if (lease.auctionEnds > lease.currentTime) {
+        bidLegend = "HighestBidder"
+      }
+      else {
+        bidLegend = "HighestBidderEnded"
+      }
+    }
+    if(lease.auctionStartPrice === null && lease.latestBid !== null && user.addr === lease.latestBidBy) {
+      bidLegend = "OfferMade"
+    }
+  
     return (
-        <div>
-            <p>You have a {bid.type} bid in for <b>{bid.amount * 1} FUSD</b> made on {bidDate}</p>
-            <p><Link to={"/" + bid.name}>Click Here</Link> to go to this name</p>
-        </div>
+      <div>
+        <fieldset id="a" disabled={useFormStatus()}>
+          {bidLegend === "Bid" &&
+            <BuyerPurchase lease={lease} />
+          }
+          {bidLegend === "Add auction bid" &&
+            <BuyerBid lease={lease} />
+          }
+          {bidLegend === "FirstBid" &&
+            <BuyerFirstBid lease={lease} />
+          }
+          {bidLegend === "Blind Bid" &&
+            <BuyerOffer lease={lease} />
+          }
+          {bidLegend === "HighestBidder" &&
+            <HighestBidder lease={lease} />
+          }
+          {bidLegend === "HighestBidderEnded" &&
+            <HighestBidderEnded lease={lease} />
+          }
+          {bidLegend === "AuctionEndedNoWinner" &&
+            <AuctionEndedNoWinner lease={lease} />
+          }
+          {bidLegend === "OfferMade" &&
+            <OfferMade lease={lease} />
+          }
+  
+        </fieldset>
+        {/* <div>{JSON.stringify(lease, null, 2)} <br /><br />{user.addr}</div> */}
+      </div>
     )
 }
 //Form to make an initial offer on a name (blind bid)
@@ -110,7 +166,7 @@ export function BuyerOffer({ lease }) {
                         <Form.Control type="number" placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
                     </Col>
                     <Col className="my-3 mt-auto" align="right">
-                        <Button onClick={() => handleOffer(formValues)} variant="outline-dark">Make offer</Button>
+                        <Button onClick={() => handleOffer(formValues)} variant="outline-dark" type="submit">Make offer</Button>
                     </Col>
                 </Row>
                 <Row>
@@ -141,7 +197,7 @@ export function BuyerPurchase({ lease }) {
                 </Col>
                 <Col align="right">
                     <Form.Group className="p-3">
-                        <Button onClick={() => handleBuy(formValues)} variant="outline-dark">Purchase this name</Button>
+                        <Button type="submit" onClick={() => handleBuy(formValues)} variant="outline-dark">Purchase this name</Button>
                     </Form.Group>
                 </Col>
             </Row>

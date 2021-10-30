@@ -1,8 +1,7 @@
 ### Todo
 
-- fix bid/buy/auction logic on name page and profile.
+- Remove other options when offer made.
 - Tidy up functions for TX (already started)
-- Re-style top menu bar
 - add form validation
 - add search by address functionality (script required from BK)
 - Update website copy with agreed content

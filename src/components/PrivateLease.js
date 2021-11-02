@@ -227,7 +227,7 @@ export function PrivateLease({ lease }) {
   if (lease.auctionStartPrice != null) {
     let button = null
     if (lease.auctionEnds <= lease.currentTime) {
-      if (lease.latestBid - lease.auctionReservePrice > 0)
+      if (lease.latestBid - lease.auctionReservePrice >= 0)
         bids = <Row className="offerBox shadow p-3">
           <Col className='d-flex align-items-center my-2' xs="12" md="12">
             This auction ended {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}

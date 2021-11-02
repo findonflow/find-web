@@ -407,7 +407,7 @@ export function OfferMade({ lease }) {
                     <p>You have made an offer on {lease.name} of <b>{lease.latestBid * 1} FUSD</b></p>
                 </Col>
                 <Col className="my-3" align="right">
-                    <Button style={{ width: "200px" }} onClick={() => handleCancelBid(formValues)} variant="outline-dark">Cancel</Button>
+                    <Button style={{ width: "200px" }} onClick={() => handleCancelBid(lease.name)} variant="outline-dark">Cancel</Button>
                 </Col>
             </Row>
             <Row>

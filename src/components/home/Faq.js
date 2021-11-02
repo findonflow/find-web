@@ -17,8 +17,8 @@ export function Faq() {
                         <Col xs="12" md="6">
                             <Accordion className="my-3">
                                 <Accordion.Item eventKey="0" className="faqaccordion m-md-3 mb-3 p-3">
-                                    <Accordion.Header><span className="titletxt fw-bold">What happends when i register a lease</span></Accordion.Header>
-                                    <Accordion.Body><p>FIND integrates with the profile contract from the Versus project. If you do not have a profile already it will create a new one for you that uses the name you just registered.</p></Accordion.Body>
+                                    <Accordion.Header><span className="titletxt fw-bold">What happens when i register a lease</span></Accordion.Header>
+                                    <Accordion.Body><p>FIND isn't just a name, it's your profile on the blockchain. If you do not have a profile already it will create a new one for you that uses the name you just registered. This can be edited any time in the profile section.</p></Accordion.Body>
                                 </Accordion.Item>
                             </Accordion>
                         </Col>

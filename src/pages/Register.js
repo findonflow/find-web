@@ -11,11 +11,11 @@ export function Register({ enteredName }) {
   const { id } = useParams();
   let navigate = useNavigate();
   let searchName = id.toLowerCase()
-  searchName = searchName.replace(/\W/g, '')
+  searchName = searchName.replace(/[^a-z0-9-]/g, '')
   if (!searchName) {
     navigate("/")
   }
-  if (searchName.length < 3) {
+  if (searchName.length < 3 || searchName.length > 16) {
     navigate("/")
   }
   if (searchName.substring(0, 2) === "0x") {

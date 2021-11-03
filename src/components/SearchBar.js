@@ -10,11 +10,11 @@ export function SearchBar() {
     e.preventDefault();
     const { name } = form.current;
     let searchName = name.value.toLowerCase()
-    searchName = searchName.replace(/\W/g, '')
+    searchName = searchName.replace(/[^a-z0-9-]/g, '')
     if (!searchName) {
       return
     }
-    if (searchName.length < 3) {
+    if (searchName.length < 3 || searchName.length > 16) {
       return
     }
     if (searchName.substring(0, 2) === "0x") {

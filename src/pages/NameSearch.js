@@ -15,7 +15,7 @@ function NameSearch() {
   let navigate = useNavigate();
   const { id } = useParams();
   let searchName = id.toLowerCase()
-  searchName = searchName.replace(/\W/g, '')
+  searchName = searchName.replace(/[^a-z0-9-]/g, '')
   if (!searchName) {
     navigate("/")
   }

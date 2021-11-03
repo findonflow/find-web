@@ -26,7 +26,7 @@ function NavHead() {
   }
   return (
     <Container id="navBar">
-      <Navbar collapseOnSelect expand="md">
+      <Navbar collapseOnSelect={true} expand="md">
         <Container>
           <Link to="/"><img src="./find.png" alt="Find Logo" className=" logo img-fluid" /></Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -39,8 +39,8 @@ function NavHead() {
                     <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
                       <div className="px-3" style={{ fontSize: "12px", cursor: "copy" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
                     </OverlayTrigger>
-                    <Nav.Link><Link key="1" className="nav-link p-2" to="/">Home</Link></Nav.Link>
-                    <Nav.Link><Link key="2" className="nav-link p-2" to="/me">Profile</Link></Nav.Link>
+                    <Nav.Link as={Link} to={"/"}>Home</Nav.Link>
+                    <Nav.Link as={Link} to={"/me"}>Profile</Nav.Link>
                     <div align="center" className="m-1"><AuthCluster user={user} /></div>
                   </div>
                   :
@@ -57,8 +57,8 @@ function NavHead() {
                   <div className="p-2" style={{ fontSize: "16px", cursor: "copy" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
                 </OverlayTrigger>
                 <Dropdown.Divider />
-                <Dropdown.Item><Link key="1" className="dropdown-item" to="/">Home</Link></Dropdown.Item>
-                <Dropdown.Item><Link key="2" className="dropdown-item" to="/me">Profile</Link></Dropdown.Item>
+                <Dropdown.Item as={Link} to={"/"} className="p-5">Home</Dropdown.Item>
+                <Dropdown.Item as={Link} to={"/me"}>Profile</Dropdown.Item>
                 <Dropdown.Divider />
                 <div align="center" className="mx-4"><AuthCluster user={user} /></div>
               </DropdownButton>

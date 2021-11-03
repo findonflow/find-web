@@ -12,15 +12,21 @@ export function Profile({ user }) {
   const [findUser, setFindUser] = useState("first_init");
   useEffect(() => {
     if (user.loggedIn) {
+      
       async function getFindUser(addr) {
         const response = await fcl.send([
           fcl.script(scripts.address_status),
           fcl.args([fcl.arg(addr, t.Address)]),
         ]);
+        
         const findUser = await fcl.decode(response)
         setFindUser(findUser)
       }
-      getFindUser(user.addr)
+      try{
+      getFindUser(user.addr)}
+      catch (error) {
+        console.log(error)
+      }
     }
     // eslint-disable-next-line
   }, [user, useStateChanged()]);

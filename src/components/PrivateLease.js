@@ -275,13 +275,13 @@ export function PrivateLease({ lease }) {
     if (lease.auctionStartPrice !== null && lease.auctionEnds === null) {
       button = <Button text="cancel" style={{ width: "200px" }} onClick={handleCancel} variant="outline-dark">Cancel</Button>
       bids = <Row className="auctionBox shadow p-3">
-        <Col className='d-flex align-items-center my-2' xs="12" md="12">
+        <Col className='d-flex align-items-center mt-2' xs="12" md="12">
           <p>{lease.name} is listed for sale by auction. The auction timer will start when the first bid is made</p>
         </Col>
-        <Col className='d-flex align-items-center my-2' xs="12" md="12">
+        <Col className='d-flex align-items-center mt-1' xs="12" md="12">
           <p>Listing price:&nbsp;<b>{lease.auctionStartPrice * 1} FUSD</b></p>
         </Col>
-        <Col className='d-flex align-items-center my-2' xs="12" md="12">
+        <Col className='d-flex align-items-center mt-1' xs="12" md="12">
           <p>Reserve Price:&nbsp;<b>{lease.auctionReservePrice * 1} FUSD</b></p>
         </Col>
         <Col className='d-flex align-items-center' xs="12" md="auto">

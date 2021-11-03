@@ -227,12 +227,13 @@ export const handleBuy = async (e) => {
   for (var i in e) {
     var datum = e[i];
     d[datum.id] = datum.value
+    console.log(d.salePrice)
   }
 
   try {
     await Tx(
       [
-        fcl.transaction(transactions.bid_profile),
+        fcl.transaction(transactions.bidProfile),
         fcl.args([
           fcl.arg(d.name, t.String),
           fcl.arg(parseFloat(d.salePrice).toFixed(2), t.UFix64)

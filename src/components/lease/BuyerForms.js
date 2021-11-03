@@ -197,7 +197,7 @@ export function BuyerPurchase({ lease }) {
                 </Col>
                 <Col align="right">
                     <Form.Group className="p-3">
-                        <Button type="submit" onClick={() => handleBuy(formValues)} variant="outline-dark">Purchase this name</Button>
+                        <Button onClick={() => handleBuy(formValues)} variant="outline-dark">Purchase this name</Button>
                     </Form.Group>
                 </Col>
             </Row>

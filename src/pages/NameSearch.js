@@ -19,7 +19,7 @@ function NameSearch() {
   if (!searchName) {
     navigate("/")
   }
-  if (searchName.length < 3) {
+  if (searchName.length < 3 || searchName.length > 16) {
     navigate("/")
   }
   if (searchName.substring(0, 2) === "0x") {

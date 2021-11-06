@@ -40,9 +40,17 @@ export const Tx = async (mods = [], opts = {}) => {
       error
     );
     onError(error);
+    const { txerror } = error
     if (hasSubmitted === 0) {
+      if(txerror.includes("Declined: User rejected signature")){
+      toast('Transaction cancelled by user', { id: toastId, duration: "100"})
+      enableForm()}
+      else if(txerror.includes("Cannot read properties of undefined")){
+        toast('Login cancelled by user', { id: toastId, duration: "100", })
+        enableForm()}
+      else{
       toast.error('Transaction ' + error, { id: toastId, })
-      enableForm()
+      enableForm()}
     }
     if (hasSubmitted === 1) {
       toast.error(<span className="text-center">Transaction failed<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })

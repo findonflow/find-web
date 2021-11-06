@@ -10,9 +10,23 @@ import { useFormStatus } from "../../functions/DisabledState";
 
 //Form to bid on an active auction
 export function BuyerBid({ lease }) {
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            return
+        }
+        event.preventDefault();
+        setValidated(true)
+        handleBid(formValues)
+    }
 
     const [user, setUser] = useState({ loggedIn: null })
     useEffect(() => fcl.currentUser().subscribe(setUser), [])
+
     const [formValues, setFormValues] = useImmer([
         {
             id: "bidAmt",
@@ -39,16 +53,14 @@ export function BuyerBid({ lease }) {
                     <p>Latest Bid: {lease.latestBid * 1} FUSD</p>
                     <p>by: {lease.latestBidBy}</p>
                     <p>Auction ends: {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}</p>
-                    <Form>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit} className="formInputs">
                         <Row>
-                            <Col>
-                                <Form.Group>
+                                <Form.Group as={Col} controlId="validationCustom02">
                                     <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD</div>}</Form.Label>
-                                    <Form.Control type="number" defaultValue={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
+                                    <Form.Control type="number" required defaultValue={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
                                 </Form.Group>
-                            </Col>
-                            <Col>
-                                <Button onClick={() => handleBid(formValues)} variant="outline-dark" className="mt-3" type="submit">Place Bid</Button>
+                            <Col className="align-self-end">
+                                <Button variant="outline-dark" className="mt-auto" type="submit">Place Bid</Button>
                             </Col>
                         </Row>
                     </Form>
@@ -78,64 +90,64 @@ export function PrivateBid({ bid }) {
     let lease = bid.lease
     const [user, setUser] = useState({ loggedIn: null })
     useEffect(() => fcl.currentUser().subscribe(setUser), [])
-  
+
     let bidLegend = "Blind Bid"
     if (lease.auctionEnds !== null && lease.latestBid !== null) {
-      if(lease.auctionEnds > lease.currentTime){
-        bidLegend = "Add auction bid"
-      }else {
-        bidLegend = "AuctionEndedNoWinner"
-      }
+        if (lease.auctionEnds > lease.currentTime) {
+            bidLegend = "Add auction bid"
+        } else {
+            bidLegend = "AuctionEndedNoWinner"
+        }
     }
     if (lease.auctionStartPrice !== null && lease.latestBid === null) {
-      bidLegend = "FirstBid"
+        bidLegend = "FirstBid"
     }
     if (lease.salePrice !== null) {
-      bidLegend = "Bid"
+        bidLegend = "Bid"
     }
     if (lease.latestBid !== null && lease.latestBidBy === user.addr && lease.auctionEnds !== null) {
-      if (lease.auctionEnds > lease.currentTime) {
-        bidLegend = "HighestBidder"
-      }
-      else {
-        bidLegend = "HighestBidderEnded"
-      }
+        if (lease.auctionEnds > lease.currentTime) {
+            bidLegend = "HighestBidder"
+        }
+        else {
+            bidLegend = "HighestBidderEnded"
+        }
     }
-    if(lease.auctionStartPrice === null && lease.latestBid !== null && user.addr === lease.latestBidBy) {
-      bidLegend = "OfferMade"
+    if (lease.auctionStartPrice === null && lease.latestBid !== null && user.addr === lease.latestBidBy) {
+        bidLegend = "OfferMade"
     }
-  
+
     return (
-      <div>
-        <fieldset id="a" disabled={useFormStatus()}>
-          {bidLegend === "Bid" &&
-            <BuyerPurchase lease={lease} />
-          }
-          {bidLegend === "Add auction bid" &&
-            <BuyerBid lease={lease} />
-          }
-          {bidLegend === "FirstBid" &&
-            <BuyerFirstBid lease={lease} />
-          }
-          {bidLegend === "Blind Bid" &&
-            <BuyerOffer lease={lease} />
-          }
-          {bidLegend === "HighestBidder" &&
-            <HighestBidder lease={lease} />
-          }
-          {bidLegend === "HighestBidderEnded" &&
-            <HighestBidderEnded lease={lease} />
-          }
-          {bidLegend === "AuctionEndedNoWinner" &&
-            <AuctionEndedNoWinner lease={lease} />
-          }
-          {bidLegend === "OfferMade" &&
-            <OfferMade lease={lease} />
-          }
-  
-        </fieldset>
-        {/* <div>{JSON.stringify(lease, null, 2)} <br /><br />{user.addr}</div> */}
-      </div>
+        <div>
+            <fieldset id="a" disabled={useFormStatus()}>
+                {bidLegend === "Bid" &&
+                    <BuyerPurchase lease={lease} />
+                }
+                {bidLegend === "Add auction bid" &&
+                    <BuyerBid lease={lease} />
+                }
+                {bidLegend === "FirstBid" &&
+                    <BuyerFirstBid lease={lease} />
+                }
+                {bidLegend === "Blind Bid" &&
+                    <BuyerOffer lease={lease} />
+                }
+                {bidLegend === "HighestBidder" &&
+                    <HighestBidder lease={lease} />
+                }
+                {bidLegend === "HighestBidderEnded" &&
+                    <HighestBidderEnded lease={lease} />
+                }
+                {bidLegend === "AuctionEndedNoWinner" &&
+                    <AuctionEndedNoWinner lease={lease} />
+                }
+                {bidLegend === "OfferMade" &&
+                    <OfferMade lease={lease} />
+                }
+
+            </fieldset>
+            {/* <div>{JSON.stringify(lease, null, 2)} <br /><br />{user.addr}</div> */}
+        </div>
     )
 }
 //Form to make an initial offer on a name (blind bid)
@@ -264,7 +276,7 @@ export function HighestBidder({ lease }) {
     const [formValues, setFormValues] = useImmer([
         {
             id: "bidAmt",
-            value: lease.latestBid-lease.latestBid + 1
+            value: lease.latestBid - lease.latestBid + 1
         },
         {
             id: "name",
@@ -275,7 +287,7 @@ export function HighestBidder({ lease }) {
     function updateField(e) {
         setFormValues((draft) => {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
-            varVal.value = e.target.value-lease.latestBid;
+            varVal.value = e.target.value - lease.latestBid;
         })
     }
 
@@ -385,7 +397,7 @@ export function OfferMade({ lease }) {
     const [formValues, setFormValues] = useImmer([
         {
             id: "bidAmt",
-            value: lease.latestBid-lease.latestBid+1
+            value: lease.latestBid - lease.latestBid + 1
         },
         {
             id: "name",
@@ -396,12 +408,12 @@ export function OfferMade({ lease }) {
     function updateField(e) {
         setFormValues((draft) => {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
-            varVal.value = e.target.value-lease.latestBid;
+            varVal.value = e.target.value - lease.latestBid;
         })
     }
     return (
         <div>
-            
+
             <Row className="my-3">
                 <Col className="m-auto">
                     <p>You have made an offer on {lease.name} of <b>{lease.latestBid * 1} FUSD</b></p>
@@ -416,8 +428,8 @@ export function OfferMade({ lease }) {
                         <Form.Group>
                             <Row>
                                 <Col xs="12" md="auto">
-                                    <Form.Label>To increase please enter at least <b>{lease.latestBid*1+1} FUSD</b></Form.Label>
-                                    <Form.Control type="number" defaultValue={lease.latestBid*1+1} placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
+                                    <Form.Label>To increase please enter at least <b>{lease.latestBid * 1 + 1} FUSD</b></Form.Label>
+                                    <Form.Control type="number" defaultValue={lease.latestBid * 1 + 1} placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
                                 </Col>
                                 <Col className="mt-auto" align="right">
                                     <Button style={{ width: "200px" }} onClick={() => handleIncreaseBid(formValues)} variant="outline-dark">Increase</Button>

@@ -55,10 +55,10 @@ export function BuyerBid({ lease }) {
                     <p>Auction ends: {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}</p>
                     <Form noValidate validated={validated} onSubmit={handleSubmit} className="formInputs">
                         <Row>
-                                <Form.Group as={Col} controlId="validationCustom02">
-                                    <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD</div>}</Form.Label>
-                                    <Form.Control type="number" required defaultValue={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
-                                </Form.Group>
+                            <Form.Group as={Col} controlId="validationCustom02">
+                                <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD</div>}</Form.Label>
+                                <Form.Control type="number" required defaultValue={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
+                            </Form.Group>
                             <Col className="align-self-end">
                                 <Button variant="outline-dark" className="mt-auto" type="submit">Place Bid</Button>
                             </Col>

@@ -28,6 +28,7 @@ export const Tx = async (mods = [], opts = {}) => {
     var unsub = await fcl.tx(txId).subscribe(onUpdate);
     var txStatus = await fcl.tx(txId).onceSealed().then(toast.loading(<span className="text-center">Transaction Submitted<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, }));
     unsub();
+    hasSubmitted = 1;
     console.info(
       `%cTX[${txId}]: ${fvsTx(await fcl.config().get("env"), txId)}`,
       "color:green;font-weight:bold;font-family:monospace;"
@@ -41,7 +42,7 @@ export const Tx = async (mods = [], opts = {}) => {
     );
     onError(error);
     const { message } = error
-    if (hasSubmitted === 0) {
+    if (hasSubmitted === 0 && message) {
       if(message.includes("Declined: User rejected signature")){
       toast('Transaction cancelled by user', { id: toastId, duration: "100"})
       enableForm()}
@@ -53,6 +54,10 @@ export const Tx = async (mods = [], opts = {}) => {
       enableForm()}
     }
     if (hasSubmitted === 1) {
+      toast.error(<span className="text-center text-break">Transaction failed<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })
+      enableForm()
+    }
+    if (!message) {
       toast.error(<span className="text-center text-break">Transaction failed<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })
       enableForm()
     }

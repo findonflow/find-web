@@ -138,7 +138,27 @@ color: black;
 }
 .cardprofile .list-group-item {
   border: none !important;
-
+}
+.cardprofile-collection {
+  font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 27px;
+color: black;
+background: #FFFFFF;
+box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
+border-radius: 10px;
+transition: all 0.5s;
+max-width: 360px;
+max-height: 360px !important;
+margin: auto;
+}
+.cardprofile-collection-img {
+  object-fit: cover;
+  -o-object-fit: cover;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
 }
 .copyicon {
   cursor: pointer;

@@ -149,16 +149,22 @@ color: black;
 background: #FFFFFF;
 box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
 border-radius: 10px;
-transition: all 0.5s;
+transition: all 0.2s;
 max-width: 360px;
 max-height: 360px !important;
 margin: auto;
+aspect-ratio: 1 / 1;
+}
+.cardprofile-collection:hover {
+  transform: scale(1.01);
+  transition: 0.2s;
+  cursor: pointer;
 }
 .cardprofile-collection-img {
   object-fit: cover;
   -o-object-fit: cover;
-  max-width: 360px;
-  aspect-ratio: 1 / 1;
+  min-height: 100%;
+  max-height: 360px;
 }
 .copyicon {
   cursor: pointer;

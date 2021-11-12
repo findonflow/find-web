@@ -1,7 +1,7 @@
 import { Card, Col, Row, Container, Accordion, ListGroup, Tabs, Tab, Image } from "react-bootstrap";
 import copy from "copy-to-clipboard";
 import { PrivateLease } from "../PrivateLease";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as fcl from "@onflow/fcl";
 import { PublicLease } from "../PublicLease";
 import toast from "react-hot-toast";
@@ -10,6 +10,8 @@ import LoadingBC from "../infoboxes/LoadingBC";
 import { PrivateBid } from "../lease/BuyerForms";
 
 export function ProfileCard({ profileData }) {
+
+
   const [editHasClicked, setEditHasClicked] = useState(false)
   const [editText, setEditText] = useState("Edit Profile")
 
@@ -21,6 +23,13 @@ export function ProfileCard({ profileData }) {
     toast(<span>{copyData} copied to clipoard</span>, { duration: 2000, style: {} })
     console.log(copyData)
   }
+  
+  function handleTabScroll(key) {
+    if(key === "collection") {
+      key.current.scrollIntoView()
+    }
+  }
+
   function editClicked() {
     if (!editHasClicked) {
       setEditHasClicked(true)
@@ -50,7 +59,7 @@ export function ProfileCard({ profileData }) {
       {profileData ?
 
         <Container id="profileCard" fluid="true" className="frontCards p-4 mt-5">
-          <Tabs defaultActiveKey='profile' id='profile-collection-tabs'>
+          <Tabs defaultActiveKey='profile' id='profile-collection-tabs' onSelect={handleTabScroll()}>
             <Tab eventKey='profile' title='Profile'>
               <Row className="d-flex justify-content-center">
                 <Col xs="12" md="4">
@@ -246,26 +255,7 @@ export function ProfileCard({ profileData }) {
                   </Row>
                 </Col>
                 </Row>
-                {/* <Row className=" mt-3 d-flex d-md-none align-items-start" xs={1} lg={3} md={2}>
-              <Col className="mb-5">
-                <Card className="cardprofile-collection">
-                  <Image src="/public/assets/img/car.png" />
-                </Card>
-              </Col>
-              <Col className="mb-5">
-                <Card className="cardprofile-collection"></Card>
-              </Col>
-              <Col className="mb-5">
-                <Card className="cardprofile-collection"></Card>
-              </Col>
-              <Col className="mb-5">
-                <Card className="cardprofile-collection"></Card>
-              </Col>
-              <Col className="mb-5">
-                <Card className="cardprofile-collection"></Card>
-              </Col>
-            </Row> */}
-            <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2}>
+            <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
               <Col className="mb-5">
                 <Card className="cardprofile-collection">
                 <Image src="/assets/img/car.png" className="cardprofile-collection-img" />

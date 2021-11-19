@@ -1,4 +1,4 @@
-import { Card, Col, Row, Container, Accordion, ListGroup, Tabs, Tab, Image } from "react-bootstrap";
+import { Card, Col, Row, Container, Accordion, ListGroup, Tabs, Tab, Image, Button } from "react-bootstrap";
 import copy from "copy-to-clipboard";
 import { PrivateLease } from "../PrivateLease";
 import { useEffect, useRef, useState } from "react";
@@ -24,7 +24,7 @@ export function ProfileCard({ profileData }) {
     toast(<span>{copyData} copied to clipoard</span>, { duration: 2000, style: {} })
     console.log(copyData)
   }
-  
+
   function editClicked() {
     if (!editHasClicked) {
       setEditHasClicked(true)
@@ -188,13 +188,19 @@ export function ProfileCard({ profileData }) {
               </Row>
             </Tab>
             <Tab eventKey='collection' title='Collection'>
-              <ProfileCollection profileData={profileData} />
-          </Tab>
-        </Tabs>
+              <ProfileCollection profileData={ profileData } />
+            </Tab>
+            {user.addr === profileData.profile.address &&
+              <Tab eventKey='forge' title='The Forge'>
+                <div align="center" className="m-5"><Button variant="dark">Build The Forge 50 FUSD</Button></div>
+                <h3 className='p-5 m-5 text-center'>The forge is your gateway to minting. With it you can mint into your own collection and sell your own NFT's using the Find marketplace or any other supported marketplace</h3>
+              </Tab>
+            }
+          </Tabs>
         </Container>
 
         :
-  <LoadingBC />
-}</div >
+        <LoadingBC />
+      }</div >
   )
 }

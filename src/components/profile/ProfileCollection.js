@@ -1,32 +1,45 @@
 import copy from "copy-to-clipboard"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Row, Col, ListGroup, Card, Image } from "react-bootstrap"
 import toast from "react-hot-toast"
+import * as fcl from "@onflow/fcl";
+import * as t from "@onflow/types";
+import { scripts, } from 'find-flow-contracts'
+import { useStateChanged } from "../../functions/DisabledState";
 
-export function ProfileCollection({profileData}) {
+export function ProfileCollection({ profileData }) {
+
+  const [user, setUser] = useState({ loggedIn: null })
+  useEffect(() => fcl.currentUser().subscribe(setUser), [])
+
+  const [findList, setFindList] = useState("first_init");
+  useEffect(() => {
+      async function getFindUser(addr) {
+        const response = await fcl.send([
+          fcl.script(scripts["find-list"]),
+          fcl.args([fcl.arg(addr, t.Address)]),
+        ]);
+        
+        const findList = await fcl.decode(response)
+        setFindList(findList)
+      }
+      try{
+      getFindUser(profileData.profile.address)}
+      catch (error) {
+        console.log(error)
+      }
+    // eslint-disable-next-line
+  }, [user, useStateChanged()]);
 
     function runCopy(copyData) {
         copy(copyData)
         toast(<span>{copyData} copied to clipoard</span>, { duration: 2000, style: {} })
         console.log(copyData)
       }
-
-    let avatarURL = "/noavatar.png"
-  let followers = 0
-  if (profileData) {
-    if (profileData.profile) {
-      if (profileData.profile.avatar !== "") {
-        avatarURL = profileData.profile.avatar
-      }
-      if (profileData.profile.followers.length !== 0) {
-        followers = profileData.profile.followers
-      }
-    }
-  }
   
     return(
         <div>
-        <Row>
+        {/* <Row>
                 <Col xs="12" md="4">
                   <Row className="mt-3 mb-3" id="profileName">
                     <Col className="mb-3">
@@ -85,14 +98,18 @@ export function ProfileCollection({profileData}) {
                     </Col>
                   </Row>
                 </Col>
-                </Row>
-               {JSON.stringify(profileData,null,2)}
+                </Row> */}
+               {/* {JSON.stringify(findList,null,2)} */}
             <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
+              {findList !== "first_init" &&
+              findList["A.0e7e00f7a09b36fb.Artifact.Collection"]?.items.map((nftData) => 
               <Col className="mb-5">
                 <Card className="cardprofile-collection">
-                <Image src="/assets/img/car.png" className="cardprofile-collection-img" />
+                <Image src={nftData.url} className="cardprofile-collection-img" />
                 </Card>
               </Col>
+              )}
+              
             </Row>
             </div>
     )

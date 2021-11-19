@@ -17,9 +17,6 @@ export function SearchBar() {
     if (searchName.length < 3 || searchName.length > 16) {
       return
     }
-    if (searchName.substring(0, 2) === "0x") {
-      return
-    }
     navigate("/" + searchName)
   }
   return (

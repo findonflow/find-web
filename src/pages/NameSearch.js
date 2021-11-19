@@ -22,9 +22,6 @@ function NameSearch() {
   if (searchName.length < 3 || searchName.length > 16) {
     navigate("/")
   }
-  if (searchName.substring(0, 2) === "0x") {
-    navigate("/")
-  }
 
    const [nameStatus, setNameStatus] = useState(null);
   // const [enteredName, setEnteredName] = useState(null);

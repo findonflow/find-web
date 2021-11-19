@@ -18,9 +18,6 @@ export function Register({ enteredName }) {
   if (searchName.length < 3 || searchName.length > 16) {
     navigate("/")
   }
-  if (searchName.substring(0, 2) === "0x") {
-    navigate("/")
-  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

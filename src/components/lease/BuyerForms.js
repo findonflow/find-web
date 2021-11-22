@@ -151,10 +151,26 @@ export function PrivateBid({ bid }) {
 }
 //Form to make an initial offer on a name (blind bid)
 export function BuyerOffer({ lease }) {
+
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        console.log(event.target.bidAmt.value)
+        if(form.bidAmt.value < 1) {
+            event.preventDefault();
+            event.stopPropagation();
+            return
+        }else
+        event.preventDefault();
+        //setValidated(true)
+        handleOffer(formValues)
+    }
+
     const [formValues, setFormValues] = useImmer([
         {
             id: "bidAmt",
-            value: "0"
+            value: "1"
         },
         {
             id: "name",
@@ -166,18 +182,27 @@ export function BuyerOffer({ lease }) {
         setFormValues((draft) => {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
             varVal.value = e.target.value;
+            //now validate
+            if (varVal.value < 1) {
+                e.target.classList.add("is-invalid")
+                e.target.classList.remove("is-valid")
+            }
+            else {
+                e.target.classList.add("is-valid")
+                e.target.classList.remove("is-invalid")
+            }
         })
     }
     return (
-        <Form className="formInputs">
-            <Form.Group>
+        <Form noValidate validated={validated} onSubmit={handleSubmit} className="formInputs">
+            <Form.Group as={Col}>
                 <Row>
                     <Col xs="12" md="auto" className="my-3">
                         <Form.Label>{<div className="idd">You can make an offer for this name even though it isn't for sale.</div>}</Form.Label>
                         <Form.Control type="number" placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
                     </Col>
                     <Col className="my-3 mt-auto" align="right">
-                        <Button onClick={() => handleOffer(formValues)} variant="outline-dark" type="submit">Make offer</Button>
+                        <Button variant="outline-dark" type="submit">Make offer</Button>
                     </Col>
                 </Row>
                 <Row>

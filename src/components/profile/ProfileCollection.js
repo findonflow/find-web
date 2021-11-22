@@ -32,19 +32,21 @@ export function ProfileCollection({ profileData }) {
 
   return (
     <div>
-      {JSON.stringify(findList,null,2)}
+      {/* {JSON.stringify(findList,null,2)} */}
       <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
-        {findList !== "first_init" && 
+        {findList !== "first_init" &&
           // console.log(Object.keys(findList["A.0e7e00f7a09b36fb.Artifact.Collection"].items).length),
-          Object.keys(findList).map((collection) => 
-          findList[collection]?.items.map((nftData, i) =>
-            <Col key={i} className="mb-5">
-              <Card className="cardprofile-collection">
-                <Image src={nftData.url} className="cardprofile-collection-img" />
-                <div className="m-3 p-1 px-3" style={{backgroundColor: "rgba(0, 0, 0, 0.1)", borderRadius: "12px", zIndex: "5000", bottom: "-10px", position: "absolute"}}>{nftData.name}</div>
-              </Card>
-            </Col>
-          ))}
+          Object.keys(findList).map((collection) =>
+            findList[collection]?.items.map((nftData, i) =>
+              <Col key={i} className="mb-5">
+                
+                <Card className="cardprofile-collection">
+                  <Image src={nftData.url} className="cardprofile-collection-img" />
+                  {/* <div className="m-3 p-1 px-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.1)", borderRadius: "12px", zIndex: "5000", bottom: "-10px", position: "absolute" }}>{nftData.name}</div> */}
+                </Card>
+                <div className="m-3 mx-4">{nftData.name}</div>
+              </Col>
+            ))}
 
       </Row>
     </div>

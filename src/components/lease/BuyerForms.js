@@ -5,7 +5,6 @@ import { handleBid, handleBuy, handleCancelBid, handleFullfillAuction, handleInc
 import { useImmer } from "use-immer";
 import * as fcl from "@onflow/fcl";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useFormStatus } from "../../functions/DisabledState";
 
 //Form to bid on an active auction

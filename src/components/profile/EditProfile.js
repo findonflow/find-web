@@ -11,7 +11,7 @@ function EditProfile({ profile }) {
 
     const [formValues2, setFormValues2] = useImmer([])
     const [tagsArray, setTagsArray] = useImmer([])
-    let tagArray = new Array()
+    let tagArray = []
 
     useEffect(() => {
         setFormValues2([])
@@ -26,6 +26,7 @@ function EditProfile({ profile }) {
             })
         )
     }
+    // eslint-disable-next-line
         , [profile])
 
     let addFormFields2 = () => {
@@ -96,6 +97,7 @@ function EditProfile({ profile }) {
 
         const links = [];
         var links2 = [];
+        // eslint-disable-next-line
         formValues2.map((l) => {
             var dict = {};
             dict["key"] = "title"
@@ -167,20 +169,20 @@ function EditProfile({ profile }) {
             <Form onSubmit={handleSubmit}>
                 <fieldset id="a" disabled={useFormStatus()}>
                     <Form.Label >Name</Form.Label>
-                    <Form.Control className="mb-3" name="name" placeholder="Name" Value={profile.profile.name} onChange={e => handleChangeForm(e)} />
+                    <Form.Control className="mb-3" name="name" placeholder="Name" value={profile.profile.name} onChange={e => handleChangeForm(e)} />
                     <Form.Label>Bio/Description</Form.Label>
                     <Form.Control className="mb-3 ms-0" name="description" as="textarea" rows={3} placeholder="description (max 255 characters)" defaultValue={profile.profile.description} onChange={e => handleChangeForm(e)} />
                     <Form.Label>Tags (Seperate with a comma)</Form.Label>
-                    <Form.Control className="mb-3" name="tags" placeholder="Tags seperated by a comma" Value={profile.profile.tags} onChange={e => handleChangeTags(e)} />
+                    <Form.Control className="mb-3" name="tags" placeholder="Tags seperated by a comma" value={profile.profile.tags} onChange={e => handleChangeTags(e)} />
                     <Form.Label>Avatar URL</Form.Label>
-                    <Form.Control className="mb-3" name="avatar" placeholder="URL to your avatar" Value={profile.profile.avatar} onChange={e => handleChangeForm(e)} />
+                    <Form.Control className="mb-3" name="avatar" placeholder="URL to your avatar" value={profile.profile.avatar} onChange={e => handleChangeForm(e)} />
                     <Form.Label>Links</Form.Label>
                     {formValues2.map((element, index) => (
                         <fieldset key={index} id={"link" + index}>
                             <Row className="d-flex align-content-center mb-3 mt-3" key={index}>
                                 <Col className="mt-3" xs="12" md="4">
                                     <Form.Label>Link</Form.Label>
-                                    <Form.Control type="text" name="url" Value={element.url || ""} onChange={e => handleChangeLinks2(index, e)} />
+                                    <Form.Control type="text" name="url" value={element.url || ""} onChange={e => handleChangeLinks2(index, e)} />
                                 </Col>
                                 <Col className="mt-3" xs="12" md="4">
                                     <Form.Label>Type</Form.Label>

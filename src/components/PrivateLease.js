@@ -8,7 +8,7 @@ import { useFormStatus } from '../functions/DisabledState';
 import { DurationLegend } from './lease/SharedComponents';
 import { DelistName } from './lease/SellerForms';
 import { epochToJsDate, epochToJsTime } from '../functions/epochtodate';
-import { handleCancelBid, handleRejectBlindBid } from "../functions/txfunctions";
+import { handleRejectBlindBid } from "../functions/txfunctions";
 
 export function PrivateLease({ lease }) {
 

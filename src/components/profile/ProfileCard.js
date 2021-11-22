@@ -1,7 +1,7 @@
-import { Card, Col, Row, Container, Accordion, ListGroup, Tabs, Tab, Image, Button } from "react-bootstrap";
+import { Card, Col, Row, Container, Accordion, ListGroup, Tabs, Tab, Button } from "react-bootstrap";
 import copy from "copy-to-clipboard";
 import { PrivateLease } from "../PrivateLease";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import * as fcl from "@onflow/fcl";
 import { PublicLease } from "../PublicLease";
 import toast from "react-hot-toast";
@@ -188,12 +188,20 @@ export function ProfileCard({ profileData }) {
               </Row>
             </Tab>
             <Tab eventKey='collection' title='Collection'>
-              <ProfileCollection profileData={ profileData } />
+              <ProfileCollection profileData={profileData} />
             </Tab>
             {user.addr === profileData.profile.address &&
               <Tab eventKey='forge' title='The Forge'>
-                <div align="center" className="m-5"><Button variant="dark">Build The Forge 50 FUSD</Button></div>
-                <h3 className='p-5 m-5 text-center'>The forge is your gateway to minting. With it you can mint into your own collection and sell your own NFT's using the Find marketplace or any other supported marketplace</h3>
+                <Row>
+                  <Col>
+                  <Card className="cardprofileother my-3 mx-lg-5 p-lg-5">
+                    <div align="center" className="mt-5"><span className="fw-bold m-3 me-4 align-middle" style={{ fontSize: "26px" }}>50 FUSD</span><Button variant="dark">Build The Forge</Button></div>
+                    <h3 className='p-3 p-lg-5 m-3 mx-lg-5 text-center'>The forge is your gateway to minting. With it you can mint into your own collection and sell your own NFT's using the Find marketplace or any other supported marketplace</h3>
+                </Card>
+                  </Col>
+                </Row>
+                
+
               </Tab>
             }
           </Tabs>

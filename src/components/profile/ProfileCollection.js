@@ -42,9 +42,9 @@ export function ProfileCollection({ profileData }) {
                 
                 <Card className="cardprofile-collection">
                   <Image src={nftData.url} className="cardprofile-collection-img" />
-                  {/* <div className="m-3 p-1 px-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.1)", borderRadius: "12px", zIndex: "5000", bottom: "-10px", position: "absolute" }}>{nftData.name}</div> */}
+                  <div className="m-3 p-1 px-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.1)", borderRadius: "12px", zIndex: "5000", bottom: "-10px", position: "absolute" }}>{nftData.name}</div>
                 </Card>
-                <div className="m-3 mx-4">{nftData.name}</div>
+                {/* <div className="m-3 mx-4">{nftData.name}</div> */}
               </Col>
             ))}
 

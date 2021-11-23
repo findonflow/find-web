@@ -37,8 +37,9 @@ function NameSearch() {
     }
     SearchName(searchName)
   }
+  // eslint-disable-next-line
     , [searchName, useStateChanged()])
-
+  
   if (nameStatus === null) {
     // --- INITIAL SCREEN ---
     return (

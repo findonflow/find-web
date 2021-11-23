@@ -8,7 +8,7 @@ import { useFormStatus } from '../functions/DisabledState';
 import { DurationLegend } from './lease/SharedComponents';
 import { DelistName } from './lease/SellerForms';
 import { epochToJsDate, epochToJsTime } from '../functions/epochtodate';
-import { handleCancelBid, handleRejectBlindBid } from "../functions/txfunctions";
+import { handleRejectBlindBid } from "../functions/txfunctions";
 
 export function PrivateLease({ lease }) {
 
@@ -61,7 +61,7 @@ export function PrivateLease({ lease }) {
     try {
       await Tx(
         [
-          fcl.transaction(transactions.fullfill),
+          fcl.transaction(transactions.fulfill),
           fcl.args([
             fcl.arg(lease.name, t.String)
           ]),
@@ -186,7 +186,7 @@ export function PrivateLease({ lease }) {
     try {
       await Tx(
         [
-          fcl.transaction(transactions.fullfillAuction),
+          fcl.transaction(transactions.fulfillAuction),
           fcl.args([
             fcl.arg(user.addr, t.Address),
             fcl.arg(lease.name, t.String)
@@ -236,7 +236,7 @@ export function PrivateLease({ lease }) {
             <p>Final bid <b>{lease.latestBid * 1} FUSD</b> by {lease.latestBidBy}</p>
           </Col>
           <Col align="right">
-            <Button text="fullfill" style={{ width: "200px" }} onClick={handleFullfillAuction} variant="outline-dark">Fulfill</Button>
+            <Button text="fulfill" style={{ width: "200px" }} onClick={handleFullfillAuction} variant="outline-dark">Fulfill</Button>
           </Col>
         </Row>
       else {

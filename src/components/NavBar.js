@@ -28,7 +28,7 @@ function NavHead() {
     <Container id="navBar">
       <Navbar collapseOnSelect={true} expand="md">
         <Container>
-          <Link to="/"><img src="./find.png" alt="Find Logo" className=" logo img-fluid" /></Link>
+          <Link to="/"><img src="/find.png" alt="Find Logo" className=" logo img-fluid" /></Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav>

@@ -138,8 +138,36 @@ color: black;
 }
 .cardprofile .list-group-item {
   border: none !important;
-
 }
+.cardprofile-collection {
+  font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 27px;
+color: black;
+background: #FFFFFF;
+box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
+border-radius: 10px;
+transition: all 0.2s;
+max-width: 360px;
+max-height: 360px !important;
+margin: auto;
+aspect-ratio: 1 / 1;
+}
+.cardprofile-collection:hover {
+  transform: scale(1.01);
+  transition: 0.2s;
+  cursor: pointer;
+}
+.cardprofile-collection-img {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
 .copyicon {
   cursor: pointer;
 }
@@ -271,7 +299,7 @@ body:before {
   content: " ";
   width: 100%;
   height: 110%;
-  position: fixed;
+  position: absolute;
   z-index: -1;
   top: 0;
   left: 0;

@@ -187,7 +187,7 @@ export function ProfileCard({ profileData }) {
                 </Col>
               </Row>
             </Tab>
-            <Tab eventKey='collection' title='Collection'>
+            {/* <Tab eventKey='collection' title='Collection'>
               <ProfileCollection profileData={profileData} />
             </Tab>
             {user.addr === profileData.profile.address &&
@@ -203,7 +203,7 @@ export function ProfileCard({ profileData }) {
                 
 
               </Tab>
-            }
+            } */}
           </Tabs>
         </Container>
 

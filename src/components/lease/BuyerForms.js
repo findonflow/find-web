@@ -299,7 +299,7 @@ export function BuyerFirstBid({ lease }) {
             <Form noValidate validated={validated} onSubmit={handleSubmit} className="formInputs">
                 <Row>
                     <Col>
-                        <h3>You can start an auction on {lease.name}.</h3>
+                        <span className="name">You can start an auction on {lease.name}.</span>
                     </Col>
                 </Row>
                 <Row>
@@ -329,6 +329,21 @@ export function BuyerFirstBid({ lease }) {
 //Form to show you are the highest bidder and allow increase of bid amount
 export function HighestBidder({ lease }) {
 
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        console.log(form.bidAmt.value)
+        if(parseInt(form.bidAmt.value) < lease.latestBid + 1) {
+            event.preventDefault();
+            event.stopPropagation();
+            return
+        }else
+        event.preventDefault();
+        //setValidated(true)
+        handleIncreaseBid(formValues)
+    }
+
     const [formValues, setFormValues] = useImmer([
         {
             id: "bidAmt",
@@ -343,34 +358,41 @@ export function HighestBidder({ lease }) {
     function updateField(e) {
         setFormValues((draft) => {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
-            varVal.value = e.target.value - lease.latestBid;
+            varVal.value = e.target.value-lease.latestBid;
+            if (e.target.value < lease.latestBid*1+1) {
+                console.log("form val: "+e.target.value+" cadence val: "+lease.latestBid+1)
+                e.target.classList.add("is-invalid")
+                e.target.classList.remove("is-valid")
+            }
+            else {
+                e.target.classList.add("is-valid")
+                e.target.classList.remove("is-invalid")
+            }
         })
     }
 
     return (
-        <Form className="formInputs">
+        <Form noValidate validated={validated} onSubmit={handleSubmit} className="formInputs">
             <Form.Group>
                 <Row>
                     <Col xs="12" md="auto" className="my-3">
-                        <p>{lease.name} has an active auction.</p>
-                        <p>You are currently the highest bidder with <b>{lease.latestBid * 1} FUSD</b></p>
-                        <p>The reserve price is set at {lease.auctionReservePrice * 1} FUSD</p>
-                        <p>This auction ends: {epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}</p>
+                        <span className="name">{lease.name} is being auctioned</span>
+                        <div>You are currently the highest bidder with <b>{lease.latestBid * 1} FUSD</b></div>
+                        <div>The reserve price is set at <b>{lease.auctionReservePrice * 1} FUSD</b></div>
+                        <div>This auction ends: <b>{epochToJsDate(lease.auctionEnds) + " at " + epochToJsTime(lease.auctionEnds)}</b></div>
                     </Col>
                 </Row>
-                <Form>
                     <Row>
                         <Col xs="12" md="auto" className="mb-3 mb-md-0">
                             <Form.Group>
                                 <Form.Label>{<div>You must bid at least {lease.latestBid * 1 + 1} FUSD to increase your current bid</div>}</Form.Label>
-                                <Form.Control type="number" Value={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
+                                <Form.Control type="number" defaultValue={lease.latestBid * 1 + 1} onChange={updateField} name="bidAmt" />
                             </Form.Group>
                         </Col>
                         <Col className="mt-auto" align="right">
-                            <Button style={{ width: "200px" }} onClick={() => handleIncreaseBid(formValues)} variant="outline-dark">Increase</Button>
+                            <Button style={{ width: "200px" }} type="submit" variant="outline-dark">Increase</Button>
                         </Col>
                     </Row>
-                </Form>
                 <Row>
                     <Col className="mt-3" xs="12"><p className="formSubLabel">Bids that take place within 5 minutes of the end time will trigger an automatic 5 minute extension on the auction time. This is to allow all bidders enough time to get their bids in.</p></Col>
                 </Row>

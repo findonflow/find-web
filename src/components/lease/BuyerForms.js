@@ -13,13 +13,13 @@ export function BuyerBid({ lease }) {
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        if (form.checkValidity() === false) {
+        if(form.bidAmt.value < lease.latestBid*1 + 1) {
             event.preventDefault();
             event.stopPropagation();
             return
         }
         event.preventDefault();
-        setValidated(true)
+        //setValidated(true)
         handleBid(formValues)
     }
 
@@ -41,6 +41,15 @@ export function BuyerBid({ lease }) {
         setFormValues((draft) => {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
             varVal.value = e.target.value;
+            //now validate
+            if (varVal.value < 1) {
+                e.target.classList.add("is-invalid")
+                e.target.classList.remove("is-valid")
+            }
+            else {
+                e.target.classList.add("is-valid")
+                e.target.classList.remove("is-invalid")
+            }
         })
     }
 
@@ -244,6 +253,21 @@ export function BuyerPurchase({ lease }) {
 //Form to start an auction that is active but not yet started (first bid)
 export function BuyerFirstBid({ lease }) {
 
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        console.log(form.bidAmt.value)
+        if(parseInt(form.bidAmt.value) < parseInt(lease.auctionStartPrice)) {
+            event.preventDefault();
+            event.stopPropagation();
+            return
+        }else
+        event.preventDefault();
+        //setValidated(true)
+        handleBid(formValues)
+    }
+
     const [formValues, setFormValues] = useImmer([
         {
             id: "bidAmt",
@@ -259,12 +283,20 @@ export function BuyerFirstBid({ lease }) {
         setFormValues((draft) => {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
             varVal.value = e.target.value;
+            if (varVal.value < lease.auctionStartPrice * 1) {
+                e.target.classList.add("is-invalid")
+                e.target.classList.remove("is-valid")
+            }
+            else {
+                e.target.classList.add("is-valid")
+                e.target.classList.remove("is-invalid")
+            }
         })
     }
 
     return (
         <div className="p-3">
-            <Form className="formInputs">
+            <Form noValidate validated={validated} onSubmit={handleSubmit} className="formInputs">
                 <Row>
                     <Col>
                         <h3>You can start an auction on {lease.name}.</h3>
@@ -279,7 +311,7 @@ export function BuyerFirstBid({ lease }) {
                         </Form.Group>
                     </Col>
                     <Col className="mt-auto" align="right">
-                        <Button onClick={() => handleBid(formValues)} variant="outline-dark" className="mt-3">Place Bid</Button>
+                        <Button type="submit" variant="outline-dark" className="mt-3">Place Bid</Button>
                     </Col>
                 </Row>
                 <Row>

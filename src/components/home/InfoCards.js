@@ -37,7 +37,7 @@ export function InfoCards() {
           </Row>
           <Row>
             <Col align="center">
-              <p className="p-3 px-5">Find uses a unique find profile to show information about you as a user. You can add an avatar, a nick and a description as well as social links</p>
+              <p className="p-3 px-5">Find uses a unique profile to show information about you as a user. You can add an avatar, a nick and a description as well as social links</p>
             </Col>
           </Row>
         </Card>

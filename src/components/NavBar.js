@@ -40,7 +40,7 @@ function NavHead() {
                       <div className="px-3" style={{ fontSize: "12px", cursor: "copy" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
                     </OverlayTrigger>
                     <Nav.Link as={Link} to={"/"}>Home</Nav.Link>
-                    <Nav.Link as={Link} to={"/me"}>Profile</Nav.Link>
+                    <Nav.Link as={Link} to={"/me"}>Dashboard</Nav.Link>
                     <div align="center" className="m-1"><AuthCluster user={user} /></div>
                   </div>
                   :
@@ -58,7 +58,7 @@ function NavHead() {
                 </OverlayTrigger>
                 <Dropdown.Divider />
                 <Dropdown.Item as={Link} to={"/"} className="p-5">Home</Dropdown.Item>
-                <Dropdown.Item as={Link} to={"/me"}>Profile</Dropdown.Item>
+                <Dropdown.Item as={Link} to={"/me"}>Dashboard</Dropdown.Item>
                 <Dropdown.Divider />
                 <div align="center" className="mx-4"><AuthCluster user={user} /></div>
               </DropdownButton>

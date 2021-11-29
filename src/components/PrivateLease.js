@@ -14,9 +14,26 @@ export function PrivateLease({ lease }) {
 
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
-
+  function updateField(e) {
+        const varVal = e.target.value;
+        //now validate
+        if (varVal < 1) {
+            e.target.classList.add("is-invalid")
+            e.target.classList.remove("is-valid")
+        }
+        else {
+            e.target.classList.add("is-valid")
+            e.target.classList.remove("is-invalid")
+        }
+        setBidPrice(varVal)
+    }
   const [bidPrice, setBidPrice] = useState(null)
   const handleSell = async (e) => {
+    if(bidPrice < 1){
+      e.preventDefault();
+      e.stopPropagation();
+      return
+    }
     try {
       await Tx(
         [
@@ -324,7 +341,7 @@ export function PrivateLease({ lease }) {
       <Row>
         <Col xs="12" md="6">
           <Form.Label className='formSubLabel'>Sale Price</Form.Label>
-          <Form.Control placeholder="Enter an amount in FUSD" onChange={(e) => setBidPrice(e.target.value)}></Form.Control>
+          <Form.Control placeholder="Enter an amount in FUSD" onChange={updateField}></Form.Control>
         </Col>
         <Col className='mt-md-auto' align="right" xs="12" md="6">
           <Button className='mt-3' text="auction" onClick={handleSell} variant="outline-dark" style={{ width: "200px" }}>Sell</Button>

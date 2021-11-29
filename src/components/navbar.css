@@ -1,4 +1,4 @@
-.navmain{
+/* .navmain{
     display: block;
     top: 0%;
     height: 100px;
@@ -6,7 +6,7 @@
     background-color: rgb(255, 255, 255);
     padding: 0%;
     margin: 0%;
-}
+} */
 /* h1{
     vertical-align: middle;
     color:rgb(75, 57, 21)
@@ -15,10 +15,6 @@
     background: rgb(255, 255, 255);
     padding-top: 100px;
     padding-bottom: 50px;
-}
-.pagefooter{
-    height: 100px;
-    background-color: dimgray;
 }
 .responsive {
      max-width: 270px;

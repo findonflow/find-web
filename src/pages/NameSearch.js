@@ -51,7 +51,7 @@ function NameSearch() {
     // --- REGISTER SCREEN ---
     if (nameStatus.status === "free" || nameStatus.status === "FREE") {
       return (
-        <Container id="registerForm">
+        <Container id="registerForm" className="px-3 px-lg-0">
           <SearchBar />
           <Register enteredName={nameStatus} />
         </Container>

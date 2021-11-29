@@ -8,7 +8,7 @@ import { SearchBar } from "../components/SearchBar";
 function Home() {
 
   return (
-    <Container id="homeBody" className="">
+    <Container id="homeBody" className="px-3 px-lg-0">
       <SearchBar />
       <Container id="homeInfo" className="frontCards p-4">
         <InfoCards />

@@ -51,7 +51,7 @@ export function ProfileCard({ profileData }) {
   }
 
   return (
-    <div>
+    <Container className="p-3 p-lg-0">
       {profileData ?
 
         <Container id="profileCard" fluid="true" className="frontCards p-4 mt-5">
@@ -187,28 +187,28 @@ export function ProfileCard({ profileData }) {
                 </Col>
               </Row>
             </Tab>
-            {/* <Tab eventKey='collection' title='Collection'>
+            <Tab eventKey='collection' title='Collection'>
               <ProfileCollection profileData={profileData} />
             </Tab>
             {user.addr === profileData.profile.address &&
               <Tab eventKey='forge' title='The Forge'>
                 <Row>
                   <Col>
-                  <Card className="cardprofileother my-3 mx-lg-5 p-lg-5">
-                    <div align="center" className="mt-5"><span className="fw-bold m-3 me-4 align-middle" style={{ fontSize: "26px" }}>50 FUSD</span><Button variant="dark">Build The Forge</Button></div>
-                    <h3 className='p-3 p-lg-5 m-3 mx-lg-5 text-center'>The forge is your gateway to minting. With it you can mint into your own collection and sell your own NFT's using the Find marketplace or any other supported marketplace</h3>
-                </Card>
+                    <Card className="cardprofileother my-3 mx-lg-5 p-lg-5">
+                      <div align="center" className="mt-5"><span className="fw-bold m-3 me-4 align-middle" style={{ fontSize: "26px" }}>50 FUSD</span><Button variant="dark">Build The Forge</Button></div>
+                      <h3 className='p-3 p-lg-5 m-3 mx-lg-5 text-center'>The forge is your gateway to minting. With it you can mint into your own collection and sell your own NFT's using the Find marketplace or any other supported marketplace</h3>
+                    </Card>
                   </Col>
                 </Row>
-                
+
 
               </Tab>
-            } */}
+            }
           </Tabs>
         </Container>
 
         :
         <LoadingBC />
-      }</div >
+      }</Container >
   )
 }

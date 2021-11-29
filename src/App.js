@@ -18,7 +18,7 @@ export default function App() {
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
 
   return (
-    <Container className="main-container">
+    <Container className="main-container g-0" fluid>
       <div className="toastText">
         <Toaster toastOptions={{
           duration: Infinity,

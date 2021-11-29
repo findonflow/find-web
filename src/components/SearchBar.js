@@ -20,7 +20,7 @@ export function SearchBar() {
     navigate("/" + searchName)
   }
   return (
-    <Container id="searchSection" className="">
+    <Container id="searchSection">
       <Row className="m-3 mt-4 mt-md-5">
         <Col align="center">
           <h1>Claim your .find identity</h1>

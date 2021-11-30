@@ -26,7 +26,7 @@ function NavHead() {
   }
   return (
     <Container id="navbar" fluid>
-      <Navbar collapseOnSelect={true} expand="md" bg="white" className="p-3">
+      <Navbar collapseOnSelect={true} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3">
         <Container>
         <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -9,6 +9,7 @@ import EditProfile from "./EditProfile";
 import LoadingBC from "../infoboxes/LoadingBC";
 import { PrivateBid } from "../lease/BuyerForms";
 import { ProfileCollection } from "./ProfileCollection";
+import './profile.css'
 
 export function ProfileCard({ profileData }) {
 
@@ -51,10 +52,11 @@ export function ProfileCard({ profileData }) {
   }
 
   return (
-    <Container className="p-3 p-lg-0">
+    <Container fluid style={{backgroundColor: "white"}} className="g-0 m-0 pt-lg-3" >
+    <Container className="p-0">
       {profileData ?
 
-        <Container id="profileCard" fluid="true" className="frontCards p-4 mt-5">
+        <Container id="profileCard" fluid="true" className="frontCards p-4" style={{minHeight: "90vh"}}>
           <Tabs defaultActiveKey='profile' id='profile-collection-tabs'>
             <Tab eventKey='profile' title='Profile'>
               <Row className="d-flex justify-content-center">
@@ -210,5 +212,6 @@ export function ProfileCard({ profileData }) {
         :
         <LoadingBC />
       }</Container >
+      </Container>
   )
 }

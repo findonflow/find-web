@@ -452,7 +452,7 @@ export const handleRejectBlindBid = async (e) => {
   try {
     await Tx(
       [
-        fcl.transaction(transactions.rejectBlindBid),
+        fcl.transaction(transactions.rejectDirectOffer),
         fcl.args([
           fcl.arg(e, t.String)
         ]),

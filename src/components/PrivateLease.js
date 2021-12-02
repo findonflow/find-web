@@ -1,8 +1,8 @@
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Tx } from "../functions/transaction";
-import { transactions } from 'find-flow-contracts'
+import { transactions } from 'find-flow-contracts';
 import { useEffect, useState } from 'react';
 import { useFormStatus } from '../functions/DisabledState';
 import { DurationLegend } from './lease/SharedComponents';
@@ -15,21 +15,23 @@ export function PrivateLease({ lease }) {
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
   function updateField(e) {
-        const varVal = e.target.value;
-        //now validate
-        if (varVal < 1) {
-            e.target.classList.add("is-invalid")
-            e.target.classList.remove("is-valid")
-        }
-        else {
-            e.target.classList.add("is-valid")
-            e.target.classList.remove("is-invalid")
-        }
-        setBidPrice(varVal)
+    const varVal = e.target.value;
+    //now validate
+    if (varVal < 1) {
+      e.target.classList.add("is-invalid")
+      e.target.classList.remove("is-valid")
     }
+    else {
+      e.target.classList.add("is-valid")
+      e.target.classList.remove("is-invalid")
+    }
+    setBidPrice(varVal)
+  }
   const [bidPrice, setBidPrice] = useState(null)
   const handleSell = async (e) => {
-    if(bidPrice < 1){
+      if (!bidPrice || bidPrice < 1) {
+      document.getElementById("bidPrice").classList.add("is-invalid")
+      document.getElementById("bidPrice").classList.remove("is-valid")
       e.preventDefault();
       e.stopPropagation();
       return
@@ -116,7 +118,26 @@ export function PrivateLease({ lease }) {
   const [reservePrice, setReserve] = useState(null)
   const [duration, setDuration] = useState(null)
   async function handleStartAuction(e) {
-    e.preventDefault();
+    if (duration === "Select duration" || !duration || !startPrice || startPrice < 1 || !reservePrice || reservePrice < 1 ) {
+      if (!startPrice) {
+        document.getElementById("startPrice").classList.add("is-invalid")
+        document.getElementById("startPrice").classList.remove("is-valid")
+      }
+      if (!reservePrice) {
+        document.getElementById("reservePrice").classList.add("is-invalid")
+        document.getElementById("reservePrice").classList.remove("is-valid")
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      return
+    }
+    if (startPrice * 1 > reservePrice * 1) {
+      document.getElementById("reservePrice").classList.add("is-invalid")
+      document.getElementById("reservePrice").classList.remove("is-valid")
+      e.preventDefault();
+      e.stopPropagation();
+      return
+    }
     try {
       await Tx(
         [
@@ -341,7 +362,7 @@ export function PrivateLease({ lease }) {
       <Row>
         <Col xs="12" md="6">
           <Form.Label className='formSubLabel'>Sale Price</Form.Label>
-          <Form.Control placeholder="Enter an amount in FUSD" onChange={updateField}></Form.Control>
+          <Form.Control id="bidPrice" placeholder="Enter an amount in FUSD" type="number" onChange={updateField}></Form.Control>
         </Col>
         <Col className='mt-md-auto' align="right" xs="12" md="6">
           <Button className='mt-3' text="auction" onClick={handleSell} variant="outline-dark" style={{ width: "200px" }}>Sell</Button>
@@ -353,15 +374,33 @@ export function PrivateLease({ lease }) {
     auctionFor =
       <div id="listAuction">
         <p style={{ marginBottom: "10px", color: "#5C5C5C", fontWeight: "500" }}>List as an auction</p>
-        <Form onSubmit={handleStartAuction}>
+        <Form onSubmit={handleStartAuction} className="formInputs" noValidate>
           <Row>
             <Col xs="12" md="6">
               <Form.Label className='formSubLabel'>Start Price</Form.Label>
-              <Form.Control placeholder="Enter an amount in FUSD" onChange={(e) => setPrice(e.target.value)}></Form.Control>
+              <Form.Control id="startPrice" placeholder="Enter an amount in FUSD" type="number" onChange={(e) => {
+                setPrice(e.target.value)
+                if (e.target.value < 1) {
+                  e.target.classList.add("is-invalid")
+                  e.target.classList.remove("is-valid")
+                } else {
+                  e.target.classList.add("is-valid")
+                  e.target.classList.remove("is-invalid")
+                }
+              }}></Form.Control>
             </Col>
             <Col xs="12" md="6">
               <Form.Label className='formSubLabel'>Reserve Price</Form.Label>
-              <Form.Control placeholder="Enter an amount in FUSD" onChange={(e) => setReserve(e.target.value)}></Form.Control>
+              <Form.Control id='reservePrice' placeholder="Enter an amount in FUSD" type="number" onChange={(e) => {
+                setReserve(e.target.value)
+                if (e.target.value < startPrice) {
+                  e.target.classList.add("is-invalid")
+                  e.target.classList.remove("is-valid")
+                } else {
+                  e.target.classList.add("is-valid")
+                  e.target.classList.remove("is-invalid")
+                }
+              }}></Form.Control>
             </Col>
           </Row>
           <Row>

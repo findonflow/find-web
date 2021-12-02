@@ -507,10 +507,23 @@ export function OfferMade({ lease }) {
                             <Row>
                                 <Col xs="12" md="auto">
                                     <Form.Label>To increase please enter at least <b>{lease.latestBid * 1 + 1} FUSD</b></Form.Label>
-                                    <Form.Control type="number" defaultValue={lease.latestBid * 1 + 1} placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
+                                    <Form.Control type="number" defaultValue={lease.latestBid * 1 + 1} placeholder="Enter an amount in FUSD" onChange={(e) => {
+                                        updateField(e)
+                                        if(e.target.value <= lease.latestBid){
+                                            e.target.classList.add("is-invalid")
+                                            e.target.classList.remove("is-valid")
+                                        }else{
+                                            e.target.classList.add("is-valid")
+                                            e.target.classList.remove("is-invalid")
+                                        }
+                                    }} 
+                                        name="bidAmt" />
                                 </Col>
                                 <Col className="mt-auto" align="right">
-                                    <Button style={{ width: "200px" }} onClick={() => handleIncreaseBid(formValues)} variant="outline-dark">Increase</Button>
+                                    <Button style={{ width: "200px" }} onClick={() => {
+                                        if(formValues[0].value*1 > 0)
+                                        handleIncreaseBid(formValues)
+                                        }} variant="outline-dark">Increase</Button>
                                 </Col>
                             </Row>
                             <Row>

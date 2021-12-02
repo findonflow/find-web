@@ -1,0 +1,10 @@
+.discordBG {
+    background-image: url('./Discord-banner.webp');
+    background-size: cover;
+    height: 200px;
+}
+.discordTitle {
+    font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 900;
+    font-size: calc(1.75rem + 1.5vw);
+}

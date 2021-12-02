@@ -190,7 +190,9 @@ export function ProfileCard({ profileData }) {
               </Row>
             </Tab>
             <Tab eventKey='collection' title='Collection'>
+              <Card className="shadow p-3 p-lg-5 mt-3" border="light">
               <ProfileCollection profileData={profileData} />
+              </Card>
             </Tab>
             {user.addr === profileData.profile.address &&
               <Tab eventKey='forge' title='The Forge'>

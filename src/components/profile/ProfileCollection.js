@@ -39,10 +39,12 @@ export function ProfileCollection({ profileData }) {
           Object.keys(findList).map((collection) =>
             findList[collection]?.items.map((nftData, i) =>
               <Col key={i} className="mb-5">
-                
-                <Card className="cardprofile-collection">
-                  <Image src={nftData.url} className="cardprofile-collection-img" />
-                  <div className="m-3 p-1 px-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.1)", borderRadius: "12px", zIndex: "5000", bottom: "-10px", position: "absolute" }}>{nftData.name}</div>
+                <Card className="shadow" style={{maxWidth: "400px"}}>
+                {/* <div className="cardprofile-collection"> */}
+                  <Image src={nftData.url} className="collection-img p-3" rounded fluid/>
+                  {/* <div className="m-3 p-1 px-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.1)", borderRadius: "12px", zIndex: "5000", bottom: "-10px", position: "absolute" }}>{nftData.name}</div> */}
+                {/* </div> */}
+                <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>
                 </Card>
                 {/* <div className="m-3 mx-4">{nftData.name}</div> */}
               </Col>

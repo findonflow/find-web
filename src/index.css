@@ -319,7 +319,7 @@ body:before {
   z-index: -1;
   top: 0;
   left: 0;
-  background-image: url(./findbg.png);
+  background-image: url(./findbg.webp);
   background-size: cover;
   /* background: linear-gradient(180deg, rgba(255, 255, 255, 0.132) 0%, rgba(107, 211, 177, 0.498) 42.22%, rgba(255, 255, 255, 0.6) 77.06%); */
 }

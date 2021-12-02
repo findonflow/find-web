@@ -7,6 +7,7 @@ import { JoinDiscord } from "../components/home/JoinDiscord";
 import { WhoUses } from "../components/home/whoUses";
 import { SearchBar } from "../components/SearchBar";
 import '../components/home/home.css'
+import { BuiltOnFlow } from "../components/home/BuiltOnflow";
 
 function Home() {
 
@@ -19,7 +20,8 @@ function Home() {
         <WhoUses />
         <Faq />
       </Container>
-      {/* <JoinDiscord /> */}
+      <JoinDiscord />
+      <BuiltOnFlow />
     </Container>
   )
 }

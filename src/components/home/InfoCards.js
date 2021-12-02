@@ -13,7 +13,7 @@ export function InfoCards() {
           </Row>
           <Row>
             <Col align="center">
-              <div className="p-4 px-5 titletxt fw-bold mx-3">A name for your wallet</div>
+              <div className="p-4 px-5 titletxt fw-bold mx-3">A name for your blocto wallet</div>
             </Col>
           </Row>
           <Row>
@@ -56,7 +56,7 @@ export function InfoCards() {
           </Row>
           <Row>
             <Col align="center">
-              <p className="p-3 px-5">Slate helps you see how many more days you need to work to reach your financial goal or the month and year.</p>
+              <p className="p-3 px-5">Bring all your collections into your profile and show them off to everyone with a single link!</p>
             </Col>
           </Row>
         </Card>

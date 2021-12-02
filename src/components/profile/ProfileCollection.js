@@ -35,21 +35,20 @@ export function ProfileCollection({ profileData }) {
       {/* {JSON.stringify(findList,null,2)} */}
       <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
         {findList !== "first_init" &&
+          findList !== "" &&
           // console.log(Object.keys(findList["A.0e7e00f7a09b36fb.Artifact.Collection"].items).length),
           Object.keys(findList).map((collection) =>
             findList[collection]?.items.map((nftData, i) =>
               <Col key={i} className="mb-5">
-                <Card className="shadow" style={{maxWidth: "400px"}}>
-                {/* <div className="cardprofile-collection"> */}
-                  <Image src={nftData.url} className="collection-img p-3" rounded fluid/>
-                  {/* <div className="m-3 p-1 px-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.1)", borderRadius: "12px", zIndex: "5000", bottom: "-10px", position: "absolute" }}>{nftData.name}</div> */}
-                {/* </div> */}
-                <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>
+                <Card className="shadow" style={{ maxWidth: "400px" }}>
+                  <Image src={nftData.url} className="collection-img p-3" rounded fluid />
+                  <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>
                 </Card>
-                {/* <div className="m-3 mx-4">{nftData.name}</div> */}
               </Col>
             ))}
-
+      {JSON.stringify(findList, null, 2) === "{}" &&
+      <Col sm="12" align="center">There's nothing in your collection yet :-(</Col>
+      }
       </Row>
     </div>
   )

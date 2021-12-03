@@ -9,10 +9,10 @@ function Footer() {
                     <Image src="/find-alt.png" className="" style={{maxHeight: "36px"}}/>
                 </Col>
                 <Col xs="auto" className="my-auto footersocials">
-                    <i className="fab fa-twitter m-1"></i>
-                    <i className="fab fa-instagram m-1"></i>
-                    <i className="fab fa-discord m-1"></i>
-                    <i className="fab fa-youtube m-1"></i>
+                    <a href="https://twitter.com/findonflow" target="_blank" style={{color: "#3C3D41"}}><i className="fab fa-twitter m-1"></i></a>
+                    <a href=""><i className="fab fa-instagram m-1" style={{color: "#3C3D41"}}></i></a>
+                    <a href="https://discord.gg/tCSFSpFcRv" target="_blank" style={{color: "#3C3D41"}}><i className="fab fa-discord m-1"></i></a>
+                    <a href=""><i className="fab fa-youtube m-1" style={{color: "#3C3D41"}}></i></a>
                 </Col>
                 <Col className="m-auto text-md-end copyright">
                     @copyright find.xyz 2021

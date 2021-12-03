@@ -3,13 +3,13 @@ import { Container, Row, Col, Accordion } from "react-bootstrap";
 
 export function CadenceInfo() {
   return (
-    <Container id="cadenceHint" className="cadencehint">
+    <Container id="cadenceHint" className="cadencehint pt-3">
       <div className="my-5 seperator50 mx-auto"></div>
       <Row className="my-3">
         <Col align="center"><h3>Want to implement .find into your project?</h3></Col>
       </Row>
       <Row>
-        <Col align="center"><p>You can implement .find into your project, <br />to help with user profiles, address</p> </Col>
+        <Col align="center"><p>You can implement .find into your project. <br />Resolve names into addresses and integrate a pre built profile</p> </Col>
       </Row>
       <Row className="d-flex justify-content-center mt-md-5 mt-3">
         <Col className="p-md-5" xs="12" md="5">

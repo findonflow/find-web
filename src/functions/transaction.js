@@ -14,8 +14,8 @@ export const Tx = async (mods = [], opts = {}) => {
   const onError = opts.onError || noop;
   const onComplete = opts.onComplete || noop;
   const toastId = toast.loading('Preparing transaction')
-
   let hasSubmitted = 0
+
 
   try {
     onStart();
@@ -26,9 +26,8 @@ export const Tx = async (mods = [], opts = {}) => {
     );
     onSubmission(txId);
     var unsub = await fcl.tx(txId).subscribe(onUpdate);
-    var txStatus = await fcl.tx(txId).onceSealed().then(toast.loading(<span className="text-center">Transaction Submitted<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, }));
+    var txStatus = await fcl.tx(txId).onceSealed().then(toast.loading(<span className="text-center">Transaction Submitted<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })).then(hasSubmitted = 1);
     unsub();
-    hasSubmitted = 1;
     console.info(
       `%cTX[${txId}]: ${fvsTx(await fcl.config().get("env"), txId)}`,
       "color:green;font-weight:bold;font-family:monospace;"
@@ -43,23 +42,27 @@ export const Tx = async (mods = [], opts = {}) => {
     onError(error);
     const { message } = error
     if (hasSubmitted === 0 && message) {
-      if(message.includes("Declined: User rejected signature")){
-      toast('Transaction cancelled by user', { id: toastId, duration: "100"})
-      enableForm()}
-      else if(message.includes("Cannot read properties of undefined")){
+      if (message.includes("Declined: User rejected signature")) {
+        toast('Transaction cancelled by user', { id: toastId, duration: "100" })
+        enableForm()
+      }
+      else if (message.includes("Cannot read properties of undefined")) {
         toast('Login cancelled by user', { id: toastId, duration: "100", })
-        enableForm()}
-      else{
-      toast.error('Transaction ' + error, { id: toastId, })
-      enableForm()}
+        enableForm()
+      }
+      else {
+        toast.error('Transaction ' + error, { id: toastId, })
+        enableForm()
+      }
     }
     if (hasSubmitted === 1) {
-      toast.error(<span className="text-center text-break">Transaction failed<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })
-      enableForm()
-    }
-    if (!message) {
-      toast.error(<span className="text-center text-break">Transaction failed<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })
-      enableForm()
+      if (error.includes("Amount withdrawn must be less than or equal than the balance of the Vault")) {
+        toast('You do not have enough FUSD in your wallet for this transaction', { id: toastId, duration: "500", })
+        enableForm()
+      } else {
+        toast.error(<span className="text-center text-break">Transaction failed<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })
+        enableForm()
+      }
     }
   } finally {
     await onComplete(txStatus);

@@ -9,7 +9,7 @@ import { useFormStatus } from "../../functions/DisabledState";
 
 //Form to bid on an active auction
 export function BuyerBid({ lease }) {
-    const [validated, setValidated] = useState(false);
+    let validated = false
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -161,7 +161,7 @@ export function PrivateBid({ bid }) {
 //Form to make an initial offer on a name (blind bid)
 export function BuyerOffer({ lease }) {
 
-    const [validated, setValidated] = useState(false);
+    let validated = false
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -253,7 +253,7 @@ export function BuyerPurchase({ lease }) {
 //Form to start an auction that is active but not yet started (first bid)
 export function BuyerFirstBid({ lease }) {
 
-    const [validated, setValidated] = useState(false);
+    let validated = false
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -329,7 +329,7 @@ export function BuyerFirstBid({ lease }) {
 //Form to show you are the highest bidder and allow increase of bid amount
 export function HighestBidder({ lease }) {
 
-    const [validated, setValidated] = useState(false);
+    let validated = false
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;

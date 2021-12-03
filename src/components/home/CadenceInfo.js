@@ -1,9 +1,13 @@
-import { Container, Row, Col, Accordion } from "react-bootstrap";
+import { Container, Row, Col, Accordion, Button } from "react-bootstrap";
+import { Link as scrollLink } from "react-scroll"
 
 
 export function CadenceInfo() {
   return (
     <Container id="cadenceHint" className="cadencehint pt-lg-3">
+      <Row className="mb-lg-5  py-3 my-3">
+      <Col align="center"><Button as={scrollLink} to="searchSection" spy={true} smooth={true} offset={0} duration={400} variant="dark">Find a name</Button></Col>
+    </Row>
       <div className="mb-lg-5 mb-4 seperator50 mx-auto"></div>
       <Row className="my-3">
         <Col align="center"><h3>Want to implement .find into your project?</h3></Col>
@@ -33,6 +37,7 @@ export function CadenceInfo() {
           </Accordion>
         </Col>
       </Row>
+      <div className="my-lg-5 my-4 seperator50 mx-auto"></div>
     </Container>
   )
 }

@@ -8,6 +8,8 @@ import { WhoUses } from "../components/home/whoUses";
 import { SearchBar } from "../components/SearchBar";
 import '../components/home/home.css'
 import { BuiltOnFlow } from "../components/home/BuiltOnflow";
+import { PlaceToShowCollections } from "../components/home/PlaceToShowCollections";
+import { MakeWalletFindable } from "../components/home/MakeWalletFindable";
 
 function Home() {
 
@@ -16,6 +18,8 @@ function Home() {
       <SearchBar />
       <Container id="homeInfo" className="frontCards p-4">
         <InfoCards />
+        <PlaceToShowCollections />
+        <MakeWalletFindable />
         <CadenceInfo />
         <WhoUses />
         <Faq />

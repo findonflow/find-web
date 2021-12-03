@@ -3,11 +3,6 @@ import { Container, Row, Col, Accordion } from "react-bootstrap";
 export function Faq() {
     return (
         <Container id="faq">
-            <Row>
-                <Col>
-                    <div className="my-5 seperator50 mx-auto"></div>
-                </Col>
-            </Row>
             <Row className="d-flex justify-content-center mb-5">
                 <Col className="p-md-5" xs="12" md="5">
                     <h2>Frequently Asked Questions</h2>

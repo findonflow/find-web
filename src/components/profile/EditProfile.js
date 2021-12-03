@@ -172,8 +172,8 @@ function EditProfile({ profile }) {
                     <Form.Control className="mb-3" name="name" placeholder="Name" defaultValue={profile.profile.name} onChange={e => handleChangeForm(e)} />
                     <Form.Label>Bio/Description</Form.Label>
                     <Form.Control className="mb-3 ms-0" name="description" as="textarea" rows={3} placeholder="description (max 255 characters)" defaultValue={profile.profile.description} onChange={e => handleChangeForm(e)} />
-                    <Form.Label>Tags (Seperate with a comma)</Form.Label>
-                    <Form.Control className="mb-3" name="tags" placeholder="Tags seperated by a comma" defaultValue={profile.profile.tags} onChange={e => handleChangeTags(e)} />
+                    <Form.Label>Tags (Separate with a comma)</Form.Label>
+                    <Form.Control className="mb-3" name="tags" placeholder="Tags separated by a comma" defaultValue={profile.profile.tags} onChange={e => handleChangeTags(e)} />
                     <Form.Label>Avatar URL</Form.Label>
                     <Form.Control className="mb-3" name="avatar" placeholder="URL to your avatar" defaultValue={profile.profile.avatar} onChange={e => handleChangeForm(e)} />
                     <Form.Label>Links</Form.Label>

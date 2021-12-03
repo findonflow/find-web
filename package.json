@@ -22,6 +22,7 @@
     "react-router": "^6.0.0-beta.7",
     "react-router-dom": "^6.0.0-beta.7",
     "react-scripts": "4.0.3",
+    "react-scroll": "^1.8.4",
     "react-timeago": "^6.2.1",
     "recoil": "^0.4.1",
     "use-immer": "^0.6.0",

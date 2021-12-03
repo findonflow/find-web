@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import copy from "copy-to-clipboard";
 import * as fcl from "@onflow/fcl"
 import { Link } from 'react-router-dom'
+import { Link as scrollLink } from 'react-scroll'
 import './navbar.css'
 import { AuthCluster } from "../auth-cluster"
 import toast from "react-hot-toast";
@@ -31,6 +32,11 @@ function NavHead() {
         <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+        <Nav className="me-auto">
+          <Nav.Link as={scrollLink} to="cadenceHint" spy={true} smooth={true} offset={50} duration={400} style={{cursor: 'pointer'}} className="ms-lg-5">Integrate</Nav.Link>
+          <Nav.Link as={scrollLink} to="faq" spy={true} smooth={true} offset={50} duration={400} style={{cursor: 'pointer'}} className="ms-lg-3">FAQ's</Nav.Link>
+          <Nav.Link as={Link} to={""} className="ms-lg-3">Live Feed</Nav.Link>
+        </Nav>
         <Nav className="ms-auto">
         <div className="p-3 p-lg-0 mx-auto">
              {user.loggedIn ?

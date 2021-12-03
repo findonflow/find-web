@@ -16,7 +16,7 @@ function Home() {
       <SearchBar />
       <Container id="homeInfo" className="frontCards p-4">
         <InfoCards />
-        {/* <CadenceInfo /> */}
+        <CadenceInfo />
         <WhoUses />
         <Faq />
       </Container>

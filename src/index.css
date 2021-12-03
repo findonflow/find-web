@@ -61,6 +61,11 @@ p {
 .loadingblockchain {
   height: 80vh;
 }
+.seperator50 {
+  height: 1px;
+  width: 50vw;
+  background-color: #D7D7D7;
+}
 .seperator {
   height: 1px;
   width: 80%;

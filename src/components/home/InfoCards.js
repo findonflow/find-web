@@ -27,7 +27,7 @@ export function InfoCards() {
         <Card>
           <Row>
             <Col align="center">
-              <i className="fa-solid fa-user-ninja p-3 pt-5 display-2"></i>
+              <i className="fa-solid fa-user p-3 pt-5 display-2"></i>
             </Col>
           </Row>
           <Row>
@@ -46,7 +46,7 @@ export function InfoCards() {
         <Card>
           <Row>
             <Col align="center">
-              <i className="fa-solid fa-sitemap p-3 pt-5 display-2"></i>
+              <i className="fa-solid fa-image p-3 pt-5 display-2"></i>
             </Col>
           </Row>
           <Row>

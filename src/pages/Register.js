@@ -67,7 +67,7 @@ export function Register({ enteredName }) {
       </Row>
       <Row>
         <Col align="center">
-          <h1 className="display-6 fw-bold">Wohoo! {searchName} is <span style={{ color: "green" }}>available</span></h1>
+          <h1 className="display-6 fw-bold">Woohoo! {searchName} is <span style={{ color: "green" }}>available</span></h1>
           <div className="m-3 text">You are in luck, as the username you want is available.<br /> Claim this name now to ensure it doesn't get snatched up!</div>
           <div className="mt-5 align-middle">
             <fieldset id="a" disabled={useFormStatus()}>

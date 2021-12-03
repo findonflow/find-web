@@ -3,8 +3,8 @@ import { Container, Row, Col, Accordion } from "react-bootstrap";
 
 export function CadenceInfo() {
   return (
-    <Container id="cadenceHint" className="cadencehint pt-3">
-      <div className="my-5 seperator50 mx-auto"></div>
+    <Container id="cadenceHint" className="cadencehint pt-lg-3">
+      <div className="mb-lg-5 mb-4 seperator50 mx-auto"></div>
       <Row className="my-3">
         <Col align="center"><h3>Want to implement .find into your project?</h3></Col>
       </Row>

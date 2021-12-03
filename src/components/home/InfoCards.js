@@ -1,10 +1,12 @@
-import { Row, Col, Card } from "react-bootstrap";
+import { Row, Col, Card, Button } from "react-bootstrap";
+import { Link as scrollLink } from "react-scroll"
 
 
 export function InfoCards() {
   return (
+    <div>
     <Row className="d-flex justify-content-center">
-      <Col className="mt-4" xs="12" md="4">
+      <Col className="mt-lg-4 mt-0" xs="12" md="4">
         <Card>
           <Row>
             <Col align="center">
@@ -62,5 +64,9 @@ export function InfoCards() {
         </Card>
       </Col>
     </Row>
+    <Row className="my-lg-5 pt-lg-5 py-3 my-3">
+      <Col align="center"><Button as={scrollLink} to="searchSection" spy={true} smooth={true} offset={0} duration={400} variant="dark">Find a name</Button></Col>
+    </Row>
+    </div>
   )
 }

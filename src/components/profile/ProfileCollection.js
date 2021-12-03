@@ -46,10 +46,15 @@ export function ProfileCollection({ profileData }) {
                 </Card>
               </Col>
             ))}
-      {JSON.stringify(findList, null, 2) === "{}" &&
-      <Col sm="12" align="center">There's nothing in your collection yet :-(</Col>
-      }
       </Row>
+      {JSON.stringify(findList, null, 2) === "{}" &&
+      <Row>
+      <Col sm="12" align="center">
+        <div className="titletxt fw-bold pb-3">Uh oh, either your collection is empty or we do not yet support your NFT's</div>
+        <p>No worries, supported NFT's will appear here soon!</p>
+      </Col>
+      </Row>
+      }
     </div>
   )
 }

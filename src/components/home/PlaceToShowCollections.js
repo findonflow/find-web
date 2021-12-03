@@ -8,7 +8,7 @@ export function PlaceToShowCollections() {
             <Image src="/assets/img/home/collections-example.webp" fluid/>
             </Col>
             <Col className="my-auto px-5">
-            <div className="titletxt fw-bold my-3">A Place to show off your collection</div>
+            <div className="my-3"><h2>A Place to show off your collection</h2></div>
             <p>Show off all your flow NFT’s in one place, so your friends get envious. .Find allows you to display all of your NFT’s in your profile, so you have your collection connected to your .Find profile </p>
             </Col>
         </Row>

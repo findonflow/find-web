@@ -61,7 +61,7 @@ export function Register({ enteredName }) {
     }
   };
   return (
-    <Container id="registerAvailable" className="frontCards p-4">
+    <Container id="registerAvailable" className="frontTray p-4">
       <Row className="m-5">
         <Col align="center"><Image src="/assets/img/Tick_circle.png" /></Col>
       </Row>

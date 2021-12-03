@@ -11,7 +11,7 @@ export function NoProfile() {
     }
 
     return (
-        <Container className="frontCards p-4 mt-5">
+        <Container className="frontTray p-4 mt-5">
             <Row className="mt-5 p-2">
                 <Col className="d-flex justify-content-center text-center titletxt fw-bold">You've connected your wallet but don't have a profile yet.</Col>
             </Row>

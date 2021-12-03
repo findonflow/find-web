@@ -8,7 +8,7 @@ export function ProblemMessage({ problemVar }) {
     useEffect(() => fcl.currentUser().subscribe(setUser), [])
 
     let errorLoggedOut =
-        <div>
+        <div className="frontTray p-4 mt-5">
             <Row className="mt-5 p-2">
                 <Col className="d-flex justify-content-center text-center titletxt fw-bold">Uh oh, it seems you are not logged in.</Col>
             </Row>

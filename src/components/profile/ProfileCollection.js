@@ -48,9 +48,17 @@ export function ProfileCollection({ profileData }) {
             ))}
       </Row>
       {JSON.stringify(findList, null, 2) === "{}" &&
+        profileData.profile.address === user.addr ?
       <Row>
       <Col sm="12" align="center">
         <div className="titletxt fw-bold pb-3">Uh oh, either your collection is empty or we do not yet support your NFT's</div>
+        <p>No worries, supported NFT's will appear here soon!</p>
+      </Col>
+      </Row>
+      :
+      <Row>
+      <Col sm="12" align="center">
+        <div className="titletxt fw-bold pb-3">Uh oh, seems this collection is empty or we do not yet support the NFT's</div>
         <p>No worries, supported NFT's will appear here soon!</p>
       </Col>
       </Row>

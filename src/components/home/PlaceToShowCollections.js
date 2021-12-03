@@ -4,7 +4,7 @@ export function PlaceToShowCollections() {
     return(
     <Container id="PlaceToShowCollections">
         <Row>
-            <Col sm="12" lg="6">
+            <Col sm="12" lg="6" align="center">
             <Image src="/assets/img/home/collections-example.webp" fluid/>
             </Col>
             <Col className="my-auto px-5">

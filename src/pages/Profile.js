@@ -43,7 +43,7 @@ export function Profile({ user }) {
   }
   if (!findUser) {
     //no profile found
-    return <div><NoProfile /></div>
+    return <NoProfile />
   }
   if (findUser) {
     //something there but not a profile (catchall)

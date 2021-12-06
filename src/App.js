@@ -44,13 +44,14 @@ export default function App() {
       <Router>
         <NavHead />
         <Routes>
-          {subdomain !== "find" && subdomain !== "localhost" ?
+          {subdomain !== "find" && subdomain !== "localhost" && subdomain !== "test-find" ?
         <Route path="/" element={<NameSearch subdomain={subdomain}/>} />
         :
           <Route path='/' element={<Home />} />}
-          <Route path='/profile' element={<Profile user={user} />} />
+          {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />
-          <Route path=':id' element={<NameSearch />} />
+          {subdomain === "find" && subdomain === "localhost" &&
+          <Route path=':id' element={<NameSearch />} />}
           <Route path='/remove' element={<RemoveProfile />} />
         </Routes>
         <Footer />

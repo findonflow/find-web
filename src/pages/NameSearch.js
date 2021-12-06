@@ -24,9 +24,11 @@ function NameSearch({ subdomain }) {
   let searchName = id.toLowerCase()
   searchName = searchName.replace(/[^a-z0-9-]/g, '')
   if (!searchName) {
+    console.log("no name")
     navigate("/")
   }
   if (searchName.length < 3 || searchName.length > 16) {
+    console.log("not long enough")
     navigate("/")
   }
 

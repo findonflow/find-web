@@ -412,7 +412,7 @@ export const handleFullfillAuction = async (e) => {
   try {
     await Tx(
       [
-        fcl.transaction(transactions.fullfillAuctionBidder),
+        fcl.transaction(transactions.fulfillAuctionBidder),
         fcl.args([
           fcl.arg(d.address, t.Address),
           fcl.arg(d.name, t.String)

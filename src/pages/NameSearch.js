@@ -10,10 +10,17 @@ import LoadingBC from "../components/infoboxes/LoadingBC";
 import { Container } from "react-bootstrap";
 import { useStateChanged } from "../functions/DisabledState";
 
-function NameSearch() {
+function NameSearch({ subdomain }) {
 
   let navigate = useNavigate();
-  const { id } = useParams();
+  let { id } = useParams();
+  console.log("This is the params ID: "+id)
+  if(!id){
+    if(subdomain) {
+      id = subdomain
+      console.log("This is the props for subdomain: "+id)
+    }
+  }
   let searchName = id.toLowerCase()
   searchName = searchName.replace(/[^a-z0-9-]/g, '')
   if (!searchName) {

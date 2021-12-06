@@ -8,7 +8,15 @@ import { useNavigate, useParams } from "react-router";
 import { useFormStatus } from "../functions/DisabledState";
 
 export function Register({ enteredName }) {
-  const { id } = useParams();
+
+  let { id } = useParams();
+  if(!id){
+    const [subdomain] = window.location.hostname.split('.');
+    if(subdomain) {
+      id = subdomain
+      console.log("This is the props for subdomain: "+id)
+    }
+  }
   let navigate = useNavigate();
   let searchName = id.toLowerCase()
   searchName = searchName.replace(/[^a-z0-9-]/g, '')

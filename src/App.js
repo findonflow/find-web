@@ -17,6 +17,9 @@ export default function App() {
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
 
+  const [subdomain] = window.location.hostname.split('.');
+  console.log(subdomain)
+
   return (
     <Container className="main-container g-0" fluid>
       <div className="toastText">
@@ -41,7 +44,10 @@ export default function App() {
       <Router>
         <NavHead />
         <Routes>
-          <Route path='/' element={<Home />} />
+          {subdomain !== "find" && subdomain !== "localhost" ?
+        <Route path="/" element={<NameSearch subdomain={subdomain}/>} />
+        :
+          <Route path='/' element={<Home />} />}
           <Route path='/profile' element={<Profile user={user} />} />
           <Route path='/me' element={<Profile user={user} />} />
           <Route path=':id' element={<NameSearch />} />

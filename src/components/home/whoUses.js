@@ -7,9 +7,9 @@ export function WhoUses() {
                 <Col align="center">
                 <h3 className="my-3">Who Uses .find?</h3>
                 <Row className="d-flex justify-content-center my-4">
-                    <Col xs='auto'><Image src="/assets/img/home/versus.webp" width="90px"/><div>Versus</div></Col>
-                    <Col xs='auto'><Image src="/assets/img/home/flowscan.webp" width="90px" /><div>FlowScan</div></Col>
-                    <Col xs='auto'><Image src="/assets/img/home/neo.png" width="88px" /><div>Neo</div></Col>
+                    <Col xs='auto'><Image src="/assets/img/home/versus.webp" alt="Versus flow auction site logo" width="90px"/><div>Versus</div></Col>
+                    <Col xs='auto'><Image src="/assets/img/home/flowscan.webp" alt="FlowScan logo" width="90px" /><div>FlowScan</div></Col>
+                    <Col xs='auto'><Image src="/assets/img/home/neo.png" alt="Neo Collectibles logo" width="88px" /><div>Neo</div></Col>
                 </Row>
                 </Col>
             </Row>

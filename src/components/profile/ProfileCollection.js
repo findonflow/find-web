@@ -29,6 +29,7 @@ export function ProfileCollection({ profileData }) {
     catch (error) {
       console.log(error)
     }
+    // eslint-disable-next-line
   }, [user, useStateChanged()]);
 
   return (
@@ -37,14 +38,13 @@ export function ProfileCollection({ profileData }) {
       <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
         {findList !== "first_init" &&
           findList !== "" &&
-          // console.log(Object.keys(findList["A.0e7e00f7a09b36fb.Artifact.Collection"].items).length),
           Object.keys(findList).map((collection) =>
             findList[collection]?.items.map((nftData, i) => {
               itemCount = itemCount+1;
               return(
               <Col key={i} className="mb-5">
                 <Card className="shadow" style={{ maxWidth: "400px" }}>
-                  <Image src={nftData.url} className="collection-img p-3" rounded fluid />
+                  <Image src={nftData.url} className="collection-img p-3" alt={"Picture of "+nftData.name} rounded fluid />
                   <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>
                 </Card>
               </Col>)

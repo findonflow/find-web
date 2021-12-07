@@ -5,7 +5,7 @@ export function PlaceToShowCollections() {
     <Container id="PlaceToShowCollections">
         <Row>
             <Col sm="12" lg="6" align="center">
-            <Image src="/assets/img/home/collections-example.webp" fluid/>
+            <Image src="/assets/img/home/collections-example.webp" alt="Blockchain collection example" fluid/>
             </Col>
             <Col className="my-auto px-5">
             <div className="my-3"><h2>A Place to show off your collection</h2></div>

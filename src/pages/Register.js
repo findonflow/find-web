@@ -71,7 +71,7 @@ export function Register({ enteredName }) {
   return (
     <Container id="registerAvailable" className="frontTray p-4">
       <Row className="m-5">
-        <Col align="center"><Image src="/assets/img/Tick_circle.png" /></Col>
+        <Col align="center"><Image src="/assets/img/Tick_circle.png" alt="Green circle with a tick" /></Col>
       </Row>
       <Row>
         <Col align="center">

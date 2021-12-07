@@ -20,12 +20,13 @@ export default function App() {
   useEffect(() => {
     const host = window.location.hostname
     const validSubdomain = (/(\..*){2,}/).test(host)
-  if (validSubdomain) {
-    setSubdomain(window.location.hostname.split('.'))
-    console.log(validSubdomain)
-  }}
-  , [])
-  
+    if (validSubdomain) {
+      setSubdomain(window.location.hostname.split('.'))
+      console.log(validSubdomain)
+    }
+  }
+    , [])
+
 
 
   return (
@@ -52,12 +53,12 @@ export default function App() {
       <Router>
         <NavHead />
         <Routes>
-          { subdomain !== "NoSub" &&
+          {subdomain !== "NoSub" &&
             <Route path="/" element={<NameSearch subdomain={subdomain} />} />}
-            <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home />} />
           {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />
-            <Route path=':id' element={<NameSearch />} />
+          <Route path=':id' element={<NameSearch />} />
           <Route path='/remove' element={<RemoveProfile />} />
         </Routes>
         <Footer />

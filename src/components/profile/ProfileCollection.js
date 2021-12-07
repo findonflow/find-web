@@ -10,7 +10,9 @@ export function ProfileCollection({ profileData }) {
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
 
+  let itemCount = 0
   const [findList, setFindList] = useState("first_init");
+
   useEffect(() => {
     async function getFindUser(addr) {
       const response = await fcl.send([
@@ -27,7 +29,6 @@ export function ProfileCollection({ profileData }) {
     catch (error) {
       console.log(error)
     }
-    // eslint-disable-next-line
   }, [user, useStateChanged()]);
 
   return (
@@ -38,16 +39,18 @@ export function ProfileCollection({ profileData }) {
           findList !== "" &&
           // console.log(Object.keys(findList["A.0e7e00f7a09b36fb.Artifact.Collection"].items).length),
           Object.keys(findList).map((collection) =>
-            findList[collection]?.items.map((nftData, i) =>
+            findList[collection]?.items.map((nftData, i) => {
+              itemCount = itemCount+1;
+              return(
               <Col key={i} className="mb-5">
                 <Card className="shadow" style={{ maxWidth: "400px" }}>
                   <Image src={nftData.url} className="collection-img p-3" rounded fluid />
                   <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>
                 </Card>
-              </Col>
-            ))}
+              </Col>)
+}))}
       </Row>
-      {JSON.stringify(findList, null, 2) === "{}" &&
+      {itemCount === 0 &&
         <Row>
           {profileData.profile.address === user.addr ?
             <Col sm="12" align="center">

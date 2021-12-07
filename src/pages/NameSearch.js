@@ -17,7 +17,7 @@ function NameSearch({ subdomain }) {
   console.log("This is the params ID: "+id)
   if(!id){
     if(subdomain) {
-      id = subdomain
+      id = subdomain[0]
       console.log("This is the props for subdomain: "+id)
     }
   }

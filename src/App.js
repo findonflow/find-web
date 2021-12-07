@@ -16,9 +16,17 @@ export default function App() {
 
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
+  const [subdomain, setSubdomain] = useState("NoSub")
+  useEffect(() => {
+    const host = window.location.hostname
+    const validSubdomain = (/(\..*){2,}/).test(host)
+  if (validSubdomain) {
+    setSubdomain(window.location.hostname.split('.'))
+    console.log(validSubdomain)
+  }}
+  , [])
+  
 
-  const [subdomain] = window.location.hostname.split('.');
-  console.log(subdomain)
 
   return (
     <Container className="main-container g-0" fluid>
@@ -44,14 +52,12 @@ export default function App() {
       <Router>
         <NavHead />
         <Routes>
-          {subdomain !== "find" && subdomain !== "localhost" && subdomain !== "test-find" ?
-        <Route path="/" element={<NameSearch subdomain={subdomain}/>} />
-        :
-          <Route path='/' element={<Home />} />}
+          { subdomain !== "NoSub" &&
+            <Route path="/" element={<NameSearch subdomain={subdomain} />} />}
+            <Route path='/' element={<Home />} />
           {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />
-          {subdomain === "find" && subdomain === "localhost" &&
-          <Route path=':id' element={<NameSearch />} />}
+            <Route path=':id' element={<NameSearch />} />
           <Route path='/remove' element={<RemoveProfile />} />
         </Routes>
         <Footer />

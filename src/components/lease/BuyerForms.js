@@ -215,7 +215,8 @@ export function BuyerOffer({ lease }) {
                     </Col>
                 </Row>
                 <Row>
-                    <span className="idd1 my-3">The owner of the name will be notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</span>
+                        <span className="idd1 my-3">For pre registered names, please enter the correct amount and click Make Offer. Within a couple of minutes you can refresh the page which will show you as the shiny new owner!</span>
+                    {/* <span className="idd1 my-3">The owner of the name will be notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</span> */}
                 </Row>
             </Form.Group>
         </Form>

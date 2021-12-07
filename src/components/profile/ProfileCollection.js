@@ -14,7 +14,7 @@ export function ProfileCollection({ profileData }) {
   useEffect(() => {
     async function getFindUser(addr) {
       const response = await fcl.send([
-        fcl.script(scripts["find-list"]),
+        fcl.script(scripts["versus-list"]),
         fcl.args([fcl.arg(addr, t.Address)]),
       ]);
 

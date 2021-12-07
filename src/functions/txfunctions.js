@@ -185,7 +185,7 @@ export const handleOffer = async (e) => {
   try {
     await Tx(
       [
-        fcl.transaction(transactions.bid),
+        fcl.transaction(transactions.bidProfile),
         fcl.args([
           fcl.arg(d.name, t.String),
           fcl.arg(parseFloat(d.bidAmt).toFixed(2), t.UFix64)

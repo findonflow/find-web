@@ -16,17 +16,6 @@ export default function App() {
 
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
-  const [subdomain, setSubdomain] = useState("NoSub")
-  useEffect(() => {
-    const host = window.location.hostname
-    const validSubdomain = (/(\..*){2,}/).test(host)
-    if (validSubdomain) {
-      setSubdomain(window.location.hostname.split('.'))
-      console.log(validSubdomain)
-    }
-  }
-    , [])
-
 
 
   return (
@@ -53,12 +42,11 @@ export default function App() {
       <Router>
         <NavHead />
         <Routes>
-          {subdomain !== "NoSub" &&
-            <Route path="/" element={<NameSearch subdomain={subdomain} />} />}
           <Route path='/' element={<Home />} />
           {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />
           <Route path=':id' element={<NameSearch />} />
+          <Route path=':id/collection' element={<NameSearch />} />
           <Route path='/remove' element={<RemoveProfile />} />
         </Routes>
         <Footer />

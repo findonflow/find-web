@@ -9,8 +9,6 @@ export function ProfileCollection({ profileData }) {
 
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
-
-  let itemCount = 0
   const [findList, setFindList] = useState("first_init");
 
   useEffect(() => {
@@ -36,21 +34,21 @@ export function ProfileCollection({ profileData }) {
     <div>
       {/* {JSON.stringify(findList,null,2)} */}
       <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
-        {findList !== "first_init" &&
-          findList !== "" &&
+        {
+          findList && findList !== "first_init" && findList !== "" &&
           Object.keys(findList).map((collection) =>
             findList[collection]?.items.map((nftData, i) => {
-              itemCount = itemCount+1;
-              return(
-              <Col key={i} className="mb-5">
-                <Card className="shadow" style={{ maxWidth: "400px" }}>
-                  <Image src={nftData.url} className="collection-img p-3" alt={"Picture of "+nftData.name} rounded fluid />
-                  <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>
-                </Card>
-              </Col>)
-}))}
+              return (
+                <Col key={i} className="mb-5">
+                  <Card className="shadow" style={{ maxWidth: "400px" }}>
+                    <Image src={nftData.url} className="collection-img p-3" alt={"Picture of " + nftData.name} rounded fluid />
+                    <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>
+                  </Card>
+                </Col>)
+            }))
+        }
       </Row>
-      {itemCount === 0 &&
+      {!findList &&
         <Row>
           {profileData.profile.address === user.addr ?
             <Col sm="12" align="center">

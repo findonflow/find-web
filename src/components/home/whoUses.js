@@ -6,10 +6,10 @@ export function WhoUses() {
             <Row>
                 <Col align="center">
                 <h3 className="my-3">Who Uses .find?</h3>
-                <Row className="d-flex justify-content-center my-4">
-                    <Col xs='auto'><Image src="/assets/img/home/versus.webp" alt="Versus flow auction site logo" width="90px"/><div>Versus</div></Col>
-                    <Col xs='auto'><Image src="/assets/img/home/flowscan.webp" alt="FlowScan logo" width="90px" /><div>FlowScan</div></Col>
-                    <Col xs='auto'><Image src="/assets/img/home/neo.png" alt="Neo Collectibles logo" width="88px" /><div>Neo</div></Col>
+                <Row className="d-flex justify-content-center my-5">
+                    <Col xs='auto' className="px-5"><Image src="/assets/img/home/versus.webp" alt="Versus flow auction site logo" width="64px"/><div className="pt-2">Versus</div></Col>
+                    <Col xs='auto' className="px-4"><Image src="/assets/img/home/flovatar.webp" alt="Flovatars logo" width="64px" /><div className="pt-2">Flovatars</div></Col>
+                    <Col xs='auto' className="px-5"><Image src="/assets/img/home/neo.webp" alt="Neo Collectibles logo" width="64px" /><div className="pt-2">Neo</div></Col>
                 </Row>
                 </Col>
             </Row>

@@ -53,7 +53,7 @@ export function ProfileCard({ profileData }) {
   }
 
   return (
-    <Container fluid style={{ backgroundColor: "white" }} className="g-0 m-0 pt-lg-3" >
+    <Container fluid="true" style={{ backgroundColor: "white" }} className="g-0 m-0 pt-lg-3" >
       <Container className="p-0">
         {profileData ?
 

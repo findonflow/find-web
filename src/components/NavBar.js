@@ -19,14 +19,14 @@ import {
 function NavHead() {
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
-
+  
   function runCopy(copyData) {
     copy(copyData)
     toast(<span align="center">{copyData} copied to clipboard</span>, { duration: 2000, style: {} })
     console.log(copyData)
   }
   return (
-    <Container id="navbar" fluid>
+    <Container id="navbar" fluid="true">
       <Navbar collapseOnSelect={true} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3">
         <Container>
         <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>

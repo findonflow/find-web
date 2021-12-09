@@ -11,6 +11,7 @@ import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import { CloseButton, Container } from "react-bootstrap";
 import NameSearch from "./pages/NameSearch";
 import RemoveProfile from "./pages/RemoveProfile";
+import LiveFeed from "./pages/LiveFeed";
 
 export default function App() {
 
@@ -19,7 +20,7 @@ export default function App() {
 
 
   return (
-    <Container className="main-container g-0" fluid>
+    <Container className="main-container g-0" fluid="true">
       <div className="toastText">
         <Toaster toastOptions={{
           duration: Infinity,
@@ -45,9 +46,10 @@ export default function App() {
           <Route path='/' element={<Home />} />
           {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />
-          <Route path=':id' element={<NameSearch />} />
-          <Route path=':id/collection' element={<NameSearch />} />
+          <Route path=':id' element={<NameSearch default="profile" />} />
+          <Route path=':id/collection' element={<NameSearch default="collection" />} />
           <Route path='/remove' element={<RemoveProfile />} />
+          <Route path='/lf' element={<LiveFeed />} />
         </Routes>
         <Footer />
       </Router>

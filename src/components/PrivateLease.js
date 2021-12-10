@@ -289,7 +289,7 @@ export function PrivateLease({ lease }) {
             <p>To finish this auction and relist click fulfill. you can cancel the auction at any time.</p>
           </Col>
           <Col align="right">
-            <Button text="fullfill" onClick={handleFullfillAuction} variant="outline-dark" size='sm'>Fulfill</Button>
+            <Button onClick={handleFullfillAuction} variant="outline-dark" size='sm'>Fulfill</Button>
           </Col>
         </Row>
       }

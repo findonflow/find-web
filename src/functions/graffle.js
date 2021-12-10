@@ -2,6 +2,7 @@ const signalR = require("@microsoft/signalr");
 const axios = require("axios");
 
 export default function GraffleSDK() {
+
   let negotiateResult;
   const projectID = process.env.REACT_APP_GRAFFLE_PROJECT_ID
   const negotiate = async () => {
@@ -9,9 +10,7 @@ export default function GraffleSDK() {
     const authHeader = {
         "graffle-api-key": process.env.REACT_APP_GRAFFLE_API_KEY
     }
-    //const url = process.env.GRAFFLE_API_URL
     const url = process.env.REACT_APP_GRAFFLE_API_URL
-    console.log(url)
 
     negotiateResult = await axios.post(url, {}, { headers: authHeader });
   };
@@ -26,9 +25,9 @@ export default function GraffleSDK() {
       .build();
 
     if (connection) {
-      connection.start().then((result) => {
+      connection.start()
+      .then((result) => {
           console.log("1st Parse: "+projectID)
-          console.log(result)
         connection.on(projectID, (message) => {
           var parsedMessage = JSON.parse(message);
           console.log("Parsing Message for: "+projectID)

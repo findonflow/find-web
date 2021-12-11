@@ -21,7 +21,7 @@ export function Faq() {
                             <Accordion className="my-3">
                                 <Accordion.Item eventKey="0" className="faqaccordion m-md-3 mb-3 p-3">
                                     <Accordion.Header><span className="titletxt fw-bold">Sites that integrate with find</span></Accordion.Header>
-                                    <Accordion.Body><p>Find will be integrated into the following sites at launch</p><ul><li>versus.auction</li><li>flowscan.org</li></ul><p>If you want to be on this list let me know</p></Accordion.Body>
+                                    <Accordion.Body><p>Find will be integrated into the following sites at launch</p><ul><li>versus.auction</li><li>flovatars</li></ul><p>If you want to be on this list let me know</p></Accordion.Body>
                                 </Accordion.Item>
                             </Accordion>
                         </Col>

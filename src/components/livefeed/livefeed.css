@@ -1,0 +1,16 @@
+#eventTable td {
+    border: none;
+}
+#eventBody td:first-child {
+    font-weight:500;
+}
+.tableHeight {
+    height: 500px;
+    overflow: auto;
+}
+#eventTable th{
+    border: none !important;
+}
+#eventTable.table>:not(:first-child) {
+    border-top: 1px solid #F4F5F7 !important;
+}

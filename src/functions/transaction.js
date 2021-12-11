@@ -26,13 +26,13 @@ export const Tx = async (mods = [], opts = {}) => {
     );
     onSubmission(txId);
     var unsub = await fcl.tx(txId).subscribe(onUpdate);
-    var txStatus = await fcl.tx(txId).onceSealed().then(toast.loading(<span className="text-center">Transaction Submitted<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })).then(hasSubmitted = 1);
+    var txStatus = await fcl.tx(txId).onceSealed().then(toast.loading(<span className="text-center">Transaction Submitted<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this transaction.</span>, { id: toastId, })).then(hasSubmitted = 1);
     unsub();
     console.info(
       `%cTX[${txId}]: ${fvsTx(await fcl.config().get("env"), txId)}`,
       "color:green;font-weight:bold;font-family:monospace;"
     );
-    await onSuccess(txStatus).then(toast.success(<span className="text-center">Transaction successful<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })).then(enableForm()).then(changeState());
+    await onSuccess(txStatus).then(toast.success(<span className="text-center">Transaction successful<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this transaction.</span>, { id: toastId, })).then(enableForm()).then(changeState());
     return txStatus
   } catch (error) {
     console.error(
@@ -60,7 +60,7 @@ export const Tx = async (mods = [], opts = {}) => {
         toast('You do not have enough FUSD in your wallet for this transaction', { id: toastId, duration: "500", })
         enableForm()
       } else {
-        toast.error(<span className="text-center text-break">Transaction failed<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this on flowscan.</span>, { id: toastId, })
+        toast.error(<span className="text-center text-break">Transaction failed<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this transaction.</span>, { id: toastId, })
         enableForm()
       }
     }

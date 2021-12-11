@@ -127,6 +127,10 @@ export function PrivateLease({ lease }) {
         document.getElementById("reservePrice").classList.add("is-invalid")
         document.getElementById("reservePrice").classList.remove("is-valid")
       }
+      if (duration === "Select duration" || !duration) {
+        document.getElementById("selectDuration").classList.add("is-invalid")
+        document.getElementById("selectDuration").classList.remove("is-valid")
+      }
       e.preventDefault();
       e.stopPropagation();
       return
@@ -380,7 +384,7 @@ export function PrivateLease({ lease }) {
               <Form.Label className='formSubLabel'>Start Price</Form.Label>
               <Form.Control id="startPrice" placeholder="Enter an amount in FUSD" type="number" onChange={(e) => {
                 setPrice(e.target.value)
-                if (e.target.value < 1) {
+                if (e.target.value*1 < 1) {
                   e.target.classList.add("is-invalid")
                   e.target.classList.remove("is-valid")
                 } else {
@@ -393,7 +397,7 @@ export function PrivateLease({ lease }) {
               <Form.Label className='formSubLabel'>Reserve Price</Form.Label>
               <Form.Control id='reservePrice' placeholder="Enter an amount in FUSD" type="number" onChange={(e) => {
                 setReserve(e.target.value)
-                if (e.target.value < startPrice) {
+                if (startPrice*1 > e.target.value*1) {
                   e.target.classList.add("is-invalid")
                   e.target.classList.remove("is-valid")
                 } else {
@@ -406,7 +410,15 @@ export function PrivateLease({ lease }) {
           <Row>
             <Col xs="12" md="6">
               <Form.Label className='formSubLabel'>Duration</Form.Label>
-              <Form.Select aria-label="Duration Select" onChange={(e) => setDuration(e.target.value)}>
+              <Form.Select id="selectDuration" aria-label="Duration Select" onChange={(e) => {
+                if (!e.target.value || e.target.value === "Select duration") {
+                  e.target.classList.add("is-invalid")
+                  e.target.classList.remove("is-valid")
+                } else {
+                  e.target.classList.add("is-valid")
+                  e.target.classList.remove("is-invalid")
+                }
+                setDuration(e.target.value)}}>
                 <option>Select duration</option>
                 <option value="60">1 min</option>
                 <option value="180">3 mins</option>

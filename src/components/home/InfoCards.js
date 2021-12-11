@@ -1,5 +1,5 @@
 import { Row, Col, Card, Button } from "react-bootstrap";
-import { Link as scrollLink } from "react-scroll"
+import { Link as scrollLink, animateScroll as scroll } from "react-scroll"
 
 
 export function InfoCards() {
@@ -65,7 +65,7 @@ export function InfoCards() {
       </Col>
     </Row>
     <Row className="my-lg-5 pt-lg-5 py-3 my-3">
-      <Col align="center"><Button as={scrollLink} to="searchSection" spy={true} smooth={true} offset={0} duration={400} variant="dark">Find a name</Button></Col>
+      <Col align="center"><Button onClick={() => scroll.scrollTo("searchSection")} variant="dark">Find a name</Button></Col>
     </Row>
     </div>
   )

@@ -19,23 +19,23 @@ import {
 function NavHead() {
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
-
+  
   function runCopy(copyData) {
     copy(copyData)
     toast(<span align="center">{copyData} copied to clipboard</span>, { duration: 2000, style: {} })
-    console.log(copyData)
+    //console.log(copyData)
   }
   return (
-    <Container id="navbar" fluid>
+    <Container id="navbar" fluid="true">
       <Navbar collapseOnSelect={true} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3">
         <Container>
         <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         <Nav className="me-auto">
-          <Nav.Link as={scrollLink} to="cadenceHint" spy={true} smooth={true} offset={50} duration={400} style={{cursor: 'pointer'}} className="ms-lg-5">Integrate</Nav.Link>
+          <Nav.Link as={scrollLink} to="cadenceHint" spy={true} smooth={true} offset={120} duration={400} style={{cursor: 'pointer'}} className="ms-lg-5">Integrate</Nav.Link>
           <Nav.Link as={scrollLink} to="faq" spy={true} smooth={true} offset={50} duration={400} style={{cursor: 'pointer'}} className="ms-lg-3">FAQ's</Nav.Link>
-          <Nav.Link as={Link} to={""} className="ms-lg-3">Live Feed</Nav.Link>
+          <Nav.Link as={Link} to={"/lf"} className="ms-lg-3">Live Feed</Nav.Link>
         </Nav>
         <Nav className="ms-auto">
         <div className="p-3 p-lg-0 mx-auto">

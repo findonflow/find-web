@@ -14,7 +14,7 @@ import { MakeWalletFindable } from "../components/home/MakeWalletFindable";
 function Home() {
 
   return (
-    <Container id="homeBody" className="px-3 px-lg-0" fluid>
+    <Container id="homeBody" className="px-3 px-lg-0" fluid="true">
       <SearchBar />
       <Container id="homeInfo" className="frontCards p-4">
         <InfoCards />

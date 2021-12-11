@@ -13,13 +13,15 @@ import { useStateChanged } from "../functions/DisabledState";
 function NameSearch() {
 
   let navigate = useNavigate();
-  const { id } = useParams();
+  let { id } = useParams();
+
   let searchName = id.toLowerCase()
   searchName = searchName.replace(/[^a-z0-9-]/g, '')
   if (!searchName) {
     navigate("/")
   }
   if (searchName.length < 3 || searchName.length > 16) {
+    console.log("not long enough or too long")
     navigate("/")
   }
 
@@ -59,7 +61,7 @@ function NameSearch() {
     }
     // --- SEARCH RESULT SCREEN ---
     return (
-      <Container id="nameFoundProfile" className="g-0 m-0 p-0" fluid>
+      <Container id="nameFoundProfile" className="g-0 m-0 p-0" fluid="true">
         <ProfileCard profileData={nameStatus} />
       </Container>
 

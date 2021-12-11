@@ -215,7 +215,8 @@ export function BuyerOffer({ lease }) {
                     </Col>
                 </Row>
                 <Row>
-                    <span className="idd1 my-3">The owner of the name will be notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</span>
+                        <span className="idd1 my-3">For pre registered names, please enter the correct amount and click Make Offer. Within a couple of minutes you can refresh the page which will show you as the shiny new owner!</span>
+                    {/* <span className="idd1 my-3">The owner of the name will be notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</span> */}
                 </Row>
             </Form.Group>
         </Form>
@@ -233,7 +234,7 @@ export function BuyerPurchase({ lease }) {
     }]
 
     return (
-        <Form>
+        <Form onSubmit={() => handleBuy(formValues)}>
             <Row>
                 <Col className="d-flex align-items-center" xs="12" md="auto">
                     <Form.Group className="p-3">
@@ -242,7 +243,7 @@ export function BuyerPurchase({ lease }) {
                 </Col>
                 <Col align="right">
                     <Form.Group className="p-3">
-                        <Button type="submit" onClick={() => handleBuy(formValues)} variant="outline-dark">Purchase this name</Button>
+                        <Button type="submit" variant="outline-dark">Purchase this name</Button>
                     </Form.Group>
                 </Col>
             </Row>

@@ -8,7 +8,9 @@ import { useNavigate, useParams } from "react-router";
 import { useFormStatus } from "../functions/DisabledState";
 
 export function Register({ enteredName }) {
-  const { id } = useParams();
+
+  let { id } = useParams();
+  
   let navigate = useNavigate();
   let searchName = id.toLowerCase()
   searchName = searchName.replace(/[^a-z0-9-]/g, '')
@@ -63,7 +65,7 @@ export function Register({ enteredName }) {
   return (
     <Container id="registerAvailable" className="frontTray p-4">
       <Row className="m-5">
-        <Col align="center"><Image src="/assets/img/Tick_circle.png" /></Col>
+        <Col align="center"><Image src="/assets/img/Tick_circle.png" alt="Green circle with a tick" /></Col>
       </Row>
       <Row>
         <Col align="center">

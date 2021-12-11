@@ -24,7 +24,7 @@ export function ProfileCard({ profileData }) {
   function runCopy(copyData) {
     copy(copyData)
     toast(<span>{copyData} copied to clipoard</span>, { duration: 2000, style: {} })
-    console.log(copyData)
+    //console.log(copyData)
   }
 
   function editClicked() {
@@ -53,7 +53,7 @@ export function ProfileCard({ profileData }) {
   }
 
   return (
-    <Container fluid style={{ backgroundColor: "white" }} className="g-0 m-0 pt-lg-3" >
+    <Container fluid="true" style={{ backgroundColor: "white" }} className="g-0 m-0 pt-lg-3" >
       <Container className="p-0">
         {profileData ?
 

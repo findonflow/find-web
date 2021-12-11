@@ -117,19 +117,18 @@ export default function LiveFeed() {
     const streamSDK = new GraffleSDK();
     const feed = async (message) => {
         if (get(message, "flowEventId") === "A.a16ab1d0abde3625.FIND.Name") {
-            console.log("Name event detected, event ignored")
             return;
         }
         setLatestMessage(message);
-        console.log(message)
+        //console.log(message)
     };
     let conn = useRef();
     useEffect(async () => {
-        console.log("Creating the stream")
+        //console.log("Creating the stream")
         conn.current = await streamSDK.stream(feed);
     }, []);
     useEffect(() => () => {
-        console.log("Stopping the connection")
+        //console.log("Stopping the connection")
         conn.current.stop()
     }, []);
     return (

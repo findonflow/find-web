@@ -23,7 +23,7 @@ function NavHead() {
   function runCopy(copyData) {
     copy(copyData)
     toast(<span align="center">{copyData} copied to clipboard</span>, { duration: 2000, style: {} })
-    console.log(copyData)
+    //console.log(copyData)
   }
   return (
     <Container id="navbar" fluid="true">

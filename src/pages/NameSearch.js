@@ -22,7 +22,7 @@ function NameSearch() {
     navigate("/")
   }
   if (searchName.length < 3 || searchName.length > 16) {
-    console.log("not long enough")
+    console.log("not long enough or too long")
     navigate("/")
   }
 

@@ -27,10 +27,10 @@ export default function GraffleSDK() {
     if (connection) {
       connection.start()
       .then((result) => {
-          console.log("1st Parse: "+projectID)
+          //console.log("1st Parse: "+projectID)
         connection.on(projectID, (message) => {
           var parsedMessage = JSON.parse(message);
-          console.log("Parsing Message for: "+projectID)
+          //console.log("Parsing Message for: "+projectID)
           streamCallback(parsedMessage);
         });
       });

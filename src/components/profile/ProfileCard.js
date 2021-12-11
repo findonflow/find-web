@@ -24,7 +24,7 @@ export function ProfileCard({ profileData }) {
   function runCopy(copyData) {
     copy(copyData)
     toast(<span>{copyData} copied to clipoard</span>, { duration: 2000, style: {} })
-    console.log(copyData)
+    //console.log(copyData)
   }
 
   function editClicked() {

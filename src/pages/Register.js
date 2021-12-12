@@ -73,7 +73,7 @@ export function Register({ enteredName }) {
           <div className="m-3 text">You are in luck, as the username you want is available.<br /> Claim this name now to ensure it doesn't get snatched up!</div>
           <div className="mt-5 align-middle">
             <fieldset id="a" disabled={useFormStatus()}>
-              <div><span className="fw-bold m-3 me-4 align-middle" style={{ fontSize: "26px" }}>{enteredName.cost * 1} FUSD</span><Button text="Confirm" onClick={handleSubmit} variant="dark">Register</Button></div>
+              <div><span className="fw-bold m-3 me-4 align-middle" style={{ fontSize: "26px" }}>{enteredName.cost * 1} FUSD</span><Button text="Confirm" onClick={handleSubmit} disabled variant="dark">Register</Button></div>
             </fieldset>
             <div className="m-5 seperator"></div>
             <div className="disclaimer">The use of this service and the names available are subject to our terms of service. Any unauthorised use of names is not the responsibility of find.xyz we want everybody to play nicely!</div>

@@ -6,8 +6,8 @@ export function CadenceInfo() {
   return (
     <Container id="cadenceHint" className="cadencehint pt-lg-3">
       <Row className="mb-lg-5  py-3 my-3">
-      <Col align="center"><Button onClick={() => scroll.scrollTo("searchSection")} variant="dark">Find a name</Button></Col>
-    </Row>
+        <Col align="center"><Button onClick={() => scroll.scrollTo("searchSection")} variant="dark">Find a name</Button></Col>
+      </Row>
       <div className="mb-lg-5 mb-4 seperator50 mx-auto"></div>
       <Row className="my-3">
         <Col align="center"><h3>Want to implement .find into your project?</h3></Col>
@@ -24,11 +24,25 @@ export function CadenceInfo() {
           <Accordion className="my-3 implementaccordion">
             <Accordion.Item eventKey="0" className="implementaccordion m-md-3 mb-3 p-3">
               <Accordion.Header><span className="titletxt">Use .find in your cadence code</span></Accordion.Header>
-              <Accordion.Body><p>In order to use FIND in your cadence code you have to use the following snippet of code</p></Accordion.Body>
+              <Accordion.Body>
+                <p>In order to use FIND in your cadence code you have to use the following snippet of code</p>
+                <p>//testnet</p>
+                <p>import FIND from 0x37a05b1ecacc80f7</p>
+                <p>//mainnet</p>
+                <p>//import FIND from 0x09a86f2493ce2e9d</p>
+                <p>pub fun main(name: String) :  Address? &#123;</p>
+                <p>return FIND.lookupAddress(name) &#125;</p>
+              </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1" className="implementaccordion m-md-3 mb-3 p-3">
               <Accordion.Header><span className="titletxt">Directly get a user's profile</span></Accordion.Header>
-              <Accordion.Body><p>In order to use FIND in your cadence code you have to use the following snippet of code</p></Accordion.Body>
+              <Accordion.Body><p>//testnet</p>
+                <p>import FIND, Profile from 0x37a05b1ecacc80f7</p>
+                <p>//mainnet</p>
+                <p>//import FIND, Profile from 0x09a86f2493ce2e9d</p>
+                <p>[pub](pub) fun main(name: String) :  Profile.UserProfile? &#123;</p>
+                <p>   return FIND.lookup(name)?.asProfile()&#125;</p>
+              </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2" className="implementaccordion m-md-3 mb-3 p-3">
               <Accordion.Header><span className="titletxt">Contract addresses for .find</span></Accordion.Header>
@@ -38,6 +52,6 @@ export function CadenceInfo() {
         </Col>
       </Row>
       <div className="my-lg-5 my-4 seperator50 mx-auto"></div>
-    </Container>
+    </Container >
   )
 }

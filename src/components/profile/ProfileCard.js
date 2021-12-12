@@ -195,11 +195,11 @@ export function ProfileCard({ profileData }) {
                   <ProfileCollection profileData={profileData} />
                 </Card>
               </Tab>
-              {user.addr === profileData.profile.address &&
+              {/* {user.addr === profileData.profile.address &&
                 <Tab eventKey='forge' title='The Forge'>
                   <ProfileForge profileData={profileData} />
                 </Tab>
-              }
+              } */}
             </Tabs>
           </Container>
           :

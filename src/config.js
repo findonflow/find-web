@@ -9,7 +9,7 @@ Object.keys(contractVariables).forEach((contractAddressKey) => {
 })
 
 fclConfig
-  .put("accessNode.api", "https://access-mainnet-beta.onflow.org") // Configure FCL's Access Node
+  .put("accessNode.api", process.env.REACT_APP_ACCESS_NODE) // Configure FCL's Access Node
   .put("challenge.handshake", process.env.REACT_APP_WALLET_DISCOVERY) // Configure FCL's Wallet Discovery mechanism
   .put("env", process.env.REACT_APP_NETWORK)
   .put("decoder.Enum", (val) => {

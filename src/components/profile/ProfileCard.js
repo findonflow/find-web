@@ -11,12 +11,21 @@ import { PrivateBid } from "../lease/BuyerForms";
 import { ProfileCollection } from "./ProfileCollection";
 import './profile.css'
 import { ProfileForge } from "./ProfileForge";
+import { useLocation } from "react-router";
 
 export function ProfileCard({ profileData }) {
 
-
   const [editHasClicked, setEditHasClicked] = useState(false)
   const [editText, setEditText] = useState("Edit Profile")
+  const [key, setKey] = useState("profile")
+  const location = useLocation()
+  let currentPage = location.pathname.split(/^.*\//)
+  useEffect(() => {
+    if(currentPage[1] === "collection"){
+    setKey("collection")
+  }
+  }, [])
+  
 
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
@@ -58,7 +67,7 @@ export function ProfileCard({ profileData }) {
         {profileData ?
 
           <Container id="profileCard" fluid="true" className="frontCards p-4" style={{ minHeight: "90vh" }}>
-            <Tabs defaultActiveKey='profile' id='profile-collection-tabs'>
+            <Tabs defaultActiveKey='profile' activeKey={key} id='profile-collection-tabs' onSelect={(k) => setKey(k)}>
               <Tab eventKey='profile' title='Profile'>
                 <Row className="d-flex justify-content-center">
                   <Col xs="12" md="4">

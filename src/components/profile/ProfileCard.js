@@ -77,7 +77,7 @@ export function ProfileCard({ profileData }) {
                           <div className="d-flex justify-content-center"><div className="profilePic image"><img src={avatarURL} height="100" width="100" alt={profileData.profile.name + "'s profile avatar"} /></div></div>
                           <span className="name mt-3 text-center">{profileData.profile.name}</span>
                           <span className="idd text-center">@{profileData.profile.name}</span>
-                          <div className="text-center text mt-3"> <span>{profileData.profile.description}</span></div>
+                          <div className="text-center text mt-3"> <span style={{whiteSpace: "pre-wrap"}}>{profileData.profile.description}</span></div>
                           {user.addr === profileData.profile.address &&
                             <div className=" d-flex mt-4 justify-content-center"> <button className="btn-dark" onClick={editClicked}>{editText}</button> </div>
                           }

@@ -11,9 +11,12 @@ export default function LiveFeed() {
     //const [paintEvent, setPaintEvent] = useState([])
     useEffect(() => {
         if (latestMessage !== "") {
+            console.log(JSON.stringify(latestMessage, null, 2))
             let newEvent = {}
             let eventData = latestMessage.blockEventData
             let eventDate = latestMessage.eventDate
+            console.log(eventData)
+            console.log(latestMessage.flowEventId)
             let eventType = latestMessage.flowEventId.split(/\.(?=[^\.]+$)/);
             //manage auction and offer events
             if (eventType[1] === "AuctionCanceled" ||
@@ -117,6 +120,9 @@ export default function LiveFeed() {
     const streamSDK = new GraffleSDK();
     const feed = async (message) => {
         if (get(message, "flowEventId") === "A.a16ab1d0abde3625.FIND.Name") {
+            return;
+        }
+        if (get(message, "flowEventId") === "A.097bafa4e0b48eef.FIND.Name") {
             return;
         }
         setLatestMessage(message);

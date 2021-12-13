@@ -46,7 +46,10 @@ export function CadenceInfo() {
             </Accordion.Item>
             <Accordion.Item eventKey="2" className="implementaccordion m-md-3 mb-3 p-3">
               <Accordion.Header><span className="titletxt">Contract addresses for .find</span></Accordion.Header>
-              <Accordion.Body><p>In order to use FIND in your cadence code you have to use the following snippet of code</p></Accordion.Body>
+              <Accordion.Body>
+                <p>Testnet: 0x37a05b1ecacc80f7</p>
+                <p>Mainnet: 0x09a86f2493ce2e9d</p>
+              </Accordion.Body>
             </Accordion.Item>
           </Accordion>
         </Col>

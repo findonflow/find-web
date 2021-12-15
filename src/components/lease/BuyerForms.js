@@ -232,9 +232,14 @@ export function BuyerPurchase({ lease }) {
         id: "name",
         value: lease.name
     }]
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        //setValidated(true)
+        handleBuy(formValues)
+    }
 
     return (
-        <Form onSubmit={() => handleBuy(formValues)}>
+        <Form onSubmit={handleSubmit}>
             <Row>
                 <Col className="d-flex align-items-center" xs="12" md="auto">
                     <Form.Group className="p-3">
@@ -247,7 +252,6 @@ export function BuyerPurchase({ lease }) {
                     </Form.Group>
                 </Col>
             </Row>
-
         </Form>
     )
 }

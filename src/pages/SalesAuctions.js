@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import GraffleSDK from "../functions/graffle";
 import { get } from "lodash"
-import { Container, Image, Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import { FriendlyEventNames } from '../functions/friendlyEventNames'
 import '../components/livefeed/livefeed.css'
-import { Faq } from "../components/home/Faq";
 
-export default function LiveFeed() {
+export default function SalesAuction() {
     const [latestMessage, setLatestMessage] = useState("")
     //const [paintEvent, setPaintEvent] = useState([])
     useEffect(() => {
@@ -51,15 +50,15 @@ export default function LiveFeed() {
             } else if (eventType[1] === "Moved" || eventType[1] === "Sold" || eventType[1] === "SoldAuction") {
                 newEvent.type = FriendlyEventNames[eventType[1]]
                 newEvent.name = eventData.name
-                newEvent.price = eventData.amount ? eventData.amount : "-"
+                newEvent.price = eventData.amount?eventData.amount:"-"
                 newEvent.from = eventData.previousOwner
                 newEvent.to = eventData.newOwner
                 newEvent.date = eventDate
             } else if (eventType[1] === "ForSale") {
-                if (eventData.active)
-                    newEvent.type = FriendlyEventNames[eventType[1]]
+                if(eventData.active)
+                newEvent.type = FriendlyEventNames[eventType[1]]
                 else
-                    newEvent.type = FriendlyEventNames["WithdrawnSale"]
+                newEvent.type = FriendlyEventNames["WithdrawnSale"]
 
                 newEvent.name = eventData.name
                 newEvent.price = eventData.directSellPrice
@@ -67,10 +66,10 @@ export default function LiveFeed() {
                 newEvent.to = "-"
                 newEvent.date = eventDate
             } else if (eventType[1] === "ForAuction") {
-                if (eventData.active)
-                    newEvent.type = FriendlyEventNames[eventType[1]]
+                if(eventData.active)
+                newEvent.type = FriendlyEventNames[eventType[1]]
                 else
-                    newEvent.type = FriendlyEventNames["WithdrawnAuction"]
+                newEvent.type = FriendlyEventNames["WithdrawnAuction"]
 
                 newEvent.name = eventData.name
                 newEvent.price = eventData.auctionStartPrice
@@ -154,9 +153,9 @@ export default function LiveFeed() {
 
                         <tbody id="eventBody">
                             {!latestMessage &&
-                                <tr>
-                                    <td colSpan={6} align="center">Waiting for feed data</td>
-                                </tr>
+                            <tr>
+                                <td colSpan={6} align="center">Waiting for feed data</td>
+                            </tr>
                             }
                         </tbody>
 
@@ -164,10 +163,8 @@ export default function LiveFeed() {
 
                     </Table>
                 </div>
-                <div align="right" className="pe-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{maxHeight: "44px"}} fluid></Image></a></div>
             </div>
-            <div className="my-5 mx-auto"></div>
-            <Faq />
+
         </Container>
     )
 

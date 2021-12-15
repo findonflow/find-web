@@ -4,19 +4,15 @@ import { get } from "lodash"
 import { Container, Table } from "react-bootstrap";
 import { FriendlyEventNames } from '../functions/friendlyEventNames'
 import '../components/livefeed/livefeed.css'
-import { Link } from "react-scroll";
 
 export default function LiveFeed() {
     const [latestMessage, setLatestMessage] = useState("")
     //const [paintEvent, setPaintEvent] = useState([])
     useEffect(() => {
         if (latestMessage !== "") {
-            console.log(JSON.stringify(latestMessage, null, 2))
             let newEvent = {}
             let eventData = latestMessage.blockEventData
             let eventDate = latestMessage.eventDate
-            console.log(eventData)
-            console.log(latestMessage.flowEventId)
             let eventType = latestMessage.flowEventId.split(/\.(?=[^\.]+$)/);
             //manage auction and offer events
             if (eventType[1] === "AuctionCanceled" ||
@@ -88,12 +84,10 @@ export default function LiveFeed() {
                 newEvent.to = eventData.bidder
                 newEvent.date = eventDate
             }
-            //setPaintEvent((paintEvent) => [...paintEvent, newEvent])
             let tableRef = document.getElementById("eventBody");
 
-            // Insert a row at the end of the table
+            // Insert a row at the beginning of the table
             let newRow = tableRef.insertRow(0);
-            // Insert a cell in the row at index 0
             let newCell = newRow.insertCell(0);
             let newText = document.createTextNode(newEvent.type);
             newCell.appendChild(newText);
@@ -170,9 +164,6 @@ export default function LiveFeed() {
                     </Table>
                 </div>
             </div>
-            {/* <div>Latest message: {JSON.stringify(latestMessage.blockEventData, null, 2)}</div><br />
-            <div>Graffle URL: {process.env.REACT_APP_GRAFFLE_API_URL}
-            <div>Graffle Company ID: {process.env.REACT_APP_GRAFFLE_PROJECT_ID}</div></div> */}
 
         </Container>
     )

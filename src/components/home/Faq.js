@@ -42,7 +42,7 @@ export function Faq() {
                                         <ul>
                                             <li>5+ characters: 5 FUSD</li>
                                             <li>4 characters: 100 FUSD</li>
-                                            <li>3 charactesrs: 500 FUSD</li>
+                                            <li>3 characters: 500 FUSD</li>
                                         </ul>
 
                                     </Accordion.Body>

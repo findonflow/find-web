@@ -12,7 +12,7 @@ import { PlaceToShowCollections } from "../components/home/PlaceToShowCollection
 import { MakeWalletFindable } from "../components/home/MakeWalletFindable";
 
 function Home() {
-
+document.title = ".find - a name for your profile"
   return (
     <Container id="homeBody" className="px-3 px-lg-0" fluid="true">
       <SearchBar />

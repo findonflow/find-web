@@ -29,7 +29,7 @@ export function CadenceInfo() {
                 <p>//testnet</p>
                 <p>import FIND from 0x37a05b1ecacc80f7</p>
                 <p>//mainnet</p>
-                <p>//import FIND from 0x09a86f2493ce2e9d</p>
+                <p>//import FIND from 0x097bafa4e0b48eef</p>
                 <p>pub fun main(name: String) :  Address? &#123;</p>
                 <p>return FIND.lookupAddress(name) &#125;</p>
               </Accordion.Body>
@@ -39,7 +39,7 @@ export function CadenceInfo() {
               <Accordion.Body><p>//testnet</p>
                 <p>import FIND, Profile from 0x37a05b1ecacc80f7</p>
                 <p>//mainnet</p>
-                <p>//import FIND, Profile from 0x09a86f2493ce2e9d</p>
+                <p>//import FIND, Profile from 0x097bafa4e0b48eef</p>
                 <p>[pub](pub) fun main(name: String) :  Profile.UserProfile? &#123;</p>
                 <p>   return FIND.lookup(name)?.asProfile()&#125;</p>
               </Accordion.Body>
@@ -48,7 +48,7 @@ export function CadenceInfo() {
               <Accordion.Header><span className="titletxt">Contract addresses for .find</span></Accordion.Header>
               <Accordion.Body>
                 <p>Testnet: 0x37a05b1ecacc80f7</p>
-                <p>Mainnet: 0x09a86f2493ce2e9d</p>
+                <p>Mainnet: 0x097bafa4e0b48eef</p>
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>

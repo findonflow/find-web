@@ -7,6 +7,7 @@ import '../components/livefeed/livefeed.css'
 import { Faq } from "../components/home/Faq";
 
 export default function LiveFeed() {
+    document.title = ".find - live feed"
     const [latestMessage, setLatestMessage] = useState("")
     //const [paintEvent, setPaintEvent] = useState([])
     useEffect(() => {

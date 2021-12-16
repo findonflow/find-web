@@ -20,6 +20,7 @@ export function Register({ enteredName }) {
   if (searchName.length < 3 || searchName.length > 16) {
     navigate("/")
   }
+  document.title = ".find - Register "+searchName+" now!"
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

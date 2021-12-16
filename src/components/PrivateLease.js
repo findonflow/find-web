@@ -420,9 +420,6 @@ export function PrivateLease({ lease }) {
                 }
                 setDuration(e.target.value)}}>
                 <option>Select duration</option>
-                <option value="60">1 min</option>
-                <option value="180">3 mins</option>
-                <option value="300">5 mins</option>
                 <option value="86400">1 Day</option>
                 <option value="259200">3 Days</option>
                 <option value="604800">7 Days</option>

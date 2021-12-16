@@ -38,6 +38,7 @@
   } */
   a {
       text-decoration: none;
+      color: black;
   }
   .logo {
     max-height: 75px;

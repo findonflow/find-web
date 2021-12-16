@@ -39,6 +39,7 @@ export function ProfileCollection({ profileData }) {
           findList && findList !== "first_init" && findList !== "" &&
           Object.keys(findList).map((collection) =>
             findList[collection]?.items.map((nftData, i) => {
+              let url
               let imgUrl
               if(nftData.image.includes("ipfs://")){
                 console.log("It does include!")
@@ -46,9 +47,17 @@ export function ProfileCollection({ profileData }) {
               }else{
                 imgUrl = nftData.image
               }
+              if(collection === "Gaia"){
+                if(nftData.url.includes("/collection/")){
+                  url = nftData.url.replace("/collection/", "/")
+                }
+              }else {
+                url = nftData.url
+              }
               return (
                 <Col key={i} className="mb-5">
-                  <a href={nftData.url} target="_blank">
+                  {/* {JSON.stringify(collection, null, 2)} */}
+                  <a href={url} target="_blank" rel="noreferrer">
                   <Card className="shadow" style={{ maxWidth: "400px" }}>
                     <Image src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} rounded fluid />
                     <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>

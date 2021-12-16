@@ -43,6 +43,7 @@ export function Profile({ user }) {
   }
   if (!findUser) {
     //no profile found
+    document.title = ".find - profile not found"
     return <NoProfile />
   }
   if (findUser) {

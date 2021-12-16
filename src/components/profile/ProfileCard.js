@@ -12,6 +12,7 @@ import { ProfileCollection } from "./ProfileCollection";
 import './profile.css'
 import { ProfileForge } from "./ProfileForge";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 
 export function ProfileCard({ profileData }) {
 
@@ -21,14 +22,25 @@ export function ProfileCard({ profileData }) {
   const location = useLocation()
   let currentPage = location.pathname.split(/^.*\//)
   useEffect(() => {
-    if(currentPage[1] === "collection"){
-    setKey("collection")
-  }
+    if (currentPage[1] === "collection") {
+      setKey("collection")
+      
+    }
   }, [])
-  
+
 
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
+
+  if(user.addr === profileData.profile.address){
+    document.title = ".find - your dashboard"
+  }else{
+    if(currentPage[1] === "collection"){
+      document.title = ".find - "+profileData.profile.name+"'s collection"
+    }else{
+    document.title = ".find - "+profileData.profile.name+"'s profile"
+    }
+  }
 
   function runCopy(copyData) {
     copy(copyData)
@@ -77,7 +89,7 @@ export function ProfileCard({ profileData }) {
                           <div className="d-flex justify-content-center"><div className="profilePic image"><img src={avatarURL} height="100" width="100" alt={profileData.profile.name + "'s profile avatar"} /></div></div>
                           <span className="name mt-3 text-center">{profileData.profile.name}</span>
                           <span className="idd text-center">@{profileData.profile.name}</span>
-                          <div className="text-center text mt-3"> <span style={{whiteSpace: "pre-wrap"}}>{profileData.profile.description}</span></div>
+                          <div className="text-center text mt-3"> <span style={{ whiteSpace: "pre-wrap" }}>{profileData.profile.description}</span></div>
                           {user.addr === profileData.profile.address &&
                             <div className=" d-flex mt-4 justify-content-center"> <button className="btn-dark" onClick={editClicked}>{editText}</button> </div>
                           }
@@ -177,20 +189,31 @@ export function ProfileCard({ profileData }) {
                                 }
                               </Card>
                             </Col>}
-                          {!profileData.bids &&
-                            !profileData.leases &&
-                            <Col className="mt-2">
-                              <Card className="p-4 cardprofileother">
-                                {profileData.profile.address === user.addr ?
-                                  <div>
-                                    <span className="name">You own this name</span>
-                                    <PrivateLease lease={profileData.lease} />
-                                  </div>
-                                  :
-                                  <PublicLease lease={profileData.lease} />
-                                }
-                              </Card>
-                            </Col>}
+                          <Col className="mt-2">
+                            <Card className="p-4 cardprofileother">
+                              {profileData.profile.address === user.addr ?
+                                profileData.lease &&
+                                <div>
+                                  <span className="name">You own this name</span>
+                                  <PrivateLease lease={profileData.lease} />
+                                </div>
+                                :
+                                <div>
+                                  {profileData.lease &&
+                                    <PublicLease lease={profileData.lease} />
+                                  }
+                                  {profileData.leases.length > 1 &&
+                                    <div>
+                                      <div className="my-3"><span className="idd">Other names owned by this user:</span></div>
+                                      {profileData.leases.map((lease) =>
+                                        <div><Link to={"/" + lease.name}>{lease.name}</Link></div>
+                                      )}
+                                    </div>
+                                  }
+                                </div>
+                              }
+                            </Card>
+                          </Col>
                         </Row>
                       </div> :
                       <Row>

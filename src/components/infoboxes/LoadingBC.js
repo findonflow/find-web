@@ -1,6 +1,7 @@
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 
 function LoadingBC() {
+  document.title = ".find - Loading from the flow blockchain"
   return (
     <Container id="loadingBlockchain" className="loadingblockchain">
       <Row className="mt-5 p-2">

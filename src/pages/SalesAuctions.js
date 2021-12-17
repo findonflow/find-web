@@ -8,6 +8,7 @@ import { handleBuy } from "../functions/txfunctions";
 import { useFormStatus } from "../functions/DisabledState";
 
 export default function SalesAuction() {
+    document.title = ".find - name resale spot"
     let latestMessage = ""
     const [salesData, setSalesData] = useState()
     const [filteredSold, setFilteredSold] = useState()
@@ -43,9 +44,12 @@ export default function SalesAuction() {
                     let soldNames = filteredSold.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
                     let forSaleNames = filteredForSale.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
 
-                    //check to see if the item was withdrawn AFTER it was listed
+                    //check to see if the item was withdrawn AFTER it was listed and remove any prior listings
                     forSaleNames.map((saleNames) => {
                         if (!saleNames.blockEventData.active && saleNames.eventDate > nameForSale.eventDate) {
+                            isForSale = false
+                        }
+                        if(nameForSale.eventDate < saleNames.eventDate) {
                             isForSale = false
                         }
                     })
@@ -55,6 +59,9 @@ export default function SalesAuction() {
                             isForSale = false
                         }
                     })
+                    //check to see if this is the most recent listing
+
+
                     //if either of the above events are true then do not add it.
                     if (isForSale) {
                         setActiveSales((formVals) => {
@@ -135,10 +142,9 @@ export default function SalesAuction() {
 
                     </div>
                 </Col>
-                <Col>
+                {/* <Col>
                     <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>
                         <h4>On auction right now ⏳</h4>
-                        {/* {JSON.stringify(filteredSold, null, 2)} */}
                         <div className="tableHeight">
                             <Table hover id="eventTable">
                                 <thead>
@@ -167,7 +173,7 @@ export default function SalesAuction() {
                         <div align="right" className="pt-3 pe-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{ maxHeight: "44px" }} fluid></Image></a></div>
 
                     </div>
-                </Col>
+                </Col> */}
             </Row>
 
 

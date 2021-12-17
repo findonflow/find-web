@@ -117,7 +117,7 @@ export default function SalesAuction() {
     }
 
     return (
-        <Container className="mt-5">
+        <Container className="my-5">
             <h1 align="center" className="py-3">What’s for sale? 💰</h1>
             <p align="center" className="pb-5">Checkout out the latest names for sale or auction below</p>
             <Row>

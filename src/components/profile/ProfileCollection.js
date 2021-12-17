@@ -66,6 +66,7 @@ export function ProfileCollection({ profileData }) {
             }))
         }
       </Row>
+      {/* {JSON.stringify(findList, null, 2)} */}
       {!findList &&
         <Row>
           {profileData.profile.address === user.addr ?

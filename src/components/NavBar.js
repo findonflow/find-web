@@ -33,9 +33,11 @@ function NavHead() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         <Nav className="me-auto">
-          <Nav.Link as={scrollLink} to="cadenceHint" spy={true} smooth={true} offset={120} duration={400} style={{cursor: 'pointer'}} className="ms-lg-5">Integrate</Nav.Link>
+          {/* <Nav.Link as={scrollLink} to="cadenceHint" spy={true} smooth={true} offset={120} duration={400} style={{cursor: 'pointer'}} className="ms-lg-5">Integrate</Nav.Link> */}
+          
           <Nav.Link as={scrollLink} to="faq" spy={true} smooth={true} offset={50} duration={400} style={{cursor: 'pointer'}} className="ms-lg-3">FAQ's</Nav.Link>
           <Nav.Link as={Link} to={"/lf"} className="ms-lg-3">Live Feed</Nav.Link>
+          <Nav.Link as={Link} to={"/mp"} className="ms-lg-3">Marketplace</Nav.Link>
         </Nav>
         <Nav className="ms-auto">
         <div className="p-3 p-lg-0 mx-auto">

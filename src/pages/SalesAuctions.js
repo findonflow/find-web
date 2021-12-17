@@ -119,7 +119,7 @@ export default function SalesAuction() {
     return (
         <Container className="my-5">
             <h1 align="center" className="py-3">What’s for sale? 💰</h1>
-            <p align="center" className="pb-5">Checkout out the latest names for sale or auction below</p>
+            <p align="center" className="pb-5">Check out the latest names for sale below</p>
             <Row>
                 <Col>
                     <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>

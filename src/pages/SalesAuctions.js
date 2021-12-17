@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { handleBuy } from "../functions/txfunctions";
 import { useFormStatus } from "../functions/DisabledState";
 import NameSearch from "./NameSearch";
+import { epochToJsDate } from "../functions/epochtodate";
 
 export default function SalesAuction() {
     document.title = ".find - name resale spot"
@@ -15,7 +16,7 @@ export default function SalesAuction() {
     const [filteredSold, setFilteredSold] = useState()
     const [filteredForSale, setFilteredForSale] = useState()
     const [activeSales, setActiveSales] = useImmer([])
-    const [sortType, setSortType] = useState("validUntil");
+    const [sortType, setSortType] = useState("");
 
     useEffect(() => {
         const getSales = async () => {
@@ -71,7 +72,7 @@ export default function SalesAuction() {
                                 name: nameForSale.blockEventData.name,
                                 amount: nameForSale.blockEventData.directSellPrice,
                                 owner: nameForSale.blockEventData.owner,
-                                validUntil: nameForSale.eventDate
+                                validUntil: nameForSale.blockEventData.validUntil
                             })
                         })
                     }
@@ -148,7 +149,7 @@ export default function SalesAuction() {
                                                 <td><Link to={"/" + salesMap.name}>{salesMap.name}</Link></td>
                                                 <td>{salesMap.amount}</td>
                                                 <td className="d-none d-md-table-cell">{salesMap.owner}</td>
-                                                <td className="d-none d-md-table-cell">{new Date(salesMap.validUntil).toLocaleDateString()}</td>
+                                                <td className="d-none d-md-table-cell">{epochToJsDate(salesMap.validUntil)}</td>
                                                 <td><Button size="sm" className="btn-dark-buy" variant="dark" onClick={() => handleSubmit(salesMap.name, salesMap.amount)}>Buy</Button></td>
                                             </tr>
                                         )}

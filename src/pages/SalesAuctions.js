@@ -6,6 +6,7 @@ import { useImmer } from "use-immer";
 import { Link } from "react-router-dom";
 import { handleBuy } from "../functions/txfunctions";
 import { useFormStatus } from "../functions/DisabledState";
+import NameSearch from "./NameSearch";
 
 export default function SalesAuction() {
     document.title = ".find - name resale spot"
@@ -14,6 +15,7 @@ export default function SalesAuction() {
     const [filteredSold, setFilteredSold] = useState()
     const [filteredForSale, setFilteredForSale] = useState()
     const [activeSales, setActiveSales] = useImmer([])
+    const [sortType, setSortType] = useState("validUntil");
 
     useEffect(() => {
         const getSales = async () => {
@@ -91,6 +93,41 @@ export default function SalesAuction() {
         console.log(name)
         handleBuy(formValues)
     }
+    useEffect(() => {
+        const sortArray = type => {
+          const types = {
+            name: 'name',
+            amount: 'amount',
+            owner: 'owner',
+            validUntil: 'validUntil',
+          };
+          const sortProperty = types[type];
+          console.log(sortProperty)
+          const sorted = [...activeSales]
+          .sort((a, b) => {
+              if(b[sortProperty] > a[sortProperty]) return -1}
+              )
+          console.log(sorted)
+          setActiveSales(sorted);
+        };
+    
+        sortArray(sortType);
+        
+      }, [sortType]);
+
+    //   const sortedNames = [...activeSales]
+    //     .sort((a,b) => {
+    //         if (b["name"] > a["name"]) { return -1 }
+    //     return console.log(a["name"])
+    //     }
+    //         )
+    //     .map(prod => {
+    //         return <div>{prod.name}</div>
+    //     })
+      function handleSetSort(sortedBy) {
+        setSortType(sortedBy)
+        console.log("sort fired - switched to: "+sortType)
+      }
 
     return (
         <Container className="mt-5">
@@ -100,7 +137,7 @@ export default function SalesAuction() {
                 <Col>
                     <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>
 
-                        {/* {JSON.stringify(latestMessage, null, 2)} */}
+                        {/* {JSON.stringify(activeSales, null, 2)} */}
                         <h4>For sale right now 🔥</h4>
                         <div className="tableHeight">
 
@@ -109,10 +146,10 @@ export default function SalesAuction() {
                             <Table hover id="eventTable">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Owner</th>
-                                        <th>Valid Until</th>
+                                        <th><a style={{cursor: "pointer"}} onClick={() => handleSetSort('name')}>Name</a></th>
+                                        <th><a style={{cursor: "pointer"}} onClick={() => handleSetSort('amount')}>Price</a></th>
+                                        <th><a style={{cursor: "pointer"}} onClick={() => handleSetSort('owner')}>Owner</a></th>
+                                        <th><a style={{cursor: "pointer"}} onClick={() => handleSetSort('validUntil')}>Valid Until</a></th>
                                         <th>Buy</th>
                                     </tr>
                                 </thead>
@@ -135,6 +172,7 @@ export default function SalesAuction() {
 
                             </Table></fieldset>
                         </div>
+                        {/* {sortedNames} */}
                         <Row>
                             <Col className="mt-4">Names for sale: {activeSales.length}</Col>
                             <Col align="right" className="mt-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{ maxHeight: "44px" }} fluid></Image></a></Col>

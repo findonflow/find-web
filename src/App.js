@@ -12,6 +12,7 @@ import { CloseButton, Container } from "react-bootstrap";
 import NameSearch from "./pages/NameSearch";
 import RemoveProfile from "./pages/RemoveProfile";
 import LiveFeed from "./pages/LiveFeed";
+import SalesAuction from "./pages/SalesAuctions";
 
 export default function App() {
 
@@ -49,6 +50,7 @@ export default function App() {
           <Route path=':id/collection' element={<NameSearch default="collection" />} />
           <Route path='/remove' element={<RemoveProfile />} />
           <Route path='/lf' element={<LiveFeed />} />
+          <Route path='mp' element={<SalesAuction />} />
         </Routes>
         <Footer />
       </Router>

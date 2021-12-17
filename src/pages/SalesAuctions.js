@@ -1,169 +1,175 @@
-import { useEffect, useRef, useState } from "react";
-import GraffleSDK from "../functions/graffle";
-import { get } from "lodash"
-import { Container, Table } from "react-bootstrap";
-import { FriendlyEventNames } from '../functions/friendlyEventNames'
+import { useEffect, useState } from "react";
+import { Row, Col, Container, Table, Image, Button, Form } from "react-bootstrap";
 import '../components/livefeed/livefeed.css'
+import axios from "axios";
+import { useImmer } from "use-immer";
+import { Link } from "react-router-dom";
+import { handleBuy } from "../functions/txfunctions";
+import { useFormStatus } from "../functions/DisabledState";
 
 export default function SalesAuction() {
-    const [latestMessage, setLatestMessage] = useState("")
-    //const [paintEvent, setPaintEvent] = useState([])
+    let latestMessage = ""
+    const [salesData, setSalesData] = useState()
+    const [filteredSold, setFilteredSold] = useState()
+    const [filteredForSale, setFilteredForSale] = useState()
+    const [activeSales, setActiveSales] = useImmer([])
+
     useEffect(() => {
-        if (latestMessage !== "") {
-            let newEvent = {}
-            let eventData = latestMessage.blockEventData
-            let eventDate = latestMessage.eventDate
-            let eventType = latestMessage.flowEventId.split(/\.(?=[^\.]+$)/);
-            //manage auction and offer events
-            if (eventType[1] === "AuctionCanceled" ||
-                eventType[1] === "AuctionCanceledReservePrice" ||
-                eventType[1] === "AuctionStarted" ||
-                eventType[1] === "AuctionBid" ||
-                eventType[1] === "DirectOffer" ||
-                eventType[1] === "DirectOfferCanceled") {
-                newEvent.name = eventData.name
-                newEvent.price = eventData.amount
-                //set the correct from and to
-                if (eventType[1] === "AuctionCanceled" ||
-                    eventType[1] === "AuctionCanceledReservePrice") {
-                    newEvent.from = eventData.owner
-                    newEvent.to = "-"
-                } else {
-                    newEvent.from = eventData.bidder
-                    newEvent.to = eventData.owner
+        const getSales = async () => {
+            console.log("getSales fired")
+            let data
+            let res = await axios
+                .get("https://prod-main-net-dashboard-api.azurewebsites.net/api/company/04bd44ea-0ff1-44be-a5a0-e502802c56d8/search?eventType=A.097bafa4e0b48eef.FIND.Sold,A.097bafa4e0b48eef.FIND.ForSale")
+            data = res.data
+            setSalesData(data)
+
+        }
+        getSales()
+    }, [])
+    useEffect(() => {
+        if (salesData) {
+            setFilteredSold(salesData.filter(Event => Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.Sold')))
+            setFilteredForSale(salesData.filter(Event => Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.ForSale')))
+        }
+    }, [salesData])
+
+    useEffect(() => {
+        if (filteredSold && filteredForSale) {
+            let liveSales = {}
+
+            filteredForSale.map((nameForSale) => {
+                if (nameForSale.blockEventData.active) {
+                    let isForSale = true
+                    let soldNames = filteredSold.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
+                    let forSaleNames = filteredForSale.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
+
+                    //check to see if the item was withdrawn AFTER it was listed
+                    forSaleNames.map((saleNames) => {
+                        if (!saleNames.blockEventData.active && saleNames.eventDate > nameForSale.eventDate) {
+                            isForSale = false
+                        }
+                    })
+                    //check to see if the item was sold after this listing
+                    soldNames.map((soldNames) => {
+                        if (soldNames.eventDate > nameForSale.eventDate) {
+                            isForSale = false
+                        }
+                    })
+                    //if either of the above events are true then do not add it.
+                    if (isForSale) {
+                        setActiveSales((formVals) => {
+                            formVals.push({
+                                name: nameForSale.blockEventData.name,
+                                amount: nameForSale.blockEventData.directSellPrice,
+                                owner: nameForSale.blockEventData.owner,
+                                validUntil: nameForSale.eventDate
+                            })
+                        })
+                    }
                 }
-                newEvent.date = eventDate
-                newEvent.type = FriendlyEventNames[eventType[1]]
-            } else if (eventType[1] === "Register") {
-                newEvent.type = FriendlyEventNames[eventType[1]]
-                newEvent.name = eventData.name
-                let nameLength = eventData.name.length
-                if (nameLength === 3)
-                    newEvent.price = FriendlyEventNames["price3"]
-                else if (nameLength === 4)
-                    newEvent.price = FriendlyEventNames["price4"]
-                else if (nameLength >= 5)
-                    newEvent.price = FriendlyEventNames["price5"]
-                newEvent.from = ".find"
-                newEvent.to = eventData.owner
-                newEvent.date = eventDate
-            } else if (eventType[1] === "Moved" || eventType[1] === "Sold" || eventType[1] === "SoldAuction") {
-                newEvent.type = FriendlyEventNames[eventType[1]]
-                newEvent.name = eventData.name
-                newEvent.price = eventData.amount?eventData.amount:"-"
-                newEvent.from = eventData.previousOwner
-                newEvent.to = eventData.newOwner
-                newEvent.date = eventDate
-            } else if (eventType[1] === "ForSale") {
-                if(eventData.active)
-                newEvent.type = FriendlyEventNames[eventType[1]]
-                else
-                newEvent.type = FriendlyEventNames["WithdrawnSale"]
-
-                newEvent.name = eventData.name
-                newEvent.price = eventData.directSellPrice
-                newEvent.from = eventData.owner
-                newEvent.to = "-"
-                newEvent.date = eventDate
-            } else if (eventType[1] === "ForAuction") {
-                if(eventData.active)
-                newEvent.type = FriendlyEventNames[eventType[1]]
-                else
-                newEvent.type = FriendlyEventNames["WithdrawnAuction"]
-
-                newEvent.name = eventData.name
-                newEvent.price = eventData.auctionStartPrice
-                newEvent.from = eventData.owner
-                newEvent.to = "-"
-                newEvent.date = eventDate
-            } else if (eventType[1] === "DirectOfferRejected") {
-                newEvent.type = FriendlyEventNames[eventType[1]]
-                newEvent.name = eventData.name
-                newEvent.price = eventData.amount
-                newEvent.from = eventData.owner
-                newEvent.to = eventData.bidder
-                newEvent.date = eventDate
-            }
-            let tableRef = document.getElementById("eventBody");
-
-            // Insert a row at the beginning of the table
-            let newRow = tableRef.insertRow(0);
-            let newCell = newRow.insertCell(0);
-            let newText = document.createTextNode(newEvent.type);
-            newCell.appendChild(newText);
-            newCell = newRow.insertCell(1);
-            newText = document.createElement('div')
-            newText.innerHTML = "<a href='/" + newEvent.name + "' target='_blank'>" + newEvent.name + "</a>"
-            newCell.appendChild(newText);
-            newCell = newRow.insertCell(2);
-            newText = document.createTextNode(newEvent.price ? newEvent.price : "-");
-            newCell.appendChild(newText);
-            newCell = newRow.insertCell(3);
-            newText = document.createTextNode(newEvent.from);
-            newCell.appendChild(newText);
-            newCell = newRow.insertCell(4);
-            newText = document.createTextNode(newEvent.to);
-            newCell.appendChild(newText);
-            newCell = newRow.insertCell(5);
-            newText = document.createTextNode(new Date(newEvent.date).toLocaleDateString() + " " + new Date(newEvent.date).toLocaleTimeString());
-            newCell.appendChild(newText);
-
+            })
         }
-    }, [latestMessage])
+    }, [filteredForSale])
 
-    const streamSDK = new GraffleSDK();
-    const feed = async (message) => {
-        if (get(message, "flowEventId") === "A.a16ab1d0abde3625.FIND.Name") {
-            return;
-        }
-        if (get(message, "flowEventId") === "A.097bafa4e0b48eef.FIND.Name") {
-            return;
-        }
-        setLatestMessage(message);
-        //console.log(message)
-    };
-    let conn = useRef();
-    useEffect(async () => {
-        //console.log("Creating the stream")
-        conn.current = await streamSDK.stream(feed);
-    }, []);
-    useEffect(() => () => {
-        //console.log("Stopping the connection")
-        conn.current.stop()
-    }, []);
+    const handleSubmit = (name, amount) => {
+        const formValues = [{
+            id: "salePrice",
+            value: amount
+        },
+        {
+            id: "name",
+            value: name
+        }]
+        //setValidated(true)
+        console.log(name)
+        handleBuy(formValues)
+    }
+
     return (
         <Container className="mt-5">
-            <h1 align="center" className="py-3">The .find live feed 🚀</h1>
-            <p align="center" className="pb-5">All of the latest data, all in one place just for you</p>
-            <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>
+            <h1 align="center" className="py-3">What’s for sale? 💰</h1>
+            <p align="center" className="pb-5">Checkout out the latest names for sale or auction below</p>
+            <Row>
+                <Col>
+                    <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>
 
-                {/* {JSON.stringify(latestMessage, null, 2)} */}
-                <div className="tableHeight">
-                    <Table hover id="eventTable">
-                        <thead>
-                            <tr>
-                                <th>Event</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
+                        {/* {JSON.stringify(latestMessage, null, 2)} */}
+                        <h4>For sale right now 🔥</h4>
+                        <div className="tableHeight">
 
-                        <tbody id="eventBody">
-                            {!latestMessage &&
-                            <tr>
-                                <td colSpan={6} align="center">Waiting for feed data</td>
-                            </tr>
-                            }
-                        </tbody>
+                            {/* <div>{JSON.stringify(activeSales, null, 2)}</div> */}
+                            <fieldset id="a" disabled={useFormStatus()}>
+                            <Table hover id="eventTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Owner</th>
+                                        <th>Valid Until</th>
+                                        <th>Buy</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody id="eventBody">
+                                    
+                                        {activeSales.map((salesMap, i) =>
+                                            <tr key={i}>
+                                                    <td><Link to={"/" + salesMap.name}>{salesMap.name}</Link></td>
+                                                    <td>{salesMap.amount}</td>
+                                                    <td>{salesMap.owner}</td>
+                                                    <td>{new Date(salesMap.validUntil).toLocaleDateString()}</td>
+                                                    <td><Button size="sm" className="btn-dark-buy" variant="dark" onClick={() => handleSubmit(salesMap.name, salesMap.amount)}>Buy</Button></td>
+                                            </tr>
+                                        )}
+                                    
+                                </tbody>
 
 
 
-                    </Table>
-                </div>
-            </div>
+                            </Table></fieldset>
+                        </div>
+                        <Row>
+                            <Col className="mt-4">Names for sale: {activeSales.length}</Col>
+                            <Col align="right" className="mt-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{ maxHeight: "44px" }} fluid></Image></a></Col>
+                        </Row>
+
+                    </div>
+                </Col>
+                <Col>
+                    <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>
+                        <h4>On auction right now ⏳</h4>
+                        {/* {JSON.stringify(filteredSold, null, 2)} */}
+                        <div className="tableHeight">
+                            <Table hover id="eventTable">
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="eventBody">
+                                    {!latestMessage &&
+                                        <tr>
+                                            <td colSpan={6} align="center">Coming soon...</td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+
+
+                            </Table>
+                        </div>
+                        <div align="right" className="pt-3 pe-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{ maxHeight: "44px" }} fluid></Image></a></div>
+
+                    </div>
+                </Col>
+            </Row>
+
 
         </Container>
     )

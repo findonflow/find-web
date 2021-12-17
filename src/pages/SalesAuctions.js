@@ -20,7 +20,7 @@ export default function SalesAuction() {
 
     useEffect(() => {
         const getSales = async () => {
-            console.log("getSales fired")
+            // console.log("getSales fired")
             let data
             let res = await axios
                 .get("https://prod-main-net-dashboard-api.azurewebsites.net/api/company/04bd44ea-0ff1-44be-a5a0-e502802c56d8/search?eventType=A.097bafa4e0b48eef.FIND.Sold,A.097bafa4e0b48eef.FIND.ForSale")

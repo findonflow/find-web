@@ -42,7 +42,7 @@ export function ProfileCollection({ profileData }) {
               let url
               let imgUrl
               if(nftData.image.includes("ipfs://")){
-                console.log("It does include!")
+                // console.log("It does include!")
                 imgUrl = nftData.image.replace("ipfs://", "https://ipfs.io/ipfs/")
               }else{
                 imgUrl = nftData.image

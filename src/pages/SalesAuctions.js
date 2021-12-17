@@ -51,7 +51,7 @@ export default function SalesAuction() {
                         if (!saleNames.blockEventData.active && saleNames.eventDate > nameForSale.eventDate) {
                             isForSale = false
                         }
-                        if(nameForSale.eventDate < saleNames.eventDate) {
+                        if (nameForSale.eventDate < saleNames.eventDate) {
                             isForSale = false
                         }
                     })
@@ -90,44 +90,31 @@ export default function SalesAuction() {
             value: name
         }]
         //setValidated(true)
-        console.log(name)
         handleBuy(formValues)
     }
     useEffect(() => {
         const sortArray = type => {
-          const types = {
-            name: 'name',
-            amount: 'amount',
-            owner: 'owner',
-            validUntil: 'validUntil',
-          };
-          const sortProperty = types[type];
-          console.log(sortProperty)
-          const sorted = [...activeSales]
-          .sort((a, b) => {
-              if(b[sortProperty] > a[sortProperty]) return -1}
-              )
-          console.log(sorted)
-          setActiveSales(sorted);
+            const types = {
+                name: 'name',
+                amount: 'amount',
+                owner: 'owner',
+                validUntil: 'validUntil',
+            };
+            const sortProperty = types[type];
+            const sorted = [...activeSales]
+                .sort((a, b) => {
+                    if (b[sortProperty] > a[sortProperty]) return -1
+                })
+            setActiveSales(sorted);
         };
-    
-        sortArray(sortType);
-        
-      }, [sortType]);
 
-    //   const sortedNames = [...activeSales]
-    //     .sort((a,b) => {
-    //         if (b["name"] > a["name"]) { return -1 }
-    //     return console.log(a["name"])
-    //     }
-    //         )
-    //     .map(prod => {
-    //         return <div>{prod.name}</div>
-    //     })
-      function handleSetSort(sortedBy) {
+        sortArray(sortType);
+
+    }, [sortType]);
+
+    function handleSetSort(sortedBy) {
         setSortType(sortedBy)
-        console.log("sort fired - switched to: "+sortType)
-      }
+    }
 
     return (
         <Container className="mt-5">
@@ -143,34 +130,34 @@ export default function SalesAuction() {
 
                             {/* <div>{JSON.stringify(activeSales, null, 2)}</div> */}
                             <fieldset id="a" disabled={useFormStatus()}>
-                            <Table hover id="eventTable">
-                                <thead>
-                                    <tr>
-                                        <th><a style={{cursor: "pointer"}} onClick={() => handleSetSort('name')}>Name</a></th>
-                                        <th><a style={{cursor: "pointer"}} onClick={() => handleSetSort('amount')}>Price</a></th>
-                                        <th><a style={{cursor: "pointer"}} onClick={() => handleSetSort('owner')}>Owner</a></th>
-                                        <th><a style={{cursor: "pointer"}} onClick={() => handleSetSort('validUntil')}>Valid Until</a></th>
-                                        <th>Buy</th>
-                                    </tr>
-                                </thead>
-                                
-                                <tbody id="eventBody">
-                                    
+                                <Table hover id="eventTable">
+                                    <thead>
+                                        <tr>
+                                            <th><a style={{ cursor: "pointer" }} onClick={() => handleSetSort('name')}>Name</a></th>
+                                            <th><a style={{ cursor: "pointer" }} onClick={() => handleSetSort('amount')}>Price</a></th>
+                                            <th className="d-none d-md-table-cell"><a style={{ cursor: "pointer" }} onClick={() => handleSetSort('owner')}>Owner</a></th>
+                                            <th className="d-none d-md-table-cell"><a style={{ cursor: "pointer" }} onClick={() => handleSetSort('validUntil')}>Valid Until</a></th>
+                                            <th>Buy</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="eventBody">
+
                                         {activeSales.map((salesMap, i) =>
                                             <tr key={i}>
-                                                    <td><Link to={"/" + salesMap.name}>{salesMap.name}</Link></td>
-                                                    <td>{salesMap.amount}</td>
-                                                    <td>{salesMap.owner}</td>
-                                                    <td>{new Date(salesMap.validUntil).toLocaleDateString()}</td>
-                                                    <td><Button size="sm" className="btn-dark-buy" variant="dark" onClick={() => handleSubmit(salesMap.name, salesMap.amount)}>Buy</Button></td>
+                                                <td><Link to={"/" + salesMap.name}>{salesMap.name}</Link></td>
+                                                <td>{salesMap.amount}</td>
+                                                <td className="d-none d-md-table-cell">{salesMap.owner}</td>
+                                                <td className="d-none d-md-table-cell">{new Date(salesMap.validUntil).toLocaleDateString()}</td>
+                                                <td><Button size="sm" className="btn-dark-buy" variant="dark" onClick={() => handleSubmit(salesMap.name, salesMap.amount)}>Buy</Button></td>
                                             </tr>
                                         )}
-                                    
-                                </tbody>
+
+                                    </tbody>
 
 
 
-                            </Table></fieldset>
+                                </Table></fieldset>
                         </div>
                         {/* {sortedNames} */}
                         <Row>

@@ -29,7 +29,7 @@ function EditProfile({ profile }) {
     // eslint-disable-next-line
         , [profile])
 
-    let addFormFields2 = () => {
+    let addFormFields = () => {
         setFormValues2((formVals) => {
             formVals.push({
                 url: "",
@@ -40,7 +40,7 @@ function EditProfile({ profile }) {
         })
     }
 
-    let removeFormFields2 = (i) => {
+    let removeFormFields = (i) => {
         if (formValues2[i].title && profile.profile.links[i]) {
             if (formValues2[i].title === profile.profile.links[i].title) {
                 setFormValues2((formVals) => {
@@ -63,7 +63,7 @@ function EditProfile({ profile }) {
         setTagsArray(tagArray)
     }
 
-    let handleChangeLinks2 = (i, e) => {
+    let handleChangeLinks = (i, e) => {
         if (e.target.name === "url") {
             setFormValues2((formVals) => {
                 formVals[i].url = e.target.value
@@ -182,11 +182,11 @@ function EditProfile({ profile }) {
                             <Row className="d-flex align-content-center mb-3 mt-3" key={index}>
                                 <Col className="mt-3" xs="12" md="4">
                                     <Form.Label>Link</Form.Label>
-                                    <Form.Control type="text" name="url" value={element.url || ""} onChange={e => handleChangeLinks2(index, e)} />
+                                    <Form.Control type="text" name="url" value={element.url || ""} onChange={e => handleChangeLinks(index, e)} />
                                 </Col>
                                 <Col className="mt-3" xs="12" md="4">
                                     <Form.Label>Type</Form.Label>
-                                    <Form.Select className="ms-0" name="type" defaultValue={element.type} onChange={e => handleChangeLinks2(index, e)}>
+                                    <Form.Select className="ms-0" name="type" defaultValue={element.type} onChange={e => handleChangeLinks(index, e)}>
                                         <option value="">Choose a type</option>
                                         <option value="instagram">Instagram</option>
                                         <option value="twitter">Twitter</option>
@@ -197,14 +197,14 @@ function EditProfile({ profile }) {
                                     </Form.Select>
                                 </Col>
                                 <Col className="mt-auto" xs="12" md="4">
-                                    <Button type="button" variant="outline-danger" className="mt-3" size="sm" onClick={() => removeFormFields2(index)}>Remove</Button>
+                                    <Button type="button" variant="outline-danger" className="mt-3" size="sm" onClick={() => removeFormFields(index)}>Remove</Button>
                                 </Col>
                             </Row>
                         </fieldset>
                     ))}
                     <Row className="mt-5">
                         <Col>
-                            <Button className="m-3" variant="outline-dark" type="button" onClick={() => addFormFields2()}>Add Link</Button>
+                            <Button className="m-3" variant="outline-dark" type="button" onClick={() => addFormFields()}>Add Link</Button>
                             <Button className="ms-3" variant="dark" type="submit">Save</Button>
                         </Col>
                     </Row>

@@ -2,9 +2,8 @@ import { useEffect, useState } from "react"
 import { Row, Col, Card, Image } from "react-bootstrap"
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
-import { scripts, } from 'find-flow-contracts'
+import { scripts } from 'find-flow-contracts'
 import { useStateChanged } from "../../functions/DisabledState";
-import { includes } from 'lodash'
 
 export function ProfileCollection({ profileData }) {
 

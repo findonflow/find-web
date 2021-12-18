@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Container, Table, Image, Button, Form } from "react-bootstrap";
+import { Row, Col, Container, Table, Image, Button } from "react-bootstrap";
 import '../components/livefeed/livefeed.css'
 import axios from "axios";
 import { useImmer } from "use-immer";
 import { Link } from "react-router-dom";
 import { handleBuy } from "../functions/txfunctions";
 import { useFormStatus } from "../functions/DisabledState";
-import NameSearch from "./NameSearch";
 import { epochToJsDate } from "../functions/epochtodate";
 
 export default function SalesAuction() {
     document.title = ".find - name resale spot"
-    let latestMessage = ""
     const [salesData, setSalesData] = useState()
     const [filteredSold, setFilteredSold] = useState()
     const [filteredForSale, setFilteredForSale] = useState()
@@ -39,7 +37,6 @@ export default function SalesAuction() {
 
     useEffect(() => {
         if (filteredSold && filteredForSale) {
-            let liveSales = {}
 
             filteredForSale.map((nameForSale) => {
                 if (nameForSale.blockEventData.active) {

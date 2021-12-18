@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Row, Col, Card, Image } from "react-bootstrap"
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
-import { scripts, } from 'find-flow-contracts'
+import { scripts } from 'find-flow-contracts'
 import { useStateChanged } from "../../functions/DisabledState";
 import { includes } from 'lodash'
 
@@ -15,7 +15,7 @@ export function ProfileCollection({ profileData }) {
   useEffect(() => {
     async function getFindUser(addr) {
       const response = await fcl.send([
-        fcl.script(scripts["collections"]),
+        fcl.script(scripts.collections),
         fcl.args([fcl.arg(addr, t.Address)]),
       ]);
 
@@ -33,7 +33,7 @@ export function ProfileCollection({ profileData }) {
 
   return (
     <div>
-      {/* {JSON.stringify(findList,null,2)} */}
+      {JSON.stringify(findList,null,2)}
       <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
         {
           findList && findList !== "first_init" && findList !== "" &&

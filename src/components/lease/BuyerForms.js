@@ -165,7 +165,7 @@ export function BuyerOffer({ lease }) {
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        console.log(event.target.bidAmt.value)
+        // console.log(event.target.bidAmt.value)
         if(form.bidAmt.value < 1) {
             event.preventDefault();
             event.stopPropagation();
@@ -262,7 +262,7 @@ export function BuyerFirstBid({ lease }) {
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        console.log(form.bidAmt.value)
+        // console.log(form.bidAmt.value)
         if(parseInt(form.bidAmt.value) < parseInt(lease.auctionStartPrice)) {
             event.preventDefault();
             event.stopPropagation();
@@ -338,7 +338,7 @@ export function HighestBidder({ lease }) {
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        console.log(form.bidAmt.value)
+        // console.log(form.bidAmt.value)
         if(parseInt(form.bidAmt.value) < lease.latestBid + 1) {
             event.preventDefault();
             event.stopPropagation();
@@ -365,7 +365,7 @@ export function HighestBidder({ lease }) {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
             varVal.value = e.target.value-lease.latestBid;
             if (e.target.value < lease.latestBid*1+1) {
-                console.log("form val: "+e.target.value+" cadence val: "+lease.latestBid+1)
+                // console.log("form val: "+e.target.value+" cadence val: "+lease.latestBid+1)
                 e.target.classList.add("is-invalid")
                 e.target.classList.remove("is-valid")
             }
@@ -418,7 +418,7 @@ export function HighestBidderEnded({ lease }) {
     }]
     let latestBid = lease.latestBid
     let reservePrice = lease.auctionReservePrice
-    console.log(latestBid + " " + reservePrice)
+    // console.log(latestBid + " " + reservePrice)
     if (latestBid - reservePrice >= 0) {
         return (
             <Form className="formInputs">

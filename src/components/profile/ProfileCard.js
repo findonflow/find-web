@@ -10,9 +10,11 @@ import LoadingBC from "../infoboxes/LoadingBC";
 import { PrivateBid } from "../lease/BuyerForms";
 import { ProfileCollection } from "./ProfileCollection";
 import './profile.css'
+import { handleBid, handleBuy, handleCancelBid, handleFullfillAuction, handleIncreaseBid, handleOffer } from "../../functions/txfunctions";
 import { ProfileForge } from "./ProfileForge";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import { ProfileSendFT } from "./ProfileSendFT";
 
 export function ProfileCard({ profileData }) {
 
@@ -222,11 +224,20 @@ export function ProfileCard({ profileData }) {
                   </Col>
                 </Row>
               </Tab>
+             
               <Tab eventKey='collection' title='Collection'>
                 <Card className="shadow p-3 p-lg-5 mt-3" border="light">
                   <ProfileCollection profileData={profileData} />
                 </Card>
               </Tab>
+
+              <Tab  eventKey='' title='.fund'>
+              <Card className="shadow p-3 p-lg-5 mt-3" border="light">
+                {/* make sure to put && profileData.lease to make sure it exists */}
+                {/* create a component to do all of this - so that we can create, need to pass through name (string all lower case), amount UFix64 (parse int and create 2 0s on the end), type which is a drop down or check box ("flow" or "fusd") */}
+                  <ProfileSendFT profileData={profileData}/>
+                </Card>
+              </Tab>  
               {/* {user.addr === profileData.profile.address &&
                 <Tab eventKey='forge' title='The Forge'>
                   <ProfileForge profileData={profileData} />

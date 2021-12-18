@@ -486,3 +486,49 @@ export const handleRejectBlindBid = async (e) => {
     console.log(e);
   }
 }
+
+export const handleSendFungible = async (e, name, amount, type) => {
+  try {
+    await Tx(
+      [
+        //name: String, amount: UFix64, type: String
+        fcl.transaction(transactions.sendFT),
+        fcl.args([
+          fcl.arg(name, t.String),
+          fcl.arg(amount, t.UFix64),
+          fcl.arg(type, t.String)
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start");
+          console.log(e);
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          // const event = document.createEvent("Event");
+          // event.initEvent("bid", true, true);
+          // document.dispatchEvent(event);
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}
+//this will be one of the transactions that bjarte has set up the other day
+//transaction sendFT can be fusd or flow, make sure to include
+

@@ -4,7 +4,7 @@ import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { scripts } from 'find-flow-contracts'
 import { useStateChanged } from "../../functions/DisabledState";
-import { includes } from 'lodash'
+import { handleSetPfp } from "../../functions/txfunctions";
 
 export function ProfileCollection({ profileData }) {
 
@@ -33,7 +33,7 @@ export function ProfileCollection({ profileData }) {
 
   return (
     <div>
-      {JSON.stringify(findList,null,2)}
+      {/* {JSON.stringify(findList,null,2)} */}
       <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
         {
           findList && findList !== "first_init" && findList !== "" &&
@@ -56,12 +56,17 @@ export function ProfileCollection({ profileData }) {
               }
               return (
                 <Col key={i} className="mb-5">
+					
                   {/* {JSON.stringify(collection, null, 2)} */}
-                  <a href={url} target="_blank" rel="noreferrer">
+                  
                   <Card className="shadow" style={{ maxWidth: "400px" }}>
+					  {user.addr === profileData.profile.address &&
+					<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
+					<a href={url} target="_blank" rel="noreferrer">
                     <Image src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} rounded fluid />
                     <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>
-                  </Card></a>
+					</a>
+                  </Card>
                 </Col>)
             }))
         }

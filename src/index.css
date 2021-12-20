@@ -481,7 +481,7 @@ body:before {
   flex: none;
   order: 0;
   flex-grow: 0;
-  margin: 0px 24px;
+  margin: 0px 0px;
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;

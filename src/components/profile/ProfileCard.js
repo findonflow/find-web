@@ -12,7 +12,7 @@ import { ProfileCollection } from "./ProfileCollection";
 import './profile.css'
 import { handleBid, handleBuy, handleCancelBid, handleFullfillAuction, handleIncreaseBid, handleOffer } from "../../functions/txfunctions";
 import { ProfileForge } from "./ProfileForge";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { ProfileSendFT } from "./ProfileSendFT";
 
@@ -22,25 +22,36 @@ export function ProfileCard({ profileData }) {
   const [editText, setEditText] = useState("Edit Profile")
   const [key, setKey] = useState("profile")
   const location = useLocation()
+
+  let navigate = useNavigate();
+
   let currentPage = location.pathname.split(/^.*\//)
   useEffect(() => {
     if (currentPage[1] === "collection") {
       setKey("collection")
-      
     }
   }, [])
-
+  function handleTabs(k) {
+    setKey(k)
+    if (currentPage[1] !== "me" && !currentPage[1] !== "") {
+      if (k === "profile") {
+        navigate("/" + profileData.lease.name)
+      } else {
+        navigate("/" + profileData.lease.name + "/" + k)
+      }
+    }
+  }
 
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
 
-  if(user.addr === profileData.profile.address){
+  if (user.addr === profileData.profile.address) {
     document.title = ".find - your dashboard"
-  }else{
-    if(currentPage[1] === "collection"){
-      document.title = ".find - "+profileData.profile.name+"'s collection"
-    }else{
-    document.title = ".find - "+profileData.profile.name+"'s profile"
+  } else {
+    if (currentPage[1] === "collection") {
+      document.title = ".find - " + profileData.profile.name + "'s collection"
+    } else {
+      document.title = ".find - " + profileData.profile.name + "'s profile"
     }
   }
 
@@ -81,7 +92,7 @@ export function ProfileCard({ profileData }) {
         {profileData ?
 
           <Container id="profileCard" fluid="true" className="frontCards p-4" style={{ minHeight: "90vh" }}>
-            <Tabs defaultActiveKey='profile' activeKey={key} id='profile-collection-tabs' onSelect={(k) => setKey(k)}>
+            <Tabs defaultActiveKey='profile' activeKey={key} id='profile-collection-tabs' onSelect={(k) => handleTabs(k)}>
               <Tab eventKey='profile' title='Profile'>
                 <Row className="d-flex justify-content-center">
                   <Col xs="12" md="4">
@@ -207,8 +218,8 @@ export function ProfileCard({ profileData }) {
                                   {profileData.leases.length > 1 &&
                                     <div>
                                       <div className="my-3"><span className="idd">Other names owned by this user:</span></div>
-                                      {profileData.leases.map((lease) =>
-                                        <div><Link to={"/" + lease.name}>{lease.name}</Link></div>
+                                      {profileData.leases.map((lease, i) =>
+                                        <div key={i}><Link to={"/" + lease.name}>{lease.name}</Link></div>
                                       )}
                                     </div>
                                   }

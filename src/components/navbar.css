@@ -60,11 +60,12 @@
     font-weight: 500;
     color: #444444
 }
-.dropdown-menu-end {
+#lgmenu .dropdown-menu-end {
     margin-right: 20px !important;
     margin-top: 5px !important;
+    z-index: 1000000000;
 }
-.dropdown-menu{
+#lgmenu .dropdown-menu{
     background-color: white;
     cursor: default;
     filter: drop-shadow(0px 1px 4px rgba(60, 61, 65, 0.2));
@@ -72,37 +73,37 @@
     border: 1px solid #D8D8D9;
     border-radius: 8px;
 }
-.dropdown-item {
+#lgmenu .dropdown-item {
     padding: 8px !important;
 }
-.dropdown-item a {
+#lgmenu .dropdown-item a {
     color: black;
     padding: 12px 12px !important;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
 }
-.dropdown-item:hover {
+#lgmenu .dropdown-item:hover {
     color: white !important;
     background-color: black;
     background-image: none !important;  
 }
-.dropdown-item a:hover {
+#lgmenu .dropdown-item a:hover {
     color: white !important;
     background-color: black;
     background-image: none !important;
 }
-.dropdown-item.active{
+#lgmenu .dropdown-item.active{
     background-color: black !important;
     color: white !important;
 }
-.dropdown-item.active a{
+#lgmenu .dropdown-item.active a{
     background-color: black !important;
     color: white !important;
 }
-.dropdown-item:focus{
+#lgmenu .dropdown-item:focus{
     background-color: black !important;
     color: white !important;
 }
-#dropdown-menu-align-end.btn-dark {
+#lgmenu #dropdown-menu-align-end.btn-dark {
     padding: 0px;
     background-color: transparent !important;
     height: 70px;
@@ -110,10 +111,10 @@
     border: none;
     box-shadow: none;
 }
-#dropdown-menu-align-end.btn-dark::after {
+#lgmenu #dropdown-menu-align-end.btn-dark::after {
     color: black !important;
 }
-#dropdown-menu-align-end.btn-dark img {
+#lgmenu #dropdown-menu-align-end.btn-dark img {
     height: 70px;
     width: 70px;
     border-radius: 50%;

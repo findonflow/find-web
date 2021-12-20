@@ -3,7 +3,7 @@ import { Row, Col, Card, Image } from "react-bootstrap"
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { scripts } from 'find-flow-contracts'
-import { useStateChanged } from "../../functions/DisabledState";
+import { useFormStatus, useStateChanged } from "../../functions/DisabledState";
 import { handleSetPfp } from "../../functions/txfunctions";
 
 export function ProfileCollection({ profileData }) {
@@ -34,6 +34,7 @@ export function ProfileCollection({ profileData }) {
   return (
     <div>
       {/* {JSON.stringify(findList,null,2)} */}
+	  <fieldset id="a" disabled={useFormStatus()}>
       <Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
         {
           findList && findList !== "first_init" && findList !== "" &&
@@ -59,8 +60,10 @@ export function ProfileCollection({ profileData }) {
 					
                   {/* {JSON.stringify(collection, null, 2)} */}
                   
-                  <Card className="shadow" style={{ maxWidth: "400px" }}>
+                  <Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
+				  
 					  {user.addr === profileData.profile.address &&
+					  
 					<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
 					<a href={url} target="_blank" rel="noreferrer">
                     <Image src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} rounded fluid />
@@ -70,7 +73,7 @@ export function ProfileCollection({ profileData }) {
                 </Col>)
             }))
         }
-      </Row>
+      </Row></fieldset>
       {/* {JSON.stringify(findList, null, 2)} */}
       {!findList &&
         <Row>

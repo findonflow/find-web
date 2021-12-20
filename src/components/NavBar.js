@@ -18,7 +18,8 @@ import {
   Nav,
   Image,
   Row,
-  Col
+  Col,
+  NavDropdown
 } from "react-bootstrap";
 import { useStateChanged } from "../functions/DisabledState";
 
@@ -70,8 +71,8 @@ function NavHead() {
           <Nav.Link as={Link} to={"/lf"} className="ms-lg-3">Live Feed</Nav.Link>
           <Nav.Link as={Link} to={"/mp"} className="ms-lg-3">Marketplace</Nav.Link>
         </Nav>
-        <Nav className="ms-auto">
-        <div className="p-3 p-lg-0 mx-auto">
+        <Nav>
+        <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-lg-block">
              {user.loggedIn ?
                 profile &&
               <DropdownButton align="end" title={<Image src={profile.avatar} />} id="dropdown-menu-align-end" variant="dark" data-toggle="dropdown">
@@ -82,8 +83,8 @@ function NavHead() {
                 {profile.wallets &&
                   profile.wallets.map((wallet) => (
                     <Row>
-                      <Col className="mx-2">{wallet.name}:</Col>
-                      <Col><b>{wallet.balance}</b></Col>
+                      <Col className="mx-2" style={{textTransform: "uppercase"}}>{wallet.name}:</Col>
+                      <Col><b>{parseFloat(wallet.balance).toFixed(4)}</b></Col>
                     </Row>
                   ))
                 }
@@ -94,6 +95,32 @@ function NavHead() {
                 <Dropdown.Divider />
                 <div align="center" className="mx-4"><AuthCluster user={user} /></div>
               </DropdownButton>
+              :
+              <AuthCluster user={user} />}
+          </div>
+          <div className="p-3 p-lg-0 mx-auto d-lg-none">
+             {user.loggedIn ? <div>
+             <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>Wallet</div>
+             <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
+               <div className="p-2" style={{ fontSize: "16px", cursor: "pointer" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
+             </OverlayTrigger>
+             {profile.wallets &&
+               profile.wallets.map((wallet) => (
+                 <Row>
+                   <Col className="mx-2">{wallet.name}:</Col>
+                   <Col><b>{wallet.balance*1}</b></Col>
+                 </Row>
+               ))
+             }
+              <NavDropdown title={<div style={{color: "black"}}>{profile.name}</div>}  >
+                
+                
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to={"/"} className="p-5">Home</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to={"/me"}>Dashboard</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <div align="center" className="mx-4"><AuthCluster user={user} /></div>
+              </NavDropdown> </div>
               :
               <AuthCluster user={user} />}
           </div>

@@ -14,8 +14,6 @@ export function ProfileSendFT({ profileData }) {
         const name = profileData.lease.name
 
         handleSendFungible(event,name, amount, sendFT)
-        console.log(amount)
-        console.log(name)
     }
 
     const handleChange = (event) => {

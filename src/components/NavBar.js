@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import copy from "copy-to-clipboard";
+import { scripts } from "find-flow-contracts"
 import * as fcl from "@onflow/fcl"
+import * as t from "@onflow/types"
 import { Link } from 'react-router-dom'
 import { Link as scrollLink } from 'react-scroll'
 import './navbar.css'
@@ -13,13 +15,43 @@ import {
   OverlayTrigger,
   Tooltip,
   Navbar,
-  Nav
+  Nav,
+  Image,
+  Row,
+  Col,
+  NavDropdown
 } from "react-bootstrap";
+import { useStateChanged } from "../functions/DisabledState";
+
+
 
 function NavHead() {
+  const [profile, setProfile] = useState("")
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
   
+  useEffect(() => {
+    if (user.loggedIn) {  
+      async function getProfile(addr) {
+        const response = await fcl.send([
+          fcl.script(scripts.profile),
+          fcl.args([fcl.arg(addr, t.Address)]),
+        ]);
+        
+        const profile = await fcl.decode(response)
+        setProfile(profile)
+      }
+      try{
+      getProfile(user.addr)}
+      catch (error) {
+        console.log(error)
+      }
+    }
+    // eslint-disable-next-line
+  }, [user, useStateChanged()])
+
+
+
   function runCopy(copyData) {
     copy(copyData)
     toast(<span align="center">{copyData} copied to clipboard</span>, { duration: 2000, style: {} })
@@ -27,7 +59,7 @@ function NavHead() {
   }
   return (
     <Container id="navbar" fluid="true">
-      <Navbar collapseOnSelect={true} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3">
+      <Navbar collapseOnSelect={true} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3 navbar-custom">
         <Container>
         <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -39,14 +71,24 @@ function NavHead() {
           <Nav.Link as={Link} to={"/lf"} className="ms-lg-3">Live Feed</Nav.Link>
           <Nav.Link as={Link} to={"/mp"} className="ms-lg-3">Marketplace</Nav.Link>
         </Nav>
-        <Nav className="ms-auto">
-        <div className="p-3 p-lg-0 mx-auto">
+        <Nav>
+        <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-md-block">
              {user.loggedIn ?
-              <DropdownButton align="end" title={user.addr} id="dropdown-menu-align-end" variant="dark" data-toggle="dropdown">
-                <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>Wallet Address</div>
+                profile &&
+              <DropdownButton align="end" title={<Image src={profile.avatar} />} id="dropdown-menu-align-end" variant="dark" data-toggle="dropdown">
+                <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>Wallet</div>
                 <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
                   <div className="p-2" style={{ fontSize: "16px", cursor: "pointer" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
                 </OverlayTrigger>
+                {profile.wallets &&
+                  profile.wallets.map((wallet) => (
+                    <Row>
+                      <Col className="mx-2" style={{textTransform: "uppercase"}}>{wallet.name}:</Col>
+                      <Col><b>{parseFloat(wallet.balance).toFixed(4)}</b></Col>
+                    </Row>
+                  ))
+                }
+                 <div></div>
                 <Dropdown.Divider />
                 <Dropdown.Item as={Link} to={"/"} className="p-5">Home</Dropdown.Item>
                 <Dropdown.Item as={Link} to={"/me"}>Dashboard</Dropdown.Item>
@@ -56,10 +98,37 @@ function NavHead() {
               :
               <AuthCluster user={user} />}
           </div>
+          <div className="d-md-none">
+             {user.loggedIn ? <div>
+             
+              <NavDropdown title={profile.name ? profile.name : user.addr}  >
+                <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>Wallet</div>
+             <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
+               <div className="p-2" style={{ fontSize: "16px", cursor: "pointer" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
+             </OverlayTrigger>
+             {profile.wallets &&
+               profile.wallets.map((wallet) => (
+                 <Row>
+                   <Col className="mx-2">{wallet.name}:</Col>
+                   <Col><b>{wallet.balance*1}</b></Col>
+                 </Row>
+               ))
+             }
+                
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to={"/"}>Home</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to={"/me"}>Dashboard</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <div align="center" className="mx-4"><AuthCluster user={user} /></div>
+              </NavDropdown> </div>
+              :
+              <AuthCluster user={user} />}
+          </div>
             </Nav>
         </Navbar.Collapse>
         </Container>
       </Navbar>
+      {/* {JSON.stringify(profile, null,2)} */}
     </Container>
     // <Container id="navBar">
     //   <Navbar collapseOnSelect={true} expand="md">

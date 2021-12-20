@@ -193,10 +193,9 @@ aspect-ratio: 1 / 1;
   }
   .collection-img {
     width: 100%;
-    height: 100%;
     object-fit:cover;
     background-position:center;
-    aspect-ratio: 1/1;
+    aspect-ratio: 1/1 !important;
   }
 .copyicon {
   cursor: pointer;
@@ -482,7 +481,7 @@ body:before {
   flex: none;
   order: 0;
   flex-grow: 0;
-  margin: 0px 24px;
+  margin: 0px 0px;
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;

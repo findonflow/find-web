@@ -511,7 +511,7 @@ body:before {
   background: #FFFFFF;
   border: 1px solid #DEDEDE;
   box-sizing: border-box;
-  border-radius: 12px !important;
+  border-radius: 40PX !important;
   height: 52px;
   font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-style: normal;

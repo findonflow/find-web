@@ -22,20 +22,27 @@ export function ProfileSendFT({ profileData }) {
 
     return(
         <div>
+            
             <Form noValidate onSubmit={handleSubmit} className="formInputs">
-                <Row>
-                    <Form.Group as={Col} controlId="validationCustom02">
-                        <Form.Label><div>Please choose the amount of <span> <Form.Label>
-                            <Form.Select onChange={handleChange}>
-                                <option value="flow">FLOW</option> 
-                                <option value="fusd">FUSD</option>
-                            </Form.Select>
-                        </Form.Label></span>you'd like to send</div></Form.Label>
-                        <Form.Control type="number" name="sendAmt" />
+                <Row className="mx-auto">
+                <span className="name">.fund {profileData.profile.name}</span>
+                    <Form.Group className=" mt-1 mx-auto" as={Row} controlId="validationCustom02" >
+                        <Row className="m-0 mt-1 p-0">
+                            <Col className="p-0 my-auto m-0">
+                            <Form.Label className="idd1 text-left">Please choose the amount of {sendFT} you'd like to send</Form.Label>
+                            </Col>
+                            <Col className="p-0 m-0">
+                            <Form.Select className="text-center m-0" onChange={handleChange}>
+                                    <option value="flow">FLOW</option> 
+                                    <option value="fusd">FUSD</option>
+                                </Form.Select>  
+                            </Col> 
+                        </Row>
+                        <Form.Control className="mb-3 mt-3"type="number" name="sendAmt" />
                     </Form.Group>
-                    <Col className="align-self-end">
-                        <Button variant="outline-dark" className="mt-auto" type="submit">Send</Button>
-                    </Col>
+                    <Row className="mx-auto">
+                        <Button variant="outline-dark" type="submit">Send</Button>
+                    </Row>
                 </Row>
             </Form>
         </div>

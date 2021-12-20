@@ -30,6 +30,9 @@ export function ProfileCard({ profileData }) {
     if (currentPage[1] === "collection") {
       setKey("collection")
     }
+    else if (currentPage[1] === "fund") {
+      setKey("fund")
+    }
   }, [])
   function handleTabs(k) {
     setKey(k)
@@ -50,7 +53,11 @@ export function ProfileCard({ profileData }) {
   } else {
     if (currentPage[1] === "collection") {
       document.title = ".find - " + profileData.profile.name + "'s collection"
-    } else {
+    }
+    else if (currentPage[1] === "fund") {
+      document.title = ".fund - " + profileData.profile.name + "'s wallet"
+    }
+    else {
       document.title = ".find - " + profileData.profile.name + "'s profile"
     }
   }
@@ -156,6 +163,15 @@ export function ProfileCard({ profileData }) {
                               </ListGroup>
                             </Card>
                           </Col>
+                          {profileData.profile.address !== user.addr && 
+                          <Col>
+                          <Card className="p-4">
+                          
+                          <ProfileSendFT profileData={profileData}/>
+                          </Card>
+                            
+                          </Col>
+}
                         </Row>
                         <Row className="mb-3 d-flex justify-content-center" id="profileBidNameRow">
                           {profileData.leases && profileData.bids &&
@@ -241,14 +257,6 @@ export function ProfileCard({ profileData }) {
                   <ProfileCollection profileData={profileData} />
                 </Card>
               </Tab>
-
-              <Tab  eventKey='' title='.fund'>
-              <Card className="shadow p-3 p-lg-5 mt-3" border="light">
-                {/* make sure to put && profileData.lease to make sure it exists */}
-                {/* create a component to do all of this - so that we can create, need to pass through name (string all lower case), amount UFix64 (parse int and create 2 0s on the end), type which is a drop down or check box ("flow" or "fusd") */}
-                  <ProfileSendFT profileData={profileData}/>
-                </Card>
-              </Tab>  
               {/* {user.addr === profileData.profile.address &&
                 <Tab eventKey='forge' title='The Forge'>
                   <ProfileForge profileData={profileData} />

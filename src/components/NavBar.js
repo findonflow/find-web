@@ -72,7 +72,7 @@ function NavHead() {
           <Nav.Link as={Link} to={"/mp"} className="ms-lg-3">Marketplace</Nav.Link>
         </Nav>
         <Nav>
-        <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-lg-block">
+        <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-md-block">
              {user.loggedIn ?
                 profile &&
               <DropdownButton align="end" title={<Image src={profile.avatar} />} id="dropdown-menu-align-end" variant="dark" data-toggle="dropdown">
@@ -98,7 +98,7 @@ function NavHead() {
               :
               <AuthCluster user={user} />}
           </div>
-          <div className=" d-lg-none">
+          <div className="d-md-none">
              {user.loggedIn ? <div>
              
               <NavDropdown title={profile.name ? profile.name : user.addr}  >

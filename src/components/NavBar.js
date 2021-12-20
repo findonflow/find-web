@@ -59,7 +59,7 @@ function NavHead() {
   }
   return (
     <Container id="navbar" fluid="true">
-      <Navbar collapseOnSelect={true} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3">
+      <Navbar collapseOnSelect={true} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3 navbar-custom">
         <Container>
         <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -98,9 +98,11 @@ function NavHead() {
               :
               <AuthCluster user={user} />}
           </div>
-          <div className="p-3 p-lg-0 mx-auto d-lg-none">
+          <div className=" d-lg-none">
              {user.loggedIn ? <div>
-             <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>Wallet</div>
+             
+              <NavDropdown title={profile.name ? profile.name : user.addr}  >
+                <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>Wallet</div>
              <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
                <div className="p-2" style={{ fontSize: "16px", cursor: "pointer" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
              </OverlayTrigger>
@@ -112,11 +114,9 @@ function NavHead() {
                  </Row>
                ))
              }
-              <NavDropdown title={<div style={{color: "black"}}>{profile.name}</div>}  >
-                
                 
                 <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to={"/"} className="p-5">Home</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to={"/"}>Home</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to={"/me"}>Dashboard</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <div align="center" className="mx-4"><AuthCluster user={user} /></div>

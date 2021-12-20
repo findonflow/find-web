@@ -60,6 +60,9 @@
     font-weight: 500;
     color: #444444
 }
+.navbar-custom {
+    min-height: 102px;
+  }
 #lgmenu .dropdown-menu-end {
     margin-right: 20px !important;
     margin-top: 5px !important;

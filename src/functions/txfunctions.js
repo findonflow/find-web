@@ -529,6 +529,40 @@ export const handleSendFungible = async (e, name, amount, type) => {
     console.log(e);
   }
 }
-//this will be one of the transactions that bjarte has set up the other day
-//transaction sendFT can be fusd or flow, make sure to include
+
+export const handleSetPfp = async (e) => {
+  try {
+    await Tx(
+      [
+        fcl.transaction(transactions.setProfile),
+        fcl.args([
+          fcl.arg(e, t.String)
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start")
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}
 

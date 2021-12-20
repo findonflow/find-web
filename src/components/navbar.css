@@ -102,3 +102,21 @@
     background-color: black !important;
     color: white !important;
 }
+#dropdown-menu-align-end.btn-dark {
+    padding: 0px;
+    background-color: transparent !important;
+    height: 70px;
+    width: 90px;
+    border: none;
+    box-shadow: none;
+}
+#dropdown-menu-align-end.btn-dark::after {
+    color: black !important;
+}
+#dropdown-menu-align-end.btn-dark img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    /* box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15); */
+    transition: 0.5s;
+}

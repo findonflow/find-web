@@ -22,7 +22,7 @@ export function ProfileSendFT({ profileData }) {
 
     return(
         <div>
-            <Form onSubmit={handleSubmit} className="formInputs">
+            <Form noValidate onSubmit={handleSubmit} className="formInputs">
                 <Row>
                     <Form.Group as={Col} controlId="validationCustom02">
                         <Form.Label><div>Please choose the amount of <span> <Form.Label>

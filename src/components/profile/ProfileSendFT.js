@@ -17,7 +17,6 @@ export function ProfileSendFT({ profileData }) {
 
         if(validateInput(amount)){
             const name = profileData.lease.name
-
             handleSendFungible(event,name, amount, sendFT)
         }
 

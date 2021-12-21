@@ -66,8 +66,10 @@ export function ProfileCollection({ profileData }) {
 					  
 					<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
 					<a href={url} target="_blank" rel="noreferrer">
-                    <Image src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} rounded fluid />
-                    <Card.Text className="p-3 fw-bold">{nftData.name}</Card.Text>
+                    <Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} rounded fluid />
+					<Card.Body>
+                    <Card.Title className="fw-bold">{nftData.name}</Card.Title>
+					</Card.Body>
 					</a>
                   </Card>
                 </Col>)

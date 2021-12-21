@@ -39,10 +39,7 @@ export function ProfileSendFT({ profileData }) {
     }
 
     const handleChange = (event) => {
-        if(validateInput(event.target.value))
-        {
-            setSendFT(event.target.value)
-        }
+        setSendFT(event.target.value)
     }
 
     return(
@@ -57,7 +54,7 @@ export function ProfileSendFT({ profileData }) {
                             <Form.Label className="idd1 text-left">Please choose the amount of {sendFT} you'd like to send</Form.Label>
                             </Col>
                             <Col className="p-0 m-0">
-                            <Form.Select required className="text-center m-0" onChange={handleChange}>
+                            <Form.Select className="text-center m-0" onChange={handleChange}>
                                     <option value="flow">FLOW</option> 
                                     <option value="fusd">FUSD</option>
                                 </Form.Select>  

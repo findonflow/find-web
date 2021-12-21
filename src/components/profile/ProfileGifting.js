@@ -127,7 +127,7 @@ export function ProfileGifting({ profileData }) {
                         </Row>
                     </Form.Group>
                     
-                    <Row className="m-0 mt-3">
+                    <Row className="m-0 mt-1">
                     <span className="idd mt-4">Who would you like to gift to?</span>
                         <Col md="8" xs="12">
                         <Form.Control className="mt-2 w-100" required type="text" placeholder="Enter a .find name or 0xAddress" name="recipientName" onChange={handleRecipientChange}/>
@@ -139,7 +139,6 @@ export function ProfileGifting({ profileData }) {
                         {error.length > 0 &&
                         <div className="errorText">{error}</div>}
                         </Row>
-                        
                     </Row>
                 </Row>
                 </fieldset>

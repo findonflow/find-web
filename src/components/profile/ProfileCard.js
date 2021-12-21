@@ -259,7 +259,7 @@ export function ProfileCard({ profileData }) {
                   <ProfileCollection profileData={profileData} />
                 </Card>
               </Tab>
-
+              {user.addr === profileData.profile.address &&                    
               <Tab eventKey='' title='Gifting'>
                 <Row>
                 <Col xs="12" md="4">
@@ -297,6 +297,7 @@ export function ProfileCard({ profileData }) {
                 </Row>
               
               </Tab>
+}
               {/* {user.addr === profileData.profile.address &&
                 <Tab eventKey='forge' title='The Forge'>
                   <ProfileForge profileData={profileData} />

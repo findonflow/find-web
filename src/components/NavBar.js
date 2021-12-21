@@ -28,6 +28,7 @@ import { useStateChanged } from "../functions/DisabledState";
 function NavHead() {
   const [profile, setProfile] = useState("")
   const [user, setUser] = useState({ loggedIn: null })
+  const [expanded, setExpanded] = useState(false);
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
   
   useEffect(() => {
@@ -59,24 +60,24 @@ function NavHead() {
   }
   return (
     <Container id="navbar" fluid="true">
-      <Navbar collapseOnSelect={true} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3 navbar-custom">
+      <Navbar collapseOnSelect={true} expanded={expanded} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3 navbar-custom">
         <Container>
         <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         <Nav className="me-auto">
           {/* <Nav.Link as={scrollLink} to="cadenceHint" spy={true} smooth={true} offset={120} duration={400} style={{cursor: 'pointer'}} className="ms-lg-5">Integrate</Nav.Link> */}
           
-          <Nav.Link as={scrollLink} to="faq" spy={true} smooth={true} offset={50} duration={400} style={{cursor: 'pointer'}} className="ms-lg-3">FAQ's</Nav.Link>
-          <Nav.Link as={Link} to={"/lf"} className="ms-lg-3">Live Feed</Nav.Link>
-          <Nav.Link as={Link} to={"/mp"} className="ms-lg-3">Marketplace</Nav.Link>
+          <Nav.Link onClick={() => setExpanded(false)} as={scrollLink} to="faq" spy={true} smooth={true} offset={50} duration={400} style={{cursor: 'pointer'}} className="ms-lg-3">FAQ's</Nav.Link>
+          <Nav.Link onClick={() => setExpanded(false)} as={Link} to={"/lf"} className="ms-lg-3">Live Feed</Nav.Link>
+          <Nav.Link onClick={() => setExpanded(false)} as={Link} to={"/mp"} className="ms-lg-3">Marketplace</Nav.Link>
         </Nav>
         <Nav>
         <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-md-block">
              {user.loggedIn ?
                 profile &&
               <DropdownButton align="end" title={<Image src={profile.avatar} />} id="dropdown-menu-align-end" variant="dark" data-toggle="dropdown">
-                <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>Wallet</div>
+                <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>{profile.name ? profile.name : user.addr}'s Wallet</div>
                 <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
                   <div className="p-2" style={{ fontSize: "16px", cursor: "pointer" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
                 </OverlayTrigger>
@@ -102,7 +103,7 @@ function NavHead() {
              {user.loggedIn ? <div>
              
               <NavDropdown title={profile.name ? profile.name : user.addr}  >
-                <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>Wallet</div>
+                <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>{profile.name ? profile.name : user.addr}'s Wallet</div>
              <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
                <div className="p-2" style={{ fontSize: "16px", cursor: "pointer" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
              </OverlayTrigger>
@@ -116,8 +117,8 @@ function NavHead() {
              }
                 
                 <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to={"/"}>Home</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to={"/me"}>Dashboard</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => setExpanded(false)} as={Link} to={"/"}>Home</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => setExpanded(false)} as={Link} to={"/me"}>Dashboard</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <div align="center" className="mx-4"><AuthCluster user={user} /></div>
               </NavDropdown> </div>

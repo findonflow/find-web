@@ -197,9 +197,7 @@ export default function SalesAuction() {
 
                     </div>
                 </Col> */}
-            </Row>
-
-
+            </Row>            
         </Container>
     )
 

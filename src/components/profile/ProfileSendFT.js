@@ -47,7 +47,6 @@ export function ProfileSendFT({ profileData }) {
 
     return(
         <div>
-            
             <Form noValidate onSubmit={handleSubmit} className="formInputs">
                 <fieldset id="a" disabled={useFormStatus()}>
                 <Row className="mx-auto">

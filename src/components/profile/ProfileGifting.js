@@ -6,7 +6,8 @@ import { useFormStatus } from "../../functions/DisabledState";
 export function ProfileGifting({ profileData }) {
 
     const [recipient, setRecipient] = useState("")
-    const [name, setName] = useState("")
+    const [name, setName] = useState("--please select a name--")
+    const [error, setError] = useState("")
 
 
     const handleSubmit = (event) => {
@@ -14,42 +15,90 @@ export function ProfileGifting({ profileData }) {
 
         event.preventDefault();
 
-        if(addressConfirmation(recipient)){
-            handleSendNameToAddress(event, name, recipient)
-        }
-        else{
-            if(name.length <= 16)
+        if(addressValidation(recipient) == "address"){
+            if(nameValidation(name))
             {
-                handleSendNameToName(event, name, recipient)
+                handleSendNameToAddress(event, name, recipient)
             }
-            else {
-                console.log("not a valid name or address")
+        }
+        else if (addressValidation(recipient) == "name")
+        {
+            if(nameValidation(name))
+            {
+            handleSendNameToName(event, name, recipient)
             }
         }
 
     }
 
     const handleRecipientChange = (event) => {
+        
         let r = event.target.value.toLowerCase()
-        r = r.replace(/[^a-z0-9-]/g, '')
-        setRecipient(r)
+        addressValidation(r)
     }
 
     const handleDropDownChange = (event) => {
-        setName(event.target.value)
+        if(nameValidation(event.target.value))
+        {
+            setError("")
+            setName(event.target.value)
+        }
     }
 
-    const addressConfirmation = (address) => {
-
-        if(address.includes("0x")  && address.length === 18)
+    const nameValidation = (name) => {
+        if(profileData.leases.some(item => name === item.name))
         {
-            return true
+            console.log("valid name")
+            return true;
+            
         }
         else
         {
-            return false
+            setError("Name selected is not valid")
+            return false;
         }
     }
+
+    const addressValidation = (address) => {
+
+        let a = address
+
+        if(a.includes("."))
+        {
+            a = a.split('.')[0]
+            setRecipient(a)    
+        }
+
+        if(a.length >= 3)
+        {
+            if (a.match(/[^a-z0-9-]/g) !== null)
+            {
+                console.log(a)
+                setError("No special characters allowed")
+                return "invalid"
+            }
+            if(a.includes("0x")  && a.length === 18)
+            {
+                return "address"
+            }
+            else if (a.length >= 3 && a.length <= 16)
+            {
+                return "name"
+            }
+            else
+            {
+                setError("Name / Address provided is invalid. Please try again.")
+                return "invalid"
+            }
+        }
+
+        else
+            {
+                setError("Name / Address provided is invalid. Please try again.")
+                return "invalid"
+            }
+            
+        }
 
     return(
         <div>
@@ -63,7 +112,7 @@ export function ProfileGifting({ profileData }) {
                             <Form.Label className="idd2 p-0 m-0">Choose the name you would like to gift to someone else and send it either by their .find name or blocto wallet address.</Form.Label>
                             </Col>
                             <Col className="p-0 m-0" md="5" xs="12">
-                            <Form.Select className="text-center m-0" onChange={handleDropDownChange}>
+                            <Form.Select required className="text-center m-0 mt-2" onChange={handleDropDownChange}>
                             <option key="NoName" value="no name selected">--please select a name--</option>
                             {profileData.leases.map(item => {
                             return (<option key={item.name} value={item.name}>{item.name}</option>);
@@ -74,14 +123,16 @@ export function ProfileGifting({ profileData }) {
                     </Form.Group>
                     <span className="idd mt-4">Who would you like to gift to?</span>
                     <Row className=" mt-3">
-                    
                         <Col md="8" xs="12">
-                        <Form.Control className="mb-3"type="text" placeholder="Enter a .find name or 0xAddress" name="recipientName" onChange={handleRecipientChange}/>
+                        <Form.Control className="mt-2" required type="text" placeholder="Enter a .find name or 0xAddress" name="recipientName" onChange={handleRecipientChange}/>
                         </Col>
                         <Col md="4" xs="12">
-                        <Button className="w-100" variant="outline-dark" type="submit">Gift</Button>
-                        </Col>
-                       
+                        <Button className="mt-2 w-100" variant="outline-dark" type="submit">Gift</Button>
+                        </Col>  
+                        <Row xs="12" md="8">
+                        {error.length > 0 &&
+                        <div className="errorText">{error}</div>}
+                        </Row>
                         
                     </Row>
                 </Row>

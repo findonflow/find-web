@@ -539,3 +539,8 @@ body:before {
   border-width: 1px;
   border-style: dashed;
 }
+
+.errorText {
+  font-size: 12px;
+  color:red;
+}

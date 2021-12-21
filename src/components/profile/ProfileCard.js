@@ -166,9 +166,10 @@ export function ProfileCard({ profileData }) {
                           </Col>
                           {profileData.profile.address !== user.addr && 
                           <Col>
+                          <div className="w-100 m-3 d-md-none"></div>
                           <Card className="p-4">
-                          
-                          <ProfileSendFT profileData={profileData}/>
+                            
+                            <ProfileSendFT profileData={profileData}/>
                           </Card>
                             
                           </Col>

@@ -22,6 +22,7 @@ import {
   NavDropdown
 } from "react-bootstrap";
 import { useStateChanged } from "../functions/DisabledState";
+import { NoProfile } from "./infoboxes/NoProfile";
 
 
 
@@ -75,7 +76,7 @@ function NavHead() {
         <Nav>
         <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-md-block">
              {user.loggedIn ?
-                profile &&
+                profile ?
               <DropdownButton align="end" title={<Image src={profile.avatar} />} id="dropdown-menu-align-end" variant="dark" data-toggle="dropdown">
                 <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>{profile.name ? profile.name : user.addr}'s Wallet</div>
                 <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
@@ -97,10 +98,17 @@ function NavHead() {
                 <div align="center" className="mx-4"><AuthCluster user={user} /></div>
               </DropdownButton>
               :
+              <DropdownButton title={user.addr} variant="dark" data-toggle="dropdown" >
+              <NoProfile />
+              </DropdownButton>
+              :
+              
               <AuthCluster user={user} />}
           </div>
           <div className="d-md-none">
-             {user.loggedIn ? <div>
+             {user.loggedIn ? 
+              profile ?
+             <div>
              
               <NavDropdown title={profile.name ? profile.name : user.addr}  >
                 <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>{profile.name ? profile.name : user.addr}'s Wallet</div>
@@ -122,6 +130,8 @@ function NavHead() {
                 <NavDropdown.Divider />
                 <div align="center" className="mx-4"><AuthCluster user={user} /></div>
               </NavDropdown> </div>
+              :
+              <NoProfile />
               :
               <AuthCluster user={user} />}
           </div>

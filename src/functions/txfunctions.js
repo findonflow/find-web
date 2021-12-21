@@ -566,3 +566,86 @@ export const handleSetPfp = async (e) => {
   }
 }
 
+export const handleSendNameToAddress = async (e, name, recipient) => {
+  try {
+    await Tx(
+      [
+        //name: String, amount: UFix64, type: String
+        fcl.transaction(transactions.moveNameToAddress),
+        fcl.args([
+          fcl.arg(name, t.String),
+          fcl.arg(recipient, t.Address)
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start");
+          console.log(e);
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          // const event = document.createEvent("Event");
+          // event.initEvent("bid", true, true);
+          // document.dispatchEvent(event);
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export const handleSendNameToName = async (e, name, recipient) => {
+  try {
+    await Tx(
+      [
+        //name: String, amount: UFix64, type: String
+        fcl.transaction(transactions.moveNameToName),
+        fcl.args([
+          fcl.arg(name, t.String),
+          fcl.arg(recipient, t.String)
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start");
+          console.log(e);
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          // const event = document.createEvent("Event");
+          // event.initEvent("bid", true, true);
+          // document.dispatchEvent(event);
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}

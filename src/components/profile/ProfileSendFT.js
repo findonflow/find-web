@@ -1,6 +1,8 @@
 import { Button, Form, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { handleSendFungible } from "../../functions/txfunctions";
+import { useFormStatus } from "../../functions/DisabledState";
+
 export function ProfileSendFT({ profileData }) {
 
     const [sendFT, setSendFT] = useState("flow")
@@ -14,6 +16,7 @@ export function ProfileSendFT({ profileData }) {
         const name = profileData.lease.name
 
         handleSendFungible(event,name, amount, sendFT)
+
     }
 
     const handleChange = (event) => {
@@ -24,6 +27,7 @@ export function ProfileSendFT({ profileData }) {
         <div>
             
             <Form noValidate onSubmit={handleSubmit} className="formInputs">
+                <fieldset id="a" disabled={useFormStatus()}>
                 <Row className="mx-auto">
                 <span className="name">.fund {profileData.profile.name}</span>
                     <Form.Group className=" mt-1 mx-auto" as={Row} controlId="validationCustom02" >
@@ -44,6 +48,7 @@ export function ProfileSendFT({ profileData }) {
                         <Button variant="outline-dark" type="submit">Send</Button>
                     </Row>
                 </Row>
+                </fieldset>
             </Form>
         </div>
     )

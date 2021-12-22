@@ -6,7 +6,8 @@ export function ValidateNameAddress(props) {
     }
     //force lower case
     let searchName = props.toLowerCase()
-    searchName = searchName.replace(/[^a-z0-9-]/g, '')
+    searchName = searchName.replace(/\b(.find)\b/i, '')
+    searchName = searchName.replace(/[^a-z0-9-]/g, '') 
     //return if input is out of range
     if (!searchName || searchName.length > 18 || searchName.length < 3) {
         return false

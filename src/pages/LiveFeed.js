@@ -134,7 +134,7 @@ export default function LiveFeed() {
         conn.current.stop()
     }, []);
     return (
-        <Container className="mt-5">
+        <Container className="mt-5 p-3 p-lg-0">
             <h1 align="center" className="py-3">The .find live feed 🚀</h1>
             <p align="center" className="pb-5">All of the latest data, all in one place just for you</p>
             <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>

@@ -269,9 +269,7 @@ export function ProfileCard({ profileData }) {
                           <span className="name mt-3 text-center">{profileData.profile.name}</span>
                           <span className="idd text-center">@{profileData.profile.name}</span>
                           <div className="text-center text mt-3"> <span style={{ whiteSpace: "pre-wrap" }}>{profileData.profile.description}</span></div>
-                          {user.addr === profileData.profile.address &&
-                            <div className=" d-flex mt-4 justify-content-center"> <button className="btn-dark" onClick={editClicked}>{editText}</button> </div>
-                          }
+                         
                           <div className="seperator m-auto mt-5 mb-4"></div>
                           {profileData.profile.links &&
                             <ListGroup variant="flush" className="text">
@@ -291,8 +289,12 @@ export function ProfileCard({ profileData }) {
                    <Card className="shadow p-3 p-lg-5 mt-3 h-auto" border="light">
                   <ProfileGifting profileData={profileData} />
                 </Card>
+                <Card className="shadow p-3 p-lg-5 mt-3 h-auto" border="light">
+                <ProfileSendFT />
+                </Card>
                   </Col>
-               
+
+                 <Col sm="12"></Col>
                 </Row>
               
               </Tab>

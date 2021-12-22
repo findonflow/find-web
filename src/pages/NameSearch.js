@@ -9,8 +9,10 @@ import { SearchBar } from "../components/SearchBar";
 import LoadingBC from "../components/infoboxes/LoadingBC";
 import { Container } from "react-bootstrap";
 import { useStateChanged } from "../functions/DisabledState";
+import ReactGA from 'react-ga'
 
 function NameSearch() {
+  ReactGA.pageview(window.location.pathname);
 
   let navigate = useNavigate();
   let { id, col } = useParams();

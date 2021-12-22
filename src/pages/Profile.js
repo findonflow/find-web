@@ -7,8 +7,10 @@ import { ProblemMessage } from "../components/infoboxes/ProblemMessage";
 import LoadingBC from "../components/infoboxes/LoadingBC";
 import { NoProfile } from "../components/infoboxes/NoProfile";
 import { useStateChanged } from "../functions/DisabledState";
+import ReactGA from 'react-ga'
 
 export function Profile({ user }) {
+  ReactGA.pageview(window.location.pathname);
   const [findUser, setFindUser] = useState("first_init");
   useEffect(() => {
     if (user.loggedIn) {

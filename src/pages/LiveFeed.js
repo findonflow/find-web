@@ -5,9 +5,11 @@ import { Container, Image, Table } from "react-bootstrap";
 import { FriendlyEventNames } from '../functions/friendlyEventNames'
 import '../components/livefeed/livefeed.css'
 import { Faq } from "../components/home/Faq";
+import ReactGA from 'react-ga'
 
 export default function LiveFeed() {
     document.title = ".find - live feed"
+    ReactGA.pageview(window.location.pathname);
     const [latestMessage, setLatestMessage] = useState("")
     //const [paintEvent, setPaintEvent] = useState([])
     useEffect(() => {

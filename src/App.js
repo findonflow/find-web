@@ -13,8 +13,13 @@ import NameSearch from "./pages/NameSearch";
 import RemoveProfile from "./pages/RemoveProfile";
 import LiveFeed from "./pages/LiveFeed";
 import SalesAuction from "./pages/SalesAuctions";
+import ReactGA from 'react-ga';
+
+
 
 export default function App() {
+
+  ReactGA.initialize('UA-215684829-1')
 
   const [user, setUser] = useState({ loggedIn: null })
   useEffect(() => fcl.currentUser().subscribe(setUser), [])

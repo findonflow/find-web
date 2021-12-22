@@ -6,9 +6,10 @@ import { transactions } from 'find-flow-contracts'
 import { Col, Container, Row, Button, Image } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router";
 import { useFormStatus } from "../functions/DisabledState";
+import ReactGA from 'react-ga'
 
 export function Register({ enteredName }) {
-
+  ReactGA.pageview(window.location.pathname);
   let { id } = useParams();
   
   let navigate = useNavigate();

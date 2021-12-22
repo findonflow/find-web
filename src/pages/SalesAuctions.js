@@ -7,9 +7,11 @@ import { Link } from "react-router-dom";
 import { handleBuy } from "../functions/txfunctions";
 import { useFormStatus } from "../functions/DisabledState";
 import { epochToJsDate } from "../functions/epochtodate";
+import ReactGA from 'react-ga'
 
 export default function SalesAuction() {
     document.title = ".find - name resale spot"
+    ReactGA.pageview(window.location.pathname);
     const [salesData, setSalesData] = useState()
     const [filteredSold, setFilteredSold] = useState()
     const [filteredForSale, setFilteredForSale] = useState()

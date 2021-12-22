@@ -4,7 +4,7 @@ export function PlaceToShowCollections() {
     return(
     <Container id="PlaceToShowCollections">
         <Row>
-            <Col sm="12" lg="6" align="center">
+        <Col sm="12" lg="6" xs={{ order: 'first' }} md={{ order: 'last'}} align="center">
             <Image src="/assets/img/home/collections-example.webp" alt="Blockchain collection example" fluid/>
             </Col>
             <Col className="my-auto px-3 px-lg-5">

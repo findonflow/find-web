@@ -10,9 +10,12 @@ import LoadingBC from "../infoboxes/LoadingBC";
 import { PrivateBid } from "../lease/BuyerForms";
 import { ProfileCollection } from "./ProfileCollection";
 import './profile.css'
+import { handleBid, handleBuy, handleCancelBid, handleFullfillAuction, handleIncreaseBid, handleOffer } from "../../functions/txfunctions";
 import { ProfileForge } from "./ProfileForge";
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { ProfileSendFT } from "./ProfileSendFT";
+import { ProfileGifting } from "./ProfileGifting";
 
 export function ProfileCard({ profileData }) {
 
@@ -27,6 +30,9 @@ export function ProfileCard({ profileData }) {
   useEffect(() => {
     if (currentPage[1] === "collection") {
       setKey("collection")
+    }
+    else if (currentPage[1] === "fund") {
+      setKey("fund")
     }
   }, [])
   function handleTabs(k) {
@@ -48,7 +54,11 @@ export function ProfileCard({ profileData }) {
   } else {
     if (currentPage[1] === "collection") {
       document.title = ".find - " + profileData.profile.name + "'s collection"
-    } else {
+    }
+    else if (currentPage[1] === "fund") {
+      document.title = ".fund - " + profileData.profile.name + "'s wallet"
+    }
+    else {
       document.title = ".find - " + profileData.profile.name + "'s profile"
     }
   }
@@ -154,6 +164,16 @@ export function ProfileCard({ profileData }) {
                               </ListGroup>
                             </Card>
                           </Col>
+                          {profileData.profile.address !== user.addr && 
+                          <Col>
+                          <div className="w-100 m-3 d-md-none"></div>
+                          <Card className="p-4">
+                            
+                            <ProfileSendFT profileData={profileData}/>
+                          </Card>
+                            
+                          </Col>
+}
                         </Row>
                         <Row className="mb-3 d-flex justify-content-center" id="profileBidNameRow">
                           {profileData.leases && profileData.bids &&
@@ -233,11 +253,51 @@ export function ProfileCard({ profileData }) {
                   </Col>
                 </Row>
               </Tab>
+             
               <Tab eventKey='collection' title='Collection'>
                 <Card className="shadow p-3 p-lg-5 mt-3" border="light">
                   <ProfileCollection profileData={profileData} />
                 </Card>
               </Tab>
+              {user.addr === profileData.profile.address &&                    
+              <Tab eventKey='' title='Gifting'>
+                <Row>
+                <Col xs="12" md="4">
+                    <Row className="mt-3 mb-3" id="profileName">
+                      <Col>
+                        <Card className="p-4 cardprofile">
+                          <div className="d-flex justify-content-center"><div className="profilePic image"><img src={avatarURL} height="100" width="100" alt={profileData.profile.name + "'s profile avatar"} /></div></div>
+                          <span className="name mt-3 text-center">{profileData.profile.name}</span>
+                          <span className="idd text-center">@{profileData.profile.name}</span>
+                          <div className="text-center text mt-3"> <span style={{ whiteSpace: "pre-wrap" }}>{profileData.profile.description}</span></div>
+                          {user.addr === profileData.profile.address &&
+                            <div className=" d-flex mt-4 justify-content-center"> <button className="btn-dark" onClick={editClicked}>{editText}</button> </div>
+                          }
+                          <div className="seperator m-auto mt-5 mb-4"></div>
+                          {profileData.profile.links &&
+                            <ListGroup variant="flush" className="text">
+                              {profileData.profile.links.map((e, index) =>
+                                e.type === "globe" ?
+                                  <ListGroup.Item key={index}><span><a href={e.url} target="_blank" rel="noreferrer"><i className={"me-2 fa-solid fa-globe"}></i> Website</a></span></ListGroup.Item>
+                                  :
+                                  <ListGroup.Item key={index}><span><a href={e.url} target="_blank" rel="noreferrer"><i className={"me-2 fa-brands fa-" + e.type}></i> {e.type}</a></span></ListGroup.Item>
+                              )}
+                            </ListGroup>
+                          }
+                        </Card>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col>
+                   <Card className="shadow p-3 p-lg-5 mt-3 h-auto" border="light">
+                  <ProfileGifting profileData={profileData} />
+                </Card>
+                  </Col>
+               
+                </Row>
+              
+              </Tab>
+}
               {/* {user.addr === profileData.profile.address &&
                 <Tab eventKey='forge' title='The Forge'>
                   <ProfileForge profileData={profileData} />

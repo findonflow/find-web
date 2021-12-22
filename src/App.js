@@ -48,6 +48,7 @@ export default function App() {
           <Route path='/me' element={<Profile user={user} />} />
           <Route path=':id' element={<NameSearch default="profile" />} />
           <Route path=':id/collection' element={<NameSearch default="collection" />} />
+          <Route path=':id/fund' element={<NameSearch default="fund" />} />
           <Route path='/remove' element={<RemoveProfile />} />
           <Route path='/lf' element={<LiveFeed />} />
           <Route path='mp' element={<SalesAuction />} />

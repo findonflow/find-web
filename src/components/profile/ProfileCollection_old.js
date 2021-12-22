@@ -31,7 +31,21 @@ export function ProfileCollection({ profileData }) {
 		// eslint-disable-next-line
 	}, [user, useStateChanged()]);
 
-	const FILTER_NAMES = Object.keys(findList)
+	const [filterList, setFilterList] = useState(["All"])
+	const [filterRun, setFilterRun] = useState()
+
+	useEffect(() => {
+		if (findList && findList !== "first_init" && findList !== "" && !filterRun) {
+			Object.keys(findList).map((collection) => {
+				if (collection) {
+					setFilterList(newcollection => [...newcollection, collection])
+					console.log(collection)
+				}
+			}
+			)
+			setFilterRun("true")
+		}
+	}, [findList])
 
 	const [filterValue, setFilterValue] = useState("All")
 
@@ -42,26 +56,22 @@ export function ProfileCollection({ profileData }) {
 	return (
 		<div>
 			{/* {JSON.stringify(findList,null,2)} */}
-			
+			<Row className="justify-content-center d-flex">
 
-				{findList && findList !== "first_init" && findList !== "" &&
-<Row className="justify-content-center d-flex">
-				<Col className="mb-3" xs="auto">
-					<Button active={filterValue === "All" ? true : false} onClick={() => handleFilter("All")}>{"All"}</Button>
-				</Col>
-					{FILTER_NAMES.map((filters) =>
+				{filterList.length > 0 &&
+					filterList.map((filters) =>
 						<Col className="mb-3" xs="auto">
-							<Button active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters}</Button>
+							<Button variant="dark" onClick={() => handleFilter(filters)}>{filters}</Button>
 						</Col>
-					)}</Row>
+					)
 				}
 
-			
+			</Row>
 			<fieldset id="a" disabled={useFormStatus()}>
 				<Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
 				{
 						findList && findList !== "first_init" && findList !== "" && filterValue === "All" &&
-						FILTER_NAMES.map((collection) =>
+						filterList.map((collection) =>
 							findList[collection]?.items.map((nftData, i) => {
 								let url
 								let imgUrl

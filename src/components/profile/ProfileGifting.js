@@ -22,44 +22,74 @@ export function ProfileGifting({ profileData }) {
     const handleSubmit = (event) => {
         const form = event.currentTarget;
 
+        
+
         event.preventDefault();
 
         if(addressValidation(recipient) == "address"){
+            form.recipientName.classList.add("is-valid")
+                form.recipientName.classList.remove("is-invalid")
+
             if(nameValidation(name))
             {
                 setError("")
+                
+                form.sendingName.classList.add("is-valid")
+                form.sendingName.classList.remove("is-invalid")
+
                 handleSendNameToAddress(event, name, recipient)
+                return
+            }
+            else
+            {
+                form.sendingName.classList.remove("is-valid")
+                form.sendingName.classList.add("is-invalid")
             }
         }
         else if (addressValidation(recipient) == "name")
         {
+            form.recipientName.classList.add("is-valid")
+            form.recipientName.classList.remove("is-invalid")
             if(nameValidation(name))
             {
                 setError("")
-            handleSendNameToName(event, name, recipient)
+                
+                form.sendingName.classList.add("is-valid")
+                form.sendingName.classList.remove("is-invalid")
+
+                handleSendNameToName(event, name, recipient)
+                return
+            }
+            else
+            {
+                form.sendingName.classList.remove("is-valid")
+                form.sendingName.classList.add("is-invalid")
+                return
             }
         }
 
-    }
-
-    const handleRecipientChange = (event) => {
-        let r = event.target.value.toLowerCase()
-
-        if(r.includes(".find"))
+        else if (addressValidation(recipient) == "invalid")
         {
-            setRecipient(r.split(".find")[0])
-        }
-        else{
-            setRecipient(r)
-        }
-    }
+            form.recipientName.classList.add("is-invalid")
+                form.recipientName.classList.remove("is-valid")
 
-    const handleDropDownChange = (event) => {
-        if(nameValidation(event.target.value))
-        {
-            setError("")
-            setName(event.target.value)
+            if(nameValidation(name))
+            {
+                setError("")
+                
+                form.sendingName.classList.add("is-valid")
+                form.sendingName.classList.remove("is-invalid")
+
+                return
+            }
+            else
+            {
+                form.sendingName.classList.remove("is-valid")
+                form.sendingName.classList.add("is-invalid")
+                return
+            }
         }
+
     }
 
     const nameValidation = (name) => {
@@ -74,6 +104,29 @@ export function ProfileGifting({ profileData }) {
             setError("Name selected is not valid")
             return false;
         }
+    }
+
+    function nameValidationFormatting(e) {
+        setFormValues((draft) => {
+            const varVal = draft.find((varVal) => varVal.id === e.target.name);
+            varVal.value = e.target.value;
+
+            //now validate
+            if (nameValidation(varVal.value)) {
+
+                e.target.classList.add("is-valid")
+                e.target.classList.remove("is-invalid")
+                
+            }
+            else {
+                e.target.classList.add("is-invalid")
+                e.target.classList.remove("is-valid")
+            }
+
+            setName(varVal.value)
+        })
+
+        
     }
 
     function addressValidationFormatting(e) {
@@ -136,28 +189,7 @@ export function ProfileGifting({ profileData }) {
             
         }
 
-        function nameValidationFormatting(e) {
-            setFormValues((draft) => {
-                const varVal = draft.find((varVal) => varVal.id === e.target.name);
-                varVal.value = e.target.value;
-
-                //now validate
-                if (nameValidation(varVal.value)) {
-
-                    e.target.classList.add("is-valid")
-                    e.target.classList.remove("is-invalid")
-                    
-                }
-                else {
-                    e.target.classList.add("is-invalid")
-                    e.target.classList.remove("is-valid")
-                }
-    
-                setName(varVal.value)
-            })
-    
-            
-        }
+        
 
     return(
         <div>

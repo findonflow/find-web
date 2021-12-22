@@ -95,11 +95,11 @@ export function ProfileCard({ profileData }) {
   }
 
   return (
-    <Container fluid="true" style={{ backgroundColor: "white" }} className="g-0 m-0 pt-lg-3" >
+    <Container fluid style={{ backgroundColor: "white" }} className="g-0 m-0 pt-lg-3" >
       <Container className="p-0">
         {profileData ?
 
-          <Container id="profileCard" fluid="true" className="frontCards p-4" style={{ minHeight: "90vh" }}>
+          <Container id="profileCard" fluid className="frontCards p-4" style={{ minHeight: "90vh" }}>
             <Tabs defaultActiveKey='profile' activeKey={key} id='profile-collection-tabs' onSelect={(k) => handleTabs(k)}>
               <Tab eventKey='profile' title='Profile'>
                 <Row className="d-flex justify-content-center">

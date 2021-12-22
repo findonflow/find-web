@@ -3,7 +3,7 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 function Footer() {
     return (
         <Container id="footer" className="footer">
-            <Container fluid="false">
+            <Container>
             <Row className="p-3">
                 <Col xs="12" sm="auto" className="p-3 p-lg-0">
                     <Image src="/find-alt.png"  style={{maxHeight: "30px"}}/>

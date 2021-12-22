@@ -60,7 +60,7 @@ function NavHead() {
     //console.log(copyData)
   }
   return (
-    <Container id="navbar" fluid="true">
+    <Container id="navbar" fluid>
       <Navbar collapseOnSelect={true} expanded={expanded} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3 navbar-custom">
         <Container>
         <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
@@ -83,8 +83,8 @@ function NavHead() {
                   <div className="p-2" style={{ fontSize: "16px", cursor: "pointer" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
                 </OverlayTrigger>
                 {profile.wallets &&
-                  profile.wallets.map((wallet) => (
-                    <Row>
+                  profile.wallets.map((wallet, i) => (
+                    <Row key={i}>
                       <Col className="mx-2" style={{textTransform: "uppercase"}}>{wallet.name}:</Col>
                       <Col><b>{parseFloat(wallet.balance).toFixed(4)}</b></Col>
                     </Row>
@@ -116,8 +116,8 @@ function NavHead() {
                <div className="p-2" style={{ fontSize: "16px", cursor: "pointer" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
              </OverlayTrigger>
              {profile.wallets &&
-               profile.wallets.map((wallet) => (
-                 <Row>
+               profile.wallets.map((wallet, i) => (
+                 <Row key={i}>
                    <Col className="mx-2">{wallet.name}:</Col>
                    <Col><b>{wallet.balance*1}</b></Col>
                  </Row>

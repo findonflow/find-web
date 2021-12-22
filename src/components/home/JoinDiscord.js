@@ -2,7 +2,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 
 export function JoinDiscord() {
     return (
-        <Container fluid="true" className="g-0 discordBG">
+        <Container fluid className="g-0 discordBG">
             <Container>
                 <Row style={{height: "200px"}}>
                     <Col className="my-auto px-5">

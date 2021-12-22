@@ -61,7 +61,7 @@ function NameSearch() {
     }
     // --- SEARCH RESULT SCREEN ---
     return (
-      <Container id="nameFoundProfile" className="g-0 m-0 p-0" fluid="true">
+      <Container id="nameFoundProfile" className="g-0 m-0 p-0" fluid>
         <ProfileCard profileData={nameStatus} />
       </Container>
 

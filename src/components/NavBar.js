@@ -77,7 +77,7 @@ function NavHead() {
         <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-md-block">
              {user.loggedIn ?
                 profile ?
-              <DropdownButton align="end" title={<Image src={profile.avatar} />} id="dropdown-menu-align-end" variant="dark" data-toggle="dropdown">
+              <DropdownButton align="end" title={<Image src={profile.avatar} />} id="dropdown-menu-align-end" className="profileMenuPic" data-toggle="dropdown">
                 <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>{profile.name ? profile.name : user.addr}'s Wallet</div>
                 <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
                   <div className="p-2" style={{ fontSize: "16px", cursor: "pointer" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>

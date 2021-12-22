@@ -13,7 +13,7 @@ import { useStateChanged } from "../functions/DisabledState";
 function NameSearch() {
 
   let navigate = useNavigate();
-  let { id } = useParams();
+  let { id, col } = useParams();
 
   let searchName = id.toLowerCase()
   searchName = searchName.replace(/[^a-z0-9-]/g, '')

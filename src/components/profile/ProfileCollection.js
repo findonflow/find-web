@@ -31,12 +31,14 @@ export function ProfileCollection({ profileData }) {
 		// eslint-disable-next-line
 	}, [user, useStateChanged()]);
 
-	const FILTER_NAMES = Object.keys(findList)
+	
+	const FILTER_NAMES = findList ? Object.keys(findList) : ""
 
 	const [filterValue, setFilterValue] = useState("All")
 
 	function handleFilter(filters) {
 		setFilterValue(filters)
+
 	}
 
 	return (
@@ -47,11 +49,11 @@ export function ProfileCollection({ profileData }) {
 				{findList && findList !== "first_init" && findList !== "" &&
 <Row className="justify-content-center d-flex">
 				<Col className="mb-3" xs="auto">
-					<Button active={filterValue === "All" ? true : false} onClick={() => handleFilter("All")}>{"All"}</Button>
+					<Button variant="success" size="sm" active={filterValue === "All" ? true : false} onClick={() => handleFilter("All")}>{"All"}</Button>
 				</Col>
 					{FILTER_NAMES.map((filters) =>
 						<Col className="mb-3" xs="auto">
-							<Button active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters}</Button>
+							<Button variant="success" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters}</Button>
 						</Col>
 					)}</Row>
 				}

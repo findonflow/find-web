@@ -29,6 +29,11 @@ export function ProfileSendFT({ profileData }) {
             
             handleSendFungible(event,name, amount, sendFT)
         }
+        else
+        {
+            form.sendAmt.classList.add("is-invalid")
+            form.sendAmt.classList.remove("is-valid")
+        }
 
     }
 

@@ -216,11 +216,13 @@ export function ProfileGifting({ profileData }) {
                     
                     <Row className="m-0 mt-1">
                     <span className="idd mt-4">Who would you like to gift to?</span>
-                        <Col md="8" xs="12">
-                        <Form.Control className="mt-2 w-100" required type="text" placeholder="Enter a .find name or 0xAddress" name="recipientName" onChange={addressValidationFormatting}/>
+                        <Col className="p-0" md="7" xs="12">
+                        <Form.Control className="mt-2 pr-2 w-100 " required type="text" placeholder="Enter a .find name or 0xAddress" name="recipientName" onChange={addressValidationFormatting}/>
                         </Col>
-                        <Col md="4" xs="12">
-                        <Button className="mt-2 w-100 mb-2" variant="outline-dark" type="submit">Gift</Button>
+                        <Col md="1" xs="0">
+                        </Col>
+                        <Col className="p-0" md="4" xs="12">
+                        <Button className="pl-2 w-100 mt-2 mb-2" variant="outline-dark" type="submit">Gift</Button>
                         </Col>  
                         <Row xs="12" md="8">
                         {/* {error.length > 0 &&

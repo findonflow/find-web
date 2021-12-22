@@ -4,7 +4,7 @@ import { Link as scrollLink, animateScroll as scroll } from "react-scroll"
 
 export function InfoCards() {
   return (
-    <div>
+    <div className="mt-5 mt-lg-0">
     <Row className="d-flex justify-content-center">
       <Col className="mt-lg-4 mt-0" xs="12" md="4">
         <Card>

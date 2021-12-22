@@ -5,7 +5,7 @@ function Footer() {
         <Container id="footer" className="footer">
             <Container fluid="false">
             <Row className="p-3">
-                <Col xs="12" sm="auto">
+                <Col xs="12" sm="auto" className="p-3 p-lg-0">
                     <Image src="/find-alt.png"  style={{maxHeight: "30px"}}/>
                 </Col>
                 <Col xs="auto" className="my-auto footersocials">

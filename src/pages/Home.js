@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Image, Row } from "react-bootstrap";
 import { CadenceInfo } from "../components/home/CadenceInfo";
 import { Faq } from "../components/home/Faq";
 import { InfoCards } from "../components/home/InfoCards";
@@ -14,19 +14,21 @@ import { MakeWalletFindable } from "../components/home/MakeWalletFindable";
 function Home() {
 document.title = ".find - a name for your profile"
   return (
+    <Container className="p-0 g-0" fluid><Row className="p-3 p-lg-0 justify-content-center d-flex" style={{minHeight: "62px", backgroundColor: "white"}}><Col xs="auto"><Image className="d-none d-lg-block" src="/assets/img/home/presents.webp" height="62" /></Col><Col xs="auto" className="my-auto text-center"> 🎄 <span className="fw-bold">Merry Christmas! Gifting a name and sending Flow or FUSD is now available in your dashboard!</span> 🎁</Col></Row>
+
     <Container id="homeBody" className="px-3 px-lg-0" fluid="true">
       <SearchBar />
       <Container id="homeInfo" className="frontCards p-4">
         <InfoCards />
         <PlaceToShowCollections />
         <MakeWalletFindable />
-        <CadenceInfo />
+        {/* <CadenceInfo /> */}
         <WhoUses />
         <Faq />
       </Container>
       <JoinDiscord />
       <BuiltOnFlow />
-    </Container>
+    </Container></Container>
   )
 }
 export default Home

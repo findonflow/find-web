@@ -21,7 +21,7 @@ export function SearchBar() {
   }
   return (
     <Container id="searchSection">
-      <Row className="m-3 mt-4 mt-md-5">
+      <Row className="m-3 mt-4 mt-md-5 pt-3">
         <Col align="center">
           <h1>Claim your .find identity</h1>
           <p className="mt-3 mt-md-5 m-auto fw-bold" style={{ color: '#5C5C5C' }}>Find a name today that will connect to your wallet address<br />and bring an identity to your crypto life</p>

@@ -49,11 +49,11 @@ export function ProfileCollection({ profileData }) {
 				{findList && findList !== "first_init" && findList !== "" &&
 <Row className="justify-content-center d-flex">
 				<Col className="mb-3" xs="auto">
-					<Button variant="success" size="sm" active={filterValue === "All" ? true : false} onClick={() => handleFilter("All")}>{"All"}</Button>
+					<Button variant="light" size="sm" active={filterValue === "All" ? true : false} onClick={() => handleFilter("All")}>{"All"}</Button>
 				</Col>
 					{FILTER_NAMES.map((filters) =>
 						<Col className="mb-3" xs="auto">
-							<Button variant="success" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters}</Button>
+							<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters}</Button>
 						</Col>
 					)}</Row>
 				}

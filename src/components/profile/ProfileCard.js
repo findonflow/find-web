@@ -324,7 +324,7 @@ export function ProfileCard({ profileData }) {
           :
           <LoadingBC />
         }</Container >
-      {JSON.stringify(profileData, null, 2)}
+      {/* {JSON.stringify(profileData, null, 2)} */}
     </Container>
   )
 }

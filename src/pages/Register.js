@@ -7,6 +7,7 @@ import { Col, Container, Row, Button, Image } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router";
 import { useFormStatus } from "../functions/DisabledState";
 import ReactGA from 'react-ga'
+ReactGA.plugin.require("ecommerce");
 
 export function Register({ enteredName }) {
   ReactGA.pageview(window.location.pathname);
@@ -47,9 +48,21 @@ export function Register({ enteredName }) {
           },
           async onSuccess(status) {
             console.log("success")
-            const event = document.createEvent("Event");
-            event.initEvent("bid", true, true);
-            document.dispatchEvent(event);
+            ReactGA.plugin.execute("ecommerce", "addTransaction", {
+              id: "Register",
+              revenue: enteredName.cost
+          });
+          
+          ReactGA.plugin.execute("ecommerce", "addItem", {
+              id: "Register",
+              name: searchName,
+              price: enteredName.cost,
+              category: "Tech",
+              quantity: "1"
+          });
+          
+          ReactGA.plugin.execute("ecommerce", "send", null);
+          ReactGA.plugin.execute("ecommerce", "clear", null);
             navigate("/"+searchName)
           },
           async onError(error) {

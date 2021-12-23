@@ -146,7 +146,7 @@ export default function SalesAuction() {
                                         {activeSales.map((salesMap, i) =>
                                             <tr key={i}>
                                                 <td><Link to={"/" + salesMap.name}>{salesMap.name}</Link></td>
-                                                <td>{salesMap.amount}</td>
+                                                <td>{salesMap.amount} FUSD</td>
                                                 <td className="d-none d-md-table-cell">{salesMap.owner}</td>
                                                 <td className="d-none d-md-table-cell">{epochToJsDate(salesMap.validUntil)}</td>
                                                 <td><Button size="sm" className="btn-dark-buy" variant="dark" onClick={() => handleSubmit(salesMap.name, salesMap.amount)}>Buy</Button></td>

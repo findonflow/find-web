@@ -94,8 +94,13 @@ export function ProfileCard({ profileData }) {
     }
   }
 
+  function handleSetName(name, e) {
+    e.stopPropagation();
+    SetMainName(name)
+  }
+
   return (
-    <Container fluid style={{ backgroundColor: "white" }} className="g-0 m-0 pt-lg-3" style={{ backgroundColor: "#F6F6F6" }}>
+    <Container fluid className="g-0 m-0 pt-lg-3" style={{ backgroundColor: "#F6F6F6" }}>
       <Container className="p-0">
         {profileData ?
 
@@ -189,7 +194,7 @@ export function ProfileCard({ profileData }) {
                                               {lease.name}
                                               {profileData.profile.findName !== lease.name ?
                                               <div align="right" className="w-100 pe-3">
-                                                <Button variant="light" style={{ align: "right", zIndex: "1000000" }} size="sm" onClick={() => SetMainName(lease.name)}>Set as default</Button>
+                                                <Button variant="light" style={{ align: "right", zIndex: "1000000" }} size="sm" onClick={(e) => handleSetName(lease.name, e)}>Set as default</Button>
                                               </div>
                                               :
                                               <div align="right" className="w-100 pe-3">

@@ -48,6 +48,12 @@ export function Register({ enteredName }) {
           },
           async onSuccess(status) {
             console.log("success")
+            ReactGA.event({
+              category: 'commerce',
+              action: 'Name registered',
+              label: 'Purchase'
+            })
+
             ReactGA.plugin.execute("ecommerce", "addTransaction", {
               id: "Register",
               revenue: enteredName.cost

@@ -100,7 +100,7 @@ export default function LiveFeed() {
             newText.innerHTML = "<a href='/" + newEvent.name + "' target='_blank'>" + newEvent.name + "</a>"
             newCell.appendChild(newText);
             newCell = newRow.insertCell(2);
-            newText = document.createTextNode(newEvent.price ? newEvent.price : "-");
+            newText = document.createTextNode(newEvent.price ? newEvent.price+" FUSD" : "-");
             newCell.appendChild(newText);
             newCell = newRow.insertCell(3);
             newText = document.createTextNode(newEvent.from);

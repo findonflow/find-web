@@ -649,3 +649,42 @@ export const handleSendNameToName = async (e, name, recipient) => {
     console.log(e);
   }
 }
+export const SetMainName = async (name) => {
+  try {
+    await Tx(
+      [
+        //name: String, amount: UFix64, type: String
+        fcl.transaction(transactions.setMainName),
+        fcl.args([
+          fcl.arg(name, t.String)
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start");
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          // const event = document.createEvent("Event");
+          // event.initEvent("bid", true, true);
+          // document.dispatchEvent(event);
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}

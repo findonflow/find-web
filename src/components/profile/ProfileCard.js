@@ -1,4 +1,4 @@
-import { Card, Col, Row, Container, Accordion, ListGroup, Tabs, Tab } from "react-bootstrap";
+import { Card, Col, Row, Container, Accordion, ListGroup, Tabs, Tab, Button } from "react-bootstrap";
 import copy from "copy-to-clipboard";
 import { PrivateLease } from "../PrivateLease";
 import { useEffect, useState } from "react";
@@ -10,12 +10,12 @@ import LoadingBC from "../infoboxes/LoadingBC";
 import { PrivateBid } from "../lease/BuyerForms";
 import { ProfileCollection } from "./ProfileCollection";
 import './profile.css'
-import { handleBid, handleBuy, handleCancelBid, handleFullfillAuction, handleIncreaseBid, handleOffer } from "../../functions/txfunctions";
 import { ProfileForge } from "./ProfileForge";
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { ProfileSendFT } from "./ProfileSendFT";
 import { ProfileGifting } from "./ProfileGifting";
+import { SetMainName } from "../../functions/txfunctions";
 
 export function ProfileCard({ profileData }) {
 
@@ -95,7 +95,7 @@ export function ProfileCard({ profileData }) {
   }
 
   return (
-    <Container fluid style={{ backgroundColor: "white" }} className="g-0 m-0 pt-lg-3" >
+    <Container fluid style={{ backgroundColor: "white" }} className="g-0 m-0 pt-lg-3" style={{ backgroundColor: "#F6F6F6" }}>
       <Container className="p-0">
         {profileData ?
 
@@ -164,15 +164,15 @@ export function ProfileCard({ profileData }) {
                               </ListGroup>
                             </Card>
                           </Col>
-                          {profileData.profile.address !== user.addr && 
-                          <Col>
-                          <div className="w-100 m-3 d-md-none"></div>
-                          <Card className="p-4">
-                            <ProfileSendFT profileData={profileData}/>
-                          </Card>
-                            
-                          </Col>
-}
+                          {profileData.profile.address !== user.addr &&
+                            <Col>
+                              <div className="w-100 m-3 d-md-none"></div>
+                              <Card className="p-4">
+                                <ProfileSendFT profileData={profileData} />
+                              </Card>
+
+                            </Col>
+                          }
                         </Row>
                         <Row className="mb-3 d-flex justify-content-center" id="profileBidNameRow">
                           {profileData.leases && profileData.bids &&
@@ -187,6 +187,16 @@ export function ProfileCard({ profileData }) {
                                           <Accordion.Item eventKey={i.toString()} key={i} className="my-3">
                                             <Accordion.Header>
                                               {lease.name}
+                                              {profileData.profile.findName !== lease.name ?
+                                              <div align="right" className="w-100 pe-3">
+                                                <Button variant="light" style={{ align: "right", zIndex: "1000000" }} size="sm" onClick={() => SetMainName(lease.name)}>Set as default</Button>
+                                              </div>
+                                              :
+                                              <div align="right" className="w-100 pe-3">
+                                                <Button variant="light" style={{ align: "right", zIndex: "1000000" }} size="sm" disabled>Default</Button>
+                                              </div>
+                                              }
+
                                             </Accordion.Header>
                                             <Accordion.Body>
                                               <PrivateLease lease={lease} />
@@ -252,53 +262,53 @@ export function ProfileCard({ profileData }) {
                   </Col>
                 </Row>
               </Tab>
-             
+
               <Tab eventKey='collection' title='Collection'>
                 <Card className="shadow p-3 p-lg-5 mt-3" border="light">
                   <ProfileCollection profileData={profileData} />
                 </Card>
               </Tab>
-              {user.addr === profileData.profile.address &&                    
-              <Tab eventKey='' title='Gifting'>
-                <Row>
-                <Col xs="12" md="4">
-                    <Row className="mt-3 mb-3" id="profileName">
-                      <Col>
-                        <Card className="p-4 cardprofile">
-                          <div className="d-flex justify-content-center"><div className="profilePic image"><img src={avatarURL} height="100" width="100" alt={profileData.profile.name + "'s profile avatar"} /></div></div>
-                          <span className="name mt-3 text-center">{profileData.profile.name}</span>
-                          <span className="idd text-center">@{profileData.profile.name}</span>
-                          <div className="text-center text mt-3"> <span style={{ whiteSpace: "pre-wrap" }}>{profileData.profile.description}</span></div>
-                         
-                          <div className="seperator m-auto mt-5 mb-4"></div>
-                          {profileData.profile.links &&
-                            <ListGroup variant="flush" className="text">
-                              {profileData.profile.links.map((e, index) =>
-                                e.type === "globe" ?
-                                  <ListGroup.Item key={index}><span><a href={e.url} target="_blank" rel="noreferrer"><i className={"me-2 fa-solid fa-globe"}></i> Website</a></span></ListGroup.Item>
-                                  :
-                                  <ListGroup.Item key={index}><span><a href={e.url} target="_blank" rel="noreferrer"><i className={"me-2 fa-brands fa-" + e.type}></i> {e.type}</a></span></ListGroup.Item>
-                              )}
-                            </ListGroup>
-                          }
-                        </Card>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col>
-                   <Card className="shadow p-3 p-lg-5 mt-3 h-auto" border="light">
-                  <ProfileGifting profileData={profileData} />
-                </Card>
-                <Card className="shadow p-3 p-lg-5 mt-3 h-auto" border="light">
-                <ProfileSendFT />
-                </Card>
-                  </Col>
+              {user.addr === profileData.profile.address &&
+                <Tab eventKey='' title='Gifting'>
+                  <Row>
+                    <Col xs="12" md="4">
+                      <Row className="mt-3 mb-3" id="profileName">
+                        <Col>
+                          <Card className="p-4 cardprofile">
+                            <div className="d-flex justify-content-center"><div className="profilePic image"><img src={avatarURL} height="100" width="100" alt={profileData.profile.name + "'s profile avatar"} /></div></div>
+                            <span className="name mt-3 text-center">{profileData.profile.name}</span>
+                            <span className="idd text-center">@{profileData.profile.name}</span>
+                            <div className="text-center text mt-3"> <span style={{ whiteSpace: "pre-wrap" }}>{profileData.profile.description}</span></div>
 
-                 <Col sm="12"></Col>
-                </Row>
-              
-              </Tab>
-}
+                            <div className="seperator m-auto mt-5 mb-4"></div>
+                            {profileData.profile.links &&
+                              <ListGroup variant="flush" className="text">
+                                {profileData.profile.links.map((e, index) =>
+                                  e.type === "globe" ?
+                                    <ListGroup.Item key={index}><span><a href={e.url} target="_blank" rel="noreferrer"><i className={"me-2 fa-solid fa-globe"}></i> Website</a></span></ListGroup.Item>
+                                    :
+                                    <ListGroup.Item key={index}><span><a href={e.url} target="_blank" rel="noreferrer"><i className={"me-2 fa-brands fa-" + e.type}></i> {e.type}</a></span></ListGroup.Item>
+                                )}
+                              </ListGroup>
+                            }
+                          </Card>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col>
+                      <Card className="shadow p-3 p-lg-5 mt-3 h-auto" border="light">
+                        <ProfileGifting profileData={profileData} />
+                      </Card>
+                      <Card className="shadow p-3 p-lg-5 mt-3 h-auto" border="light">
+                        <ProfileSendFT />
+                      </Card>
+                    </Col>
+
+                    <Col sm="12"></Col>
+                  </Row>
+
+                </Tab>
+              }
               {/* {user.addr === profileData.profile.address &&
                 <Tab eventKey='forge' title='The Forge'>
                   <ProfileForge profileData={profileData} />
@@ -309,6 +319,7 @@ export function ProfileCard({ profileData }) {
           :
           <LoadingBC />
         }</Container >
+      {JSON.stringify(profileData, null, 2)}
     </Container>
   )
 }

@@ -72,12 +72,11 @@ function NavHead() {
   }
   return (
     <Container id="navbar" fluid>
-      <Navbar collapseOnSelect={true} expanded={expanded} expand="md" style={{background: "rgba(255, 255, 255, 0.6)"}} className="p-3 navbar-custom">
-        <Container>
+      <Navbar collapseOnSelect={true} expanded={expanded} expand="md" style={{background: "rgba(255, 255, 255)"}} className="p-3 navbar-custom">        <Container>
         <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
         <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-        <Nav className="me-auto">
+        <Nav className="me-auto pt-3 pt-lg-0" id="mainLinks">
           {/* <Nav.Link as={scrollLink} to="cadenceHint" spy={true} smooth={true} offset={120} duration={400} style={{cursor: 'pointer'}} className="ms-lg-5">Integrate</Nav.Link> */}
           
           <Nav.Link onClick={() => setExpanded(false)} as={scrollLink} to="faq" spy={true} smooth={true} offset={50} duration={400} style={{cursor: 'pointer'}} className="ms-lg-3">FAQ's</Nav.Link>
@@ -188,9 +187,10 @@ function NavHead() {
           </div>
             </Nav>
         </Navbar.Collapse>
+        
         </Container>
       </Navbar>
-      {/* {JSON.stringify(profile, null,2)} */}
+      {/* {JSON.stringify(profile, null,2)} */}<div className="site-header"></div>
     </Container>
     // <Container id="navBar">
     //   <Navbar collapseOnSelect={true} expand="md">

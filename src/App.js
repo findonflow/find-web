@@ -47,7 +47,7 @@ export default function App() {
         </Toaster></div>
       <Router>
         <NavHead />
-        <Routes>
+        <Routes className="site-header">
           <Route path='/' element={<Home />} />
           {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />

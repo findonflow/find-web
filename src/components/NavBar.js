@@ -19,11 +19,18 @@ import {
   Image,
   Row,
   Col,
-  NavDropdown
+  NavDropdown,
+  Form,
+  Button
 } from "react-bootstrap";
-import { useStateChanged } from "../functions/DisabledState";
+import { useFormStatus, useStateChanged } from "../functions/DisabledState";
 import { NoProfile } from "./infoboxes/NoProfile";
+import { handleProfile } from "../functions/txfunctions";
+import { useImmer } from "use-immer";
 
+function DisabledStatus() {
+  return useFormStatus()
+}
 
 
 function NavHead() {
@@ -51,7 +58,11 @@ function NavHead() {
     }
     // eslint-disable-next-line
   }, [user, useStateChanged()])
+  const [formValues, setFormValues] = useImmer("")
 
+  function updateField(e) {
+      setFormValues(e.target.value)
+  }
 
 
   function runCopy(copyData) {
@@ -99,7 +110,27 @@ function NavHead() {
               </DropdownButton>
               :
               <DropdownButton title={user.addr} variant="dark" data-toggle="dropdown" >
-              <NoProfile />
+              <Container>
+            <Row className="p-2">
+                <Col className="d-flex justify-content-center text-center titletxt fw-bold">You've connected your wallet but don't have a profile yet.</Col>
+            </Row>
+            <Row className="m-1 p-2 mb-3">
+                <Col className="d-flex justify-content-center text-center">No problem, just click below to create your profile. it's FREE</Col>
+            </Row>
+                    <Row>
+                        <fieldset id="a" disabled={DisabledStatus}>
+                            <Col xs="12" md="12" className="mb-3 px-3 mb-md-0 formInputs mx-auto">
+                                <Form.Group align="center">
+                                    <Form.Label>Enter a name</Form.Label>
+                                    <Form.Control required placeholder="your name here" onChange={updateField} />
+                                </Form.Group>
+                            </Col>
+                            <Col xs="12" className="mx-auto mt-3" align="center">
+                                <Button onClick={() => formValues && handleProfile(formValues)} variant="outline-dark">Create</Button>
+                            </Col>
+                        </fieldset>
+                    </Row>
+        </Container>
               </DropdownButton>
               :
               
@@ -131,7 +162,27 @@ function NavHead() {
                 <div align="center" className="mx-4"><AuthCluster user={user} /></div>
               </NavDropdown> </div>
               :
-              <NoProfile />
+              <Container>
+            <Row className="p-2">
+                <Col className="d-flex justify-content-center text-center titletxt fw-bold">You've connected your wallet but don't have a profile yet.</Col>
+            </Row>
+            <Row className="m-1 p-2 mb-3">
+                <Col className="d-flex justify-content-center text-center">No problem, just click below to create your profile. it's FREE</Col>
+            </Row>
+                    <Row>
+                        <fieldset id="a" disabled={DisabledStatus}>
+                            <Col xs="12" md="12" className="mb-3 px-3 mb-md-0 formInputs mx-auto">
+                                <Form.Group align="center">
+                                    <Form.Label>Enter a name</Form.Label>
+                                    <Form.Control required placeholder="your name here" onChange={updateField} />
+                                </Form.Group>
+                            </Col>
+                            <Col xs="12" className="mx-auto mt-3" align="center">
+                                <Button onClick={() => formValues && handleProfile(formValues)} variant="outline-dark">Create</Button>
+                            </Col>
+                        </fieldset>
+                    </Row>
+        </Container>
               :
               <AuthCluster user={user} />}
           </div>

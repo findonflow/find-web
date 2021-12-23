@@ -1,7 +1,9 @@
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { transactions } from 'find-flow-contracts'
+import ReactTimeago from "react-timeago";
 import { Tx } from "../functions/transaction";
+import ReactGA from 'react-ga'
 
 //Eventually all tx will happen here, this could be improved programatically.
 
@@ -27,6 +29,11 @@ export const handleProfile = async (value) => {
         },
         async onSuccess(status) {
           console.log("success")
+          ReactGA.event({
+            category: 'User',
+            action: 'Created Profile',
+            label: 'Profile'
+          })
         },
         async onError(error) {
           if (error) {
@@ -71,9 +78,11 @@ export const handleBid = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Made a bid',
+            label: 'Auction'
+          })
         },
         async onError(error) {
           if (error) {
@@ -118,9 +127,11 @@ export const handleIncreaseBid = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Increased a bid',
+            label: 'Auction'
+          })
         },
         async onError(error) {
           if (error) {
@@ -158,9 +169,11 @@ export const handleCancelBid = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Cancelled a bid',
+            label: 'Auction'
+          })
         },
         async onError(error) {
           if (error) {
@@ -205,9 +218,11 @@ export const handleOffer = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Made an offer',
+            label: 'Direct Sale'
+          })
         },
         async onError(error) {
           if (error) {
@@ -253,9 +268,11 @@ export const handleBuy = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Purchased a name',
+            label: 'Direct Sale'
+          })
         },
         async onError(error) {
           if (error) {
@@ -299,9 +316,11 @@ export const handleExtend = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Extended a lease',
+            label: 'Name'
+          })
         },
         async onError(error) {
           if (error) {
@@ -345,9 +364,11 @@ export const handleActivate = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Renewed after expiry',
+            label: 'Name'
+          })
         },
         async onError(error) {
           if (error) {
@@ -385,9 +406,11 @@ export const handleWithdrawSale = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Withdrawn from sale',
+            label: 'Direct Sale'
+          })
         },
         async onError(error) {
           if (error) {
@@ -431,9 +454,11 @@ export const handleFullfillAuction = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Auction Fulfilled',
+            label: 'Auction'
+          })
         },
         async onError(error) {
           if (error) {
@@ -470,9 +495,11 @@ export const handleRejectBlindBid = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
-          const event = document.createEvent("Event");
-          event.initEvent("bid", true, true);
-          document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Commerce',
+            action: 'Offer rejected',
+            label: 'Direct Sale'
+          })
         },
         async onError(error) {
           if (error) {
@@ -513,9 +540,11 @@ export const handleSendFungible = async (e, name, amount, type) => {
         },
         async onSuccess(status) {
           console.log("success")
-          // const event = document.createEvent("Event");
-          // event.initEvent("bid", true, true);
-          // document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Gift',
+            action: 'Sent FT',
+            label: 'FUSD/FLOW'
+          })
         },
         async onError(error) {
           if (error) {
@@ -552,6 +581,11 @@ export const handleSetPfp = async (e) => {
         },
         async onSuccess(status) {
           console.log("success")
+          ReactGA.event({
+            category: 'User',
+            action: 'Set Profile Picture',
+            label: 'Profile'
+          })
         },
         async onError(error) {
           if (error) {
@@ -591,9 +625,11 @@ export const handleSendNameToAddress = async (e, name, recipient) => {
         },
         async onSuccess(status) {
           console.log("success")
-          // const event = document.createEvent("Event");
-          // event.initEvent("bid", true, true);
-          // document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Gift',
+            action: 'Sent Name to an Address',
+            label: 'Name'
+          })
         },
         async onError(error) {
           if (error) {
@@ -633,9 +669,11 @@ export const handleSendNameToName = async (e, name, recipient) => {
         },
         async onSuccess(status) {
           console.log("success")
-          // const event = document.createEvent("Event");
-          // event.initEvent("bid", true, true);
-          // document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'Gift',
+            action: 'Sent Name to another Name',
+            label: 'Name'
+          })
         },
         async onError(error) {
           if (error) {
@@ -672,9 +710,11 @@ export const SetMainName = async (name) => {
         },
         async onSuccess(status) {
           console.log("success")
-          // const event = document.createEvent("Event");
-          // event.initEvent("bid", true, true);
-          // document.dispatchEvent(event);
+          ReactGA.event({
+            category: 'User',
+            action: 'Set their default name',
+            label: 'Profile'
+          })
         },
         async onError(error) {
           if (error) {

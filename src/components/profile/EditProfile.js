@@ -6,6 +6,7 @@ import { Tx } from "../../functions/transaction";
 import { transactions } from 'find-flow-contracts'
 import { useFormStatus } from "../../functions/DisabledState";
 import { useImmer } from "use-immer";
+import ReactGA from 'react-ga'
 
 function EditProfile({ profile }) {
 
@@ -147,6 +148,11 @@ function EditProfile({ profile }) {
                     onSubmission() {
                     },
                     async onSuccess(status) {
+                        ReactGA.event({
+                            category: 'User',
+                            action: 'Edited profile',
+                            label: 'Profile'
+                          })
                     },
                     async onError(error) {
                         //SetState(false)

@@ -59,7 +59,11 @@ export const Tx = async (mods = [], opts = {}) => {
       if (error.includes("Amount withdrawn must be less than or equal than the balance of the Vault")) {
         toast('You do not have enough FUSD in your wallet for this transaction', { id: toastId, duration: "500", })
         enableForm()
-      } else {
+      } else if (error.includes("Not a valid FIND user")) {
+        toast("User doesn't exist, please ask them to create a profile in .find", { id: toastId, duration: "800", })
+        enableForm()
+      }  
+      else {
         toast.error(<span className="text-center text-break">Transaction failed<br />click <a href={fvsTx(await fcl.config().get("env"), txId)} target="_blank" rel="noreferrer">HERE</a> to view this transaction.</span>, { id: toastId, })
         enableForm()
       }

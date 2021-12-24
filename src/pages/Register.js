@@ -46,7 +46,7 @@ export function Register({ enteredName }) {
           onSubmission() {
             console.log("submitted")
           },
-          async onSuccess(status) {
+          onSuccess(status) {
             console.log("success")
             ReactGA.event({
               category: 'commerce',
@@ -71,7 +71,7 @@ export function Register({ enteredName }) {
           ReactGA.plugin.execute("ecommerce", "clear", null);
             navigate("/"+searchName)
           },
-          async onError(error) {
+          onError(error) {
             if (error) {
               const { message } = error;
               console.log(message)

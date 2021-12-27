@@ -14,8 +14,7 @@ import RemoveProfile from "./pages/RemoveProfile";
 import LiveFeed from "./pages/LiveFeed";
 import SalesAuction from "./pages/SalesAuctions";
 import ReactGA from 'react-ga';
-
-
+import { CharityTreeAuction } from "./components/charitytree/CharityTreeAuction";
 
 export default function App() {
 
@@ -58,6 +57,7 @@ export default function App() {
 
           <Route path='/remove' element={<RemoveProfile />} />
           <Route path='/lf' element={<LiveFeed />} />
+          <Route path='/neo-x-flowverse-community-charity-tree' element={<CharityTreeAuction />} />
           <Route path='mp' element={<SalesAuction />} />
         </Routes>
         <Footer />

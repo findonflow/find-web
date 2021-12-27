@@ -1,0 +1,35 @@
+.charity-tree-timer {
+    font-size: 54px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.2px;
+    color: #000000;
+}
+
+.charity-tree-headers {
+    font-size: 18px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24pxpx;
+    letter-spacing: 0.2px;
+    color: #000000;
+}
+
+.auction-box {
+    background-color: white;
+}
+
+.gift-option-button {
+    background-color: black;
+    border: black;
+    height: 50px;
+}
+
+.auction-box-background {
+    background-color: #F1F1F3;
+    border: black;
+    height: 50px;
+}

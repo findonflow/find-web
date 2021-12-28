@@ -327,7 +327,7 @@ export function CharityTreeAuction() {
                                         </tbody>
                                     </Table>
                                 </div>
-                                {JSON.stringify(nameStatus, null, 2)}
+                                {/* {JSON.stringify(nameStatus, null, 2)} */}
                             </div>
                         </Row>
                     </Container>

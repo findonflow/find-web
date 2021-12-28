@@ -33,3 +33,53 @@
     border: black;
     height: 50px;
 }
+
+.current-bid-text {
+    font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 40px;
+letter-spacing: 0em;
+text-align: left;
+
+
+}
+.current-bid-text-green {
+    color: #58B792;
+    font-family: Roboto;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.timer-units{
+    font-family: Roboto;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 40px;
+letter-spacing: 0em;
+text-align: left;
+
+}
+
+.timer-metrics {
+    font-family: Roboto;
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: 40px;
+letter-spacing: 0em;
+
+}
+
+.gifting-box {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 26px;
+}

@@ -1,12 +1,9 @@
-import { Col, Row, Image, Button, Container, Form } from "react-bootstrap"
+import { Col, Row, Image, Form, Container, Button } from "react-bootstrap"
 import { Link } from "react-router-dom";
 import { AuctionBox } from "./AuctionBox";
 import './charity-tree.css';
-import { TimerComponent } from "./TimerComponent";
-import { WFAWGifting } from "./WFAWGifting";
-export function CharityTreeAuction() {
 
-    let currentBid = 300
+export function WFAWGifting() {
 
     const handleSubmit = (event) => {
         // const form = event.currentTarget;
@@ -82,73 +79,42 @@ export function CharityTreeAuction() {
     }
 
     return (
-        <Container>
-            
-            {/* This is the row for the Col containing NFTT image, Timer and the Col containing Description, auction buttons and gift options */}
-            <Row className="p-5 " fluid>
-                <Col className="mh-50" xs="12" md="6">
-                        {/* NFT IMAGE */}
-                        <Image className="" src="/assets/img/charitytree/Community Tree.webp" fluid></Image>
+        <Container >
+            <Row className="gifting-box p-4">
+                {/* women for afghan women image */}
+                <Col md="1">
+                </Col>
+                <Col className="" md="4">
+                <Image src="/assets/img/charitytree/WFAW.webp"></Image>
                 </Col>
 
-                <Col className="h-100">
+                {/* gifting input and button */}
+                <Col>
+                    <Row>
 
-                <Row>
-                        {/* AUCTION TIMER */}
-                        <TimerComponent/>
-                    </Row>
-
-                    <Row >
-                <div className=" pt-2 pb-3"><h3>Neo x Flowverse Charity Christmas Tree </h3></div>
-            </Row>
-                    <Row className="">
-                        {/* DESCRIPTION */}
-                       
-                        <div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec lacus at dui auctor bibendum. Donec eget urna mi. Ut vel sagittis dolor. Phasellus nec neque porttitor, tincidunt tortor vel, venenatis est. Aenean maximus, tortor pulvinar iaculis tempus, velit arcu malesuada lectus, ac ullamcorper odio lacus nec arcu. Nam ac posuere arcu, sit amet feugiat quam. Duis congue eleifend nisl, a bibendum dui ullamcorper ut. Aenean quam quam, porttitor at tristique vel, tristique vitae ex. Duis pretium mattis felis, a cursus nisi venenatis id. Duis nec vehicula lectus. Maecenas et nisl in ex tristique mollis.</p>
-                            <p><span><a target="_blank" href="https://medium.com/@NeoCollectibles/what-is-the-neo-x-flowverse-community-christmas-tree-4fc5a30da24f"><u>Read the Medium Article</u></a></span> for more information</p>
-                        </div>
-                    </Row>
-
-                    <Row className="pt-3">
-                        <div><p className="current-bid-text">Current bid: <span className="current-bid-text-green">{currentBid} FLOW</span></p></div>
-                    </Row>
-                    <Row className="">
-                        <div><p className="" style={{fontWeight:"500"}}>How much would you like to bid?</p></div>
-                    </Row>
-                    
                     <Form id="FundAccount" noValidate onSubmit={handleSubmit} className="formInputs">
-                        <Row className="">
+                        <Row className="mx-auto">
 
-                            <Form.Group className="m-0" as={Row} controlId="validationCustom02" >
+                            <Form.Group className=" mt-1 m-0" as={Row} controlId="validationCustom02" >
                                 <Row className="m-0 mt-2 p-0">
+                            <Form.Label>Want to gift to the Women for Afghan Women?</Form.Label>
                                     <Col className="p-0 m-0 mt-2 mt-lg-0" md="9" xs="12">
                                         
                                         <Form.Control required placeholder="Enter amount in flow" type="text" name="sendNameAdr" />
                                     </Col>
                                     <Col className="pe-lg-0 ps-lg-2p-0" lg="3" xs="12">
-                                    <Button className="pl-2 w-100" variant="outline-dark" type="submit">Bid</Button>
+                                    <Button className="pl-2 w-100" variant="outline-dark" type="submit">Gift</Button>
                                 </Col>
                                 </Row>
                             </Form.Group>
                         </Row>
                     </Form>
+                    </Row>
+                </Col>
 
+                <Col md="1">
                 </Col>
             </Row>
-
-            <Row className="p-5" >
-                <WFAWGifting/>
-            </Row>
-
-            <Row className="p-5">
-                <div className="w-100 charity-tree-headers"><h1>The wall of fame</h1></div>
-                <p>Check out the wall of fame</p>
-            </Row>
-
-            
-
-
-           
         </Container>
     )
 }

@@ -4,7 +4,7 @@ import { Col, Row, Image, Button, Container, Form, Table } from "react-bootstrap
 import Countdown from "react-countdown";
 import { useImmer } from "use-immer";
 import { useFormStatus, useStateChanged } from "../../functions/DisabledState";
-import { SendFLOWCharity, SendFUSDCharity } from "../../functions/txfunctions";
+import { handleBid, SendFLOWCharity, SendFUSDCharity } from "../../functions/txfunctions";
 import './charity-tree.css';
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
@@ -24,20 +24,20 @@ export function CharityTreeAuction() {
 
     useEffect(() => {
         async function SearchName(searchName) {
-          const response = await fcl.send([
-            fcl.script(scripts.name_status),
-            fcl.args([fcl.arg(searchName, t.String)]),
-          ]);
-          const nameStatus = await fcl.decode(response);
-           setNameStatus(nameStatus)
-           if(nameStatus.lease.auctionEndDate) {
-               setAuctionEndDate(nameStatus.lease.auctionEndDate)
-           }
-          // setEnteredName(searchName)
+            const response = await fcl.send([
+                fcl.script(scripts.name_status),
+                fcl.args([fcl.arg(searchName, t.String)]),
+            ]);
+            const nameStatus = await fcl.decode(response);
+            setNameStatus(nameStatus)
+            if (nameStatus.lease.auctionEndDate) {
+                setAuctionEndDate(nameStatus.lease.auctionEndDate)
+            }
+            // setEnteredName(searchName)
         }
         SearchName("charity2021")
-      }
-      // eslint-disable-next-line
+    }
+        // eslint-disable-next-line
         , [useStateChanged()])
 
     function StartAuction() {
@@ -86,36 +86,83 @@ export function CharityTreeAuction() {
         SendFLOWCharity(sendFlow)
     }
 
+
+    const handleSubmitBid = (event) => {
+        const form = event.currentTarget;
+        event.preventDefault();
+        console.log(form.bidAmt.value)
+        if (form.bidAmt.value < 1) {
+            form.bidAmt.classList.add("is-invalid")
+            form.bidAmt.classList.remove("is-valid")
+            return
+        } else {
+            form.bidAmt.classList.add("is-valid")
+            form.bidAmt.classList.remove("is-invalid")
+        }
+
+        const bidSubmitted = [
+            {
+                id: "name",
+                value: "charity2021"
+            },
+            {
+                id: "bidAmt",
+                value: form.bidAmt.value
+            }
+        ]
+        handleBid(bidSubmitted)
+    }
+
     function updateField(e) {
+        if (e.target.name === "bidAmt") {
+            if (e.target.value < 1) {
+                e.target.classList.add("is-invalid")
+                e.target.classList.remove("is-valid")
+                return
+            } else {
+                e.target.classList.add("is-valid")
+                e.target.classList.remove("is-invalid")
+                return
+            }
+        }
         setFormValues((draft) => {
             const varVal = draft.find((varVal) => varVal.id === e.target.name);
             varVal.value = e.target.value;
             //now validate
+            if (e.target.name === "bidAmt") {
+                if (e.target.value < 1) {
+                    e.target.classList.add("is-invalid")
+                    e.target.classList.remove("is-valid")
+                } else {
+                    e.target.classList.add("is-valid")
+                    e.target.classList.remove("is-invalid")
+                }
+            }
             if (e.target.name === "message") {
                 const msgLength = varVal.value.length
                 console.log(msgLength)
-                if(msgLength > 255) {
+                if (msgLength > 255) {
                     e.target.classList.add("is-invalid")
                     e.target.classList.remove("is-valid")
-                    setValidated(false)  
-                }else{
+                    setValidated(false)
+                } else {
                     e.target.classList.add("is-valid")
-                e.target.classList.remove("is-invalid")
-                setValidated(true)
+                    e.target.classList.remove("is-invalid")
+                    setValidated(true)
                 }
             }
             if (e.target.name === "amount") {
-            if (varVal.value < 0.1) {
-                e.target.classList.add("is-invalid")
-                e.target.classList.remove("is-valid")
-                setValidated(false)
+                if (varVal.value < 0.1) {
+                    e.target.classList.add("is-invalid")
+                    e.target.classList.remove("is-valid")
+                    setValidated(false)
+                }
+                else {
+                    e.target.classList.add("is-valid")
+                    e.target.classList.remove("is-invalid")
+                    setValidated(true)
+                }
             }
-            else {
-                e.target.classList.add("is-valid")
-                e.target.classList.remove("is-invalid")
-                setValidated(true)
-            }
-        }
         })
     }
 
@@ -204,7 +251,7 @@ export function CharityTreeAuction() {
                         <Col className="p-0 m-2" xs="12" md="auto">
                             <Row className="justify-content-center">
                                 {/* NFT IMAGE */}
-                                <Image className=" p-0 shadow" src="/assets/img/charitytree/Community Tree.webp" style={{ maxWidth: "420px" }} rounded></Image>
+                                <Image className=" p-0 shadow" src="/assets/img/charitytree/Community_Tree.webp" style={{ maxWidth: "420px" }} rounded></Image>
                             </Row>
                         </Col>
                         <Col className="" xs="12" lg={{ span: 5, offset: 1 }} xl={{ span: 6, offset: 1 }}>
@@ -214,12 +261,11 @@ export function CharityTreeAuction() {
                             <Row>
                                 {/* <Col><Countdown date={new Date("12/29/2021 22:00:00")} renderer={renderer} /></Col> */}
                                 {
-                                nameStatus &&
-                                auctionLocked ?
+                                    auctionLocked ?
                                         //<Col><Countdown date={new Date(nameStatus.lease.auctionEnds * 1000).toUTCString()} renderer={countdownTimer} /></Col>
-                                     <Col><Countdown date={new Date(1640797200 * 1000).toUTCString()} renderer={countdownTimer} /></Col>
-                                    :
-                                    <Col><Countdown date={new Date(auctionEndDate)} renderer={countdownTimer} key={'2'} /></Col>
+                                        <Col><Countdown date={new Date(1640797200 * 1000).toUTCString()} renderer={countdownTimer} /></Col>
+                                        :
+                                        <Col><Countdown date={new Date(auctionEndDate)} renderer={countdownTimer} key={'2'} /></Col>
                                 }
                             </Row>
                             <Row>
@@ -242,17 +288,17 @@ export function CharityTreeAuction() {
 
                             <Row className="mt-3">
                                 {/* AUCTION buttons */}
-                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus.lease?.latestBid ? nameStatus.lease.latestBid*1+" FUSD - By "+nameStatus.lease.latestBidBy : "- FUSD"}</span></div>
+                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus.lease?.latestBid ? nameStatus.lease.latestBid * 1 + " FUSD - By " + nameStatus.lease.latestBidBy : "- FUSD"}</span></div>
                                 {/* <div className="fw-bold mt-3">How much would you like to bid?</div> */}
                             </Row>
-                            <Form className="formInputs">
+                            <Form onSubmit={handleSubmitBid} className="formInputs">
                                 <Row>
                                     <Col sm="12" lg="7">
                                         <Form.Label>How much would you like to bid?</Form.Label>
-                                        <Form.Control type="number"  placeholder={"min. "+Number(nameStatus.lease?.latestBid*1+10)+" FUSD"} required />
+                                        <Form.Control type="number" onChange={(e) => updateField(e)} name="bidAmt" placeholder={"min. " + Number(nameStatus.lease?.latestBid * 1 + 10) + " FUSD"} required />
                                     </Col>
                                     <Col sm="12" lg="5" className="mt-lg-auto mt-3">
-                                        <Button type="submit" className="w-100" variant="dark" disabled={auctionLocked}>Bid</Button>
+                                        <Button type="submit" className="w-100" disabled={auctionLocked} variant="dark">Bid</Button>
                                     </Col>
                                 </Row>
                             </Form>
@@ -292,7 +338,7 @@ export function CharityTreeAuction() {
                                 <Row>
                                     <Col>
                                         <Form.Label>Enter an optional message</Form.Label>
-                                        <Form.Control as="textarea" rows={3} name="message"  onChange={(e) => updateField(e)} style={{ borderRadius: "16px" }} />
+                                        <Form.Control as="textarea" rows={3} name="message" onChange={(e) => updateField(e)} style={{ borderRadius: "16px" }} />
                                     </Col>
                                 </Row>
                             </Form>

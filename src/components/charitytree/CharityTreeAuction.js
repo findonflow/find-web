@@ -57,11 +57,9 @@ export function CharityTreeAuction() {
                         </Form>
                     </Col>
                 </Row>
-                <Row className="auction-box shadow my-5">
-                            <div className="w-100 charity-tree-headers">Gift something</div>
-                            {/* Gift Options */}
+                <Row className="auction-box charity-gift-widget shadow my-5 p-3">
                             <Col className="p-3">
-                                <Button className="w-100" variant="dark">10 FUSD</Button>
+                                <Image src="/assets/img/charitytree/waw.webp" />
                             </Col>
                             <Col className="p-3">
                                 <Button className="w-100" variant="dark">50 FUSD</Button>

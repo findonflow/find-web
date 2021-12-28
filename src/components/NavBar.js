@@ -73,7 +73,7 @@ function NavHead() {
   return (
     <Container id="navbar" fluid>
       <Navbar collapseOnSelect={true} expanded={expanded} expand="md" style={{background: "rgba(255, 255, 255)"}} className="p-3 navbar-custom">        <Container>
-        <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
+        <Link to="/"><img src="/find-alt.png" alt="Find Logo" style={{maxHeight: "34px"}} /></Link>
         <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         <Nav className="me-auto pt-3 pt-lg-0" id="mainLinks">

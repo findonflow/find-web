@@ -1,6 +1,6 @@
 .charity-tree-timer {
     font-size: 54px;
-    font-family: Roboto;
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-style: normal;
     font-weight: 500;
     line-height: 16px;
@@ -10,7 +10,7 @@
 
 .charity-tree-headers {
     font-size: 18px;
-    font-family: Roboto;
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-style: normal;
     font-weight: 500;
     line-height: 24pxpx;
@@ -30,7 +30,7 @@
     height: 50px;
 }
 .current-bid-flow {
-    font-family: Roboto;
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 font-style: normal;
 font-weight: bold;
 font-size: 26px;
@@ -42,7 +42,7 @@ color: #58B792;
 
 }
 .auction-description {
-    font-family: Inter;
+    font-family: 'Inter', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 font-style: normal;
 font-weight: normal;
 font-size: 16px;
@@ -54,7 +54,7 @@ font-feature-settings: 'salt' on, 'liga' off;
 color: #5C5C5C
 }
 .auction-digits {
-    font-family: Roboto;
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 font-style: normal;
 font-weight: normal;
 font-size: 24px;
@@ -65,7 +65,7 @@ line-height: 40px;
 color: #000000;
 }
 .auction-dayshoursmins {
-    font-family: Roboto;
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 font-style: normal;
 font-weight: normal;
 font-size: 10px;

@@ -11,9 +11,11 @@ import * as t from "@onflow/types";
 import { scripts } from 'find-flow-contracts'
 import { get } from "lodash";
 import GraffleSDK from "../../functions/graffle";
+import ReactGA from 'react-ga'
 
 export function CharityTreeAuction() {
-
+    document.title = ".find - Neo x Flowverse Charity Christmas Auction"
+    ReactGA.pageview(window.location.pathname);
     const [auctionLocked, setAuctionLocked] = useState(true)
     const [auctionEndDate, setAuctionEndDate] = useState(new Date(1641142800 * 1000).toUTCString())
     const [validated, setValidated] = useState(false)
@@ -28,6 +30,9 @@ export function CharityTreeAuction() {
           ]);
           const nameStatus = await fcl.decode(response);
            setNameStatus(nameStatus)
+           if(nameStatus.lease.auctionEndDate) {
+               setAuctionEndDate(nameStatus.lease.auctionEndDate)
+           }
           // setEnteredName(searchName)
         }
         SearchName("charity2021")
@@ -50,7 +55,7 @@ export function CharityTreeAuction() {
         },
         {
             id: "message",
-            value: "with thanks"
+            value: " With thanks"
         }
     ])
 
@@ -166,10 +171,9 @@ export function CharityTreeAuction() {
 
     const streamSDK = new GraffleSDK();
     const feed = async (message) => {
-        if (!get(message, "flowEventId") === "A.097bafa4e0b48eef.Profile.Verification") {
-            return;
+        if (get(message, "flowEventId") === "A.097bafa4e0b48eef.Profile.Verification") {
+            addDonation(message.blockEventData.account, message.blockEventData.message, message.eventDate)
         }
-        addDonation(message.blockEventData.account, message.blockEventData.message, message.eventDate)
         //setLatestMessage(message);
         //console.log(message)
     };
@@ -238,14 +242,14 @@ export function CharityTreeAuction() {
 
                             <Row className="mt-3">
                                 {/* AUCTION buttons */}
-                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus ? nameStatus.lease.latestBid*1+" FLOW - By "+nameStatus.lease.latestBidBy : "- FLOW"}</span></div>
+                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus.lease?.latestBid ? nameStatus.lease.latestBid*1+" FUSD - By "+nameStatus.lease.latestBidBy : "- FUSD"}</span></div>
                                 {/* <div className="fw-bold mt-3">How much would you like to bid?</div> */}
                             </Row>
                             <Form className="formInputs">
                                 <Row>
                                     <Col sm="12" lg="7">
                                         <Form.Label>How much would you like to bid?</Form.Label>
-                                        <Form.Control type="number"  placeholder={"min. "+nameStatus.lease?.latestBid*1} required />
+                                        <Form.Control type="number"  placeholder={"min. "+Number(nameStatus.lease?.latestBid*1+10)+" FUSD"} required />
                                     </Col>
                                     <Col sm="12" lg="5" className="mt-lg-auto mt-3">
                                         <Button type="submit" className="w-100" variant="dark" disabled={auctionLocked}>Bid</Button>
@@ -254,7 +258,7 @@ export function CharityTreeAuction() {
                             </Form>
                         </Col>
                     </Row>
-                    <h4 className="mt-5" align="center">Want to give something to WAW and be on our wall of fame as well as receive an airdrop in the new year?</h4>
+                    <h4 className="mt-5" align="center">Want to give something to WAW and be on our Wall of Fame as well as receive an airdrop in the New Year?</h4>
                     <Row className="auction-box charity-gift-widget shadow my-5 p-3">
                         <Col xs="12" md="4" className="p-3" align="center">
                             <Image src="/assets/img/charitytree/waw.webp" />
@@ -300,7 +304,7 @@ export function CharityTreeAuction() {
                 <Container className="pb-5" style={{ backgroundColor: "#F6F6F6" }} fluid>
                     <Container>
                         <Row className="px-5 pt-5">
-                            <div className="w-100 charity-tree-headers"><h1>The wall of fame</h1></div>
+                            <div className="w-100 charity-tree-headers"><h1>The Wall of Fame</h1></div>
                             <p>Your name will appear here whenever you donate</p>
                         </Row>
                         <Row className="px-5">
@@ -317,8 +321,8 @@ export function CharityTreeAuction() {
                                         </thead>
                                         <tbody id="eventBody">
                                             {donations &&
-                                                donations.map((donation) =>
-                                                    <tr>
+                                                donations.map((donation, i) =>
+                                                    <tr key={i}>
                                                         <td>{donation.blockEventData.account}</td>
                                                         <td>{donation.blockEventData.message}</td>
                                                         <td>{new Date(donation.eventDate).toLocaleString()}</td>

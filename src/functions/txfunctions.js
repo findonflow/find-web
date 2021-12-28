@@ -728,3 +728,100 @@ export const SetMainName = async (name) => {
     console.log(e);
   }
 }
+export const SendFUSDCharity = async (e) => {
+  var d = {}
+  for (var i in e) {
+    var datum = e[i];
+    d[datum.id] = datum.value
+  }
+  try {
+    await Tx(
+      [
+        //name: String, amount: UFix64, type: String
+        fcl.transaction(transactions.sendFusdWithMessage),
+        fcl.args([
+          fcl.arg(d.name, t.String),
+          fcl.arg(parseFloat(d.amount).toFixed(2), t.UFix64),
+          fcl.arg(d.message, t.String)
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start");
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          ReactGA.event({
+            category: 'Charity',
+            action: 'User donated (2021)',
+            label: 'FUSD'
+          })
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export const SendFLOWCharity = async (e) => {
+  var d = {}
+  for (var i in e) {
+    var datum = e[i];
+    d[datum.id] = datum.value
+  }
+  try {
+    await Tx(
+      [
+        //name: String, amount: UFix64, type: String
+        fcl.transaction(transactions.sendFlowWithMessage),
+        fcl.args([
+          fcl.arg(d.name, t.String),
+          fcl.arg(parseFloat(d.amount).toFixed(2), t.UFix64),
+          fcl.arg(d.message, t.String)
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start");
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          ReactGA.event({
+            category: 'Charity',
+            action: 'User donated (2021)',
+            label: 'FUSD'
+          })
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}

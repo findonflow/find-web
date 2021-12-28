@@ -73,7 +73,7 @@ function NavHead() {
   return (
     <Container id="navbar" fluid>
       <Navbar collapseOnSelect={true} expanded={expanded} expand="md" style={{background: "rgba(255, 255, 255)"}} className="p-3 navbar-custom">        <Container>
-        <Link to="/"><img src="/find-alt.png" alt="Find Logo" fluid style={{maxHeight: "34px"}} /></Link>
+        <Link to="/"><img src="/find-alt.png" alt="Find Logo" style={{maxHeight: "34px"}} /></Link>
         <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         <Nav className="me-auto pt-3 pt-lg-0" id="mainLinks">
@@ -82,6 +82,7 @@ function NavHead() {
           <Nav.Link onClick={() => setExpanded(false)} as={scrollLink} to="faq" spy={true} smooth={true} offset={50} duration={400} style={{cursor: 'pointer'}} className="ms-lg-3">FAQ's</Nav.Link>
           <Nav.Link onClick={() => setExpanded(false)} as={Link} to={"/lf"} className="ms-lg-3">Live Feed</Nav.Link>
           <Nav.Link onClick={() => setExpanded(false)} as={Link} to={"/mp"} className="ms-lg-3">Marketplace</Nav.Link>
+          <Nav.Link onClick={() => setExpanded(false)} as={Link} to={"/neo-x-flowverse-community-charity-tree"} className="ms-lg-3">Charity Tree</Nav.Link>
         </Nav>
         <Nav>
         <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-md-block">

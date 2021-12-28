@@ -215,7 +215,7 @@ export function CharityTreeAuction() {
                                         //<Col><Countdown date={new Date(nameStatus.lease.auctionEnds * 1000).toUTCString()} renderer={countdownTimer} /></Col>
                                      <Col><Countdown date={new Date(1640797200 * 1000).toUTCString()} renderer={countdownTimer} /></Col>
                                     :
-                                    <Col><Countdown date={new Date(nameStatus.lease.auctionEnds * 1000).toUTCString()} renderer={countdownTimer} key={'2'} /></Col>
+                                    <Col><Countdown date={new Date(auctionEndDate)} renderer={countdownTimer} key={'2'} /></Col>
                                 }
                             </Row>
                             <Row>

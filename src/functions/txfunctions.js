@@ -738,11 +738,11 @@ export const SendFUSDCharity = async (e) => {
     await Tx(
       [
         //name: String, amount: UFix64, type: String
-        fcl.transaction(transactions.sendFusd),
+        fcl.transaction(transactions.sendFusdWithMessage),
         fcl.args([
           fcl.arg(d.name, t.String),
           fcl.arg(parseFloat(d.amount).toFixed(2), t.UFix64),
-          fcl.arg("fusd", t.String)
+          fcl.arg(d.message, t.String)
         ]),
         fcl.proposer(fcl.currentUser().authorization),
         fcl.payer(fcl.currentUser().authorization),
@@ -787,10 +787,11 @@ export const SendFLOWCharity = async (e) => {
     await Tx(
       [
         //name: String, amount: UFix64, type: String
-        fcl.transaction(transactions.sendFlow),
+        fcl.transaction(transactions.sendFlowWithMessage),
         fcl.args([
           fcl.arg(d.name, t.String),
-          fcl.arg(parseFloat(d.amount).toFixed(2), t.UFix64)
+          fcl.arg(parseFloat(d.amount).toFixed(2), t.UFix64),
+          fcl.arg(d.message, t.String)
         ]),
         fcl.proposer(fcl.currentUser().authorization),
         fcl.payer(fcl.currentUser().authorization),

@@ -1,22 +1,17 @@
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
+import { scripts } from 'find-flow-contracts'
 
 //unfinished
 
 export async function ReverseLookup(address) {
-
-        async function SearchName(searchName) {
+    
           const response = await fcl.send([
             fcl.script(scripts.name),
             fcl.args([fcl.arg(address, t.Address)]),
           ]);
           const nameStatus = await fcl.decode(response);
-           setNameStatus(nameStatus)
           // setEnteredName(searchName)
-        }
-        SearchName(searchName)
-      }
-      // eslint-disable-next-line
-        , [searchName, useStateChanged()])
-    return (null)
+          console.log(nameStatus)
+    return (nameStatus)
 }

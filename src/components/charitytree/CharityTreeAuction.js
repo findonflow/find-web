@@ -12,6 +12,8 @@ import { scripts } from 'find-flow-contracts'
 import { get } from "lodash";
 import GraffleSDK from "../../functions/graffle";
 import ReactGA from 'react-ga'
+import { ReverseLookup } from "../../functions/ReverseLookup";
+import { Link } from "react-router-dom";
 
 export function CharityTreeAuction() {
     document.title = ".find - Neo x Flowverse Charity Christmas Auction"
@@ -22,6 +24,7 @@ export function CharityTreeAuction() {
     const [nameStatus, setNameStatus] = useState("")
     const [donations, setDonations] = useState()
     const [newBid, setNewBid] = useState()
+    const [bidderName, setBidderName] = useState([])
     const cutOffDate = 1640736000
 
     useEffect(() => {
@@ -35,9 +38,14 @@ export function CharityTreeAuction() {
             if (nameStatus.lease.auctionEnds) {
                 setAuctionEndDate(new Date(nameStatus.lease.auctionEnds*1000).toUTCString())
             }
+            if (nameStatus.lease.latestBidBy) {
+                setBidderName(await ReverseLookup(nameStatus.lease.latestBidBy))
+            }
+        
             // setEnteredName(searchName)
         }
         SearchName("charity2021")
+        
     }
         // eslint-disable-next-line
         , [useStateChanged(), newBid])
@@ -262,24 +270,15 @@ export function CharityTreeAuction() {
                             </Row>
                         </Col>
                         <Col className="" xs="12" lg={{ span: 5, offset: 1 }} xl={{ span: 6, offset: 1 }}>
-
-                            {/* AUCTION TIMER */}
-                            {/* <div className="w-100 charity-tree-timer">00:00:00</div> */}
                             <Row>
-                                {/* <Col><Countdown date={new Date("12/29/2021 22:00:00")} renderer={renderer} /></Col> */}
                                 {
                                     auctionLocked ?
-                                        //<Col><Countdown date={new Date(nameStatus.lease.auctionEnds * 1000).toUTCString()} renderer={countdownTimer} /></Col>
                                         <Col><Countdown date={new Date(1640797200 * 1000).toUTCString()} renderer={countdownTimer} /></Col>
                                         :
                                         <Col><Countdown date={new Date(auctionEndDate)} renderer={countdownTimer} key={'2'} /></Col>
                                 }
                             </Row>
                             <Row>
-                                {/* SAVED FOR WHEN ADDING AUCTION FUNCTIONS */}
-                                {/* <Button variant="dark" onClick={() => setAuctionEndDate(new Date(Date.parse(auctionEndDate)+5000))}>Add time</Button>
-                            {JSON.stringify(auctionEndDate, null, 2)}
-                            {Date.parse(auctionEndDate)} */}
                             </Row>
 
 
@@ -287,16 +286,14 @@ export function CharityTreeAuction() {
                                 <div className=" pt-4 pb-3"><h4>Neo x Flowverse Community Charity Christmas Tree </h4></div>
                             </Row>
                             <Row className="">
-                                {/* DESCRIPTION */}
-
                                 <div className="auction-description">This NFT contains all the PFPs of the Neo Advent Calendar Competition Winners and images of the FLOW projects that donated prizes. It is being auctioned off as a 1/1 NFT to raise money for the Women for Afghan Women Charity</div>
                                 <div className="mt-3"><a href="https://medium.com/@NeoCollectibles/what-is-the-neo-x-flowverse-community-christmas-tree-4fc5a30da24f" target="_blank">More info can be found on our medium</a></div>
                             </Row>
 
                             <Row className="mt-3">
-                                {/* AUCTION buttons */}
-                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus.lease?.latestBid ? nameStatus.lease.latestBid * 1 + " FUSD - By " + nameStatus.lease.latestBidBy : "- FUSD"}</span></div>
-                                {/* <div className="fw-bold mt-3">How much would you like to bid?</div> */}
+                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus && 
+                                                                                                                    nameStatus.lease?.latestBid * 1 + " FUSD - By "}
+                                                                                                                    {bidderName ? <Link className="current-bid-flow" to={"/"+bidderName}>{bidderName+".find"}</Link> : nameStatus.lease?.latestBidBy}</span></div>
                             </Row>
                             <Form onSubmit={handleSubmitBid} className="formInputs">
                                 <Row>
@@ -321,14 +318,6 @@ export function CharityTreeAuction() {
                                     )}
                         </Col>
                         <Col>
-                            {/* <Row>
-                            <Col className="p-3">
-                                <Button onClick={() => Submit10Fusd()} className="w-100" variant="dark">10 FUSD</Button>
-                            </Col>
-                            <Col className="p-3">
-                                <Button onClick={() => Submit10Flow()} className="w-100" variant="dark">10 FLOW</Button>
-                            </Col>
-                        </Row> */}
                             <Form noValidate className="formInputs">
                                 <Row>
                                     <Col xs="12" lg="6">
@@ -389,7 +378,6 @@ export function CharityTreeAuction() {
                                         </tbody>
                                     </Table>
                                 </div>
-                                {/* {JSON.stringify(nameStatus, null, 2)} */}
                             </div>
                         </Row>
                     </Container>

@@ -21,6 +21,8 @@ export function CharityTreeAuction() {
     const [validated, setValidated] = useState(false)
     const [nameStatus, setNameStatus] = useState("")
     const [donations, setDonations] = useState()
+    const [newBid, setNewBid] = useState()
+    const cutOffDate = 1640736000
 
     useEffect(() => {
         async function SearchName(searchName) {
@@ -38,7 +40,7 @@ export function CharityTreeAuction() {
         SearchName("charity2021")
     }
         // eslint-disable-next-line
-        , [useStateChanged()])
+        , [useStateChanged(), newBid])
 
     function StartAuction() {
         setAuctionLocked(false);
@@ -221,6 +223,11 @@ export function CharityTreeAuction() {
         if (get(message, "flowEventId") === "A.097bafa4e0b48eef.Profile.Verification") {
             addDonation(message.blockEventData.account, message.blockEventData.message, message.eventDate)
         }
+        if (get(message, "flowEventId") === "A.097bafa4e0b48eef.FIND.AuctionBid") {
+            setNewBid(message)
+
+        }
+
         //setLatestMessage(message);
         //console.log(message)
     };
@@ -307,7 +314,11 @@ export function CharityTreeAuction() {
                     <h4 className="mt-5" align="center">Want to give something to WAW and be on our Wall of Fame as well as receive an airdrop in the New Year?</h4>
                     <Row className="auction-box charity-gift-widget shadow my-5 p-3">
                         <Col xs="12" md="4" className="p-3" align="center">
-                            <Image src="/assets/img/charitytree/waw.webp" />
+                            <Image src="/assets/img/charitytree/waw.webp" className="mb-2" />
+                           
+                                    {nameStatus.profile?.wallets?.map((wallet) =>
+                                        <div className="current-donations">{wallet.balance*1} {wallet.name} donated so far</div>
+                                    )}
                         </Col>
                         <Col>
                             {/* <Row>
@@ -368,6 +379,7 @@ export function CharityTreeAuction() {
                                         <tbody id="eventBody">
                                             {donations &&
                                                 donations.map((donation, i) =>
+                                                new Date(donation.eventDate).valueOf() > cutOffDate*1000 &&
                                                     <tr key={i}>
                                                         <td>{donation.blockEventData.account}</td>
                                                         <td>{donation.blockEventData.message}</td>
@@ -382,7 +394,7 @@ export function CharityTreeAuction() {
                         </Row>
                     </Container>
                 </Container>
-            </fieldset>
-        </Container>
+            </fieldset >
+        </Container >
     )
 }

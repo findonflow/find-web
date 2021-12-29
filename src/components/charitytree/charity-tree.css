@@ -41,6 +41,18 @@ line-height: 40px;
 color: #58B792;
 
 }
+.current-donations {
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 24px;
+/* identical to box height, or 154% */
+
+
+color: #58B792;
+
+}
 .auction-description {
     font-family: 'Inter', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 font-style: normal;

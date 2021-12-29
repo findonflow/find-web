@@ -810,7 +810,7 @@ export const SendFLOWCharity = async (e) => {
           ReactGA.event({
             category: 'Charity',
             action: 'User donated (2021)',
-            label: 'FUSD'
+            label: 'FLOW'
           })
         },
         async onError(error) {

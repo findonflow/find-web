@@ -329,7 +329,7 @@ export function CharityTreeAuction() {
                                             <Col>
                                                 <Button onClick={() => validated && SendFUSDCharity(formValues)} className="me-3 w-100" variant="dark">FUSD</Button>
                                             </Col>
-                                            <Col className="mt-3 mt-lg-0">
+                                            <Col className="mt-0">
                                                 <Button onClick={() => validated && SendFLOWCharity(formValues)} className="w-100 mt-lg-3 mt-xl-0" variant="dark">FLOW</Button>
                                             </Col>
                                         </Row>

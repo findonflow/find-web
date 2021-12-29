@@ -87,6 +87,8 @@ export default function LiveFeed() {
                 newEvent.from = eventData.owner
                 newEvent.to = eventData.bidder
                 newEvent.date = eventDate
+            } else {
+                return
             }
             let tableRef = document.getElementById("eventBody");
 

@@ -32,8 +32,8 @@ export function CharityTreeAuction() {
             ]);
             const nameStatus = await fcl.decode(response);
             setNameStatus(nameStatus)
-            if (nameStatus.lease.auctionEndDate) {
-                setAuctionEndDate(nameStatus.lease.auctionEndDate)
+            if (nameStatus.lease.auctionEnds) {
+                setAuctionEndDate(new Date(nameStatus.lease.auctionEnds*1000).toUTCString())
             }
             // setEnteredName(searchName)
         }

@@ -69,34 +69,6 @@ export function CharityTreeAuction() {
         }
     ])
 
-    function Submit10Fusd() {
-        const sendFusd = [
-            {
-                id: "amount",
-                value: 10
-            },
-            {
-                id: "name",
-                value: "charity2021"
-            }
-        ]
-        SendFUSDCharity(sendFusd)
-    }
-    function Submit10Flow() {
-        const sendFlow = [
-            {
-                id: "amount",
-                value: 10
-            },
-            {
-                id: "name",
-                value: "charity2021"
-            }
-        ]
-        SendFLOWCharity(sendFlow)
-    }
-
-
     const handleSubmitBid = (event) => {
         const form = event.currentTarget;
         event.preventDefault();
@@ -326,16 +298,16 @@ export function CharityTreeAuction() {
                                     </Col>
                                     <Col className="mt-lg-auto mt-3">
                                         <Row>
-                                            <Col>
-                                                <Button onClick={() => validated && SendFUSDCharity(formValues)} className="me-3 w-100" variant="dark">FUSD</Button>
+                                            <Col sm="12" md="6" className="">
+                                                <Button onClick={() => validated && SendFUSDCharity(formValues)} className="me-3 mt-lg-3 mt-xl-0 w-100" variant="dark">FUSD</Button>
                                             </Col>
-                                            <Col className="mt-0">
+                                            <Col sm="12" md="6" className="mt-3 mt-md-0">
                                                 <Button onClick={() => validated && SendFLOWCharity(formValues)} className="w-100 mt-lg-3 mt-xl-0" variant="dark">FLOW</Button>
                                             </Col>
                                         </Row>
                                     </Col>
                                 </Row>
-                                <Row>
+                                <Row className="mt-3">
                                     <Col>
                                         <Form.Label>Enter an optional message</Form.Label>
                                         <Form.Control as="textarea" rows={3} name="message" onChange={(e) => updateField(e)} style={{ borderRadius: "16px" }} />
@@ -360,7 +332,7 @@ export function CharityTreeAuction() {
                                     <Table hover id="eventTable">
                                         <thead>
                                             <tr>
-                                                <th>From</th>
+                                                <th className="d-none d-md-table-cell">From</th>
                                                 <th>Details</th>
                                                 <th>Date</th>
                                             </tr>
@@ -370,7 +342,7 @@ export function CharityTreeAuction() {
                                                 donations.map((donation, i) =>
                                                 new Date(donation.eventDate).valueOf() > cutOffDate*1000 &&
                                                     <tr key={i}>
-                                                        <td>{donation.blockEventData.account}</td>
+                                                        <td className="d-none d-md-table-cell">{donation.blockEventData.account}</td>
                                                         <td>{donation.blockEventData.message}</td>
                                                         <td>{new Date(donation.eventDate).toLocaleString()}</td>
                                                     </tr>)
@@ -378,6 +350,7 @@ export function CharityTreeAuction() {
                                         </tbody>
                                     </Table>
                                 </div>
+                                <div align="right" className="pe-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{maxHeight: "44px"}} fluid></Image></a></div>
                             </div>
                         </Row>
                     </Container>

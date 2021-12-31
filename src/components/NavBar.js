@@ -24,19 +24,16 @@ import {
   Button
 } from "react-bootstrap";
 import { useFormStatus, useStateChanged } from "../functions/DisabledState";
-import { NoProfile } from "./infoboxes/NoProfile";
 import { handleProfile } from "../functions/txfunctions";
 import { useImmer } from "use-immer";
-
-function DisabledStatus() {
-  return useFormStatus()
-}
-
 
 function NavHead() {
   const [profile, setProfile] = useState("")
   const [user, setUser] = useState({ loggedIn: null })
   const [expanded, setExpanded] = useState(false);
+  const formStatus = useState(useFormStatus())
+
+
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
   
   useEffect(() => {
@@ -73,7 +70,7 @@ function NavHead() {
   return (
     <Container id="navbar" fluid>
       <Navbar collapseOnSelect={true} expanded={expanded} expand="md" style={{background: "rgba(255, 255, 255)"}} className="p-3 navbar-custom">        <Container>
-        <Link to="/"><img src="/find-alt.png" alt="Find Logo" style={{maxHeight: "34px"}} /></Link>
+        <Link onClick={() => setExpanded(false)} to="/"><img src="/find-alt.png" alt="Find Logo" style={{maxHeight: "34px"}} /></Link>
         <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         <Nav className="me-auto pt-3 pt-lg-0" id="mainLinks">
@@ -118,7 +115,7 @@ function NavHead() {
                 <Col className="d-flex justify-content-center text-center">No problem, just click below to create your profile. it's FREE</Col>
             </Row>
                     <Row>
-                        <fieldset id="a" disabled={DisabledStatus}>
+                        <fieldset id="a" disabled={formStatus}>
                             <Col xs="12" md="12" className="mb-3 px-3 mb-md-0 formInputs mx-auto">
                                 <Form.Group align="center">
                                     <Form.Label>Enter a name</Form.Label>
@@ -170,7 +167,7 @@ function NavHead() {
                 <Col className="d-flex justify-content-center text-center">No problem, just click below to create your profile. it's FREE</Col>
             </Row>
                     <Row>
-                        <fieldset id="a" disabled={DisabledStatus}>
+                        <fieldset id="a" disabled={formStatus}>
                             <Col xs="12" md="12" className="mb-3 px-3 mb-md-0 formInputs mx-auto">
                                 <Form.Group align="center">
                                     <Form.Label>Enter a name</Form.Label>

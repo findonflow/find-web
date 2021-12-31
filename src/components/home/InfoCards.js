@@ -1,5 +1,5 @@
 import { Row, Col, Card, Button } from "react-bootstrap";
-import { Link as scrollLink, animateScroll as scroll } from "react-scroll"
+import { animateScroll as scroll } from "react-scroll"
 
 
 export function InfoCards() {

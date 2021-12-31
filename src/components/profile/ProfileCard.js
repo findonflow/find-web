@@ -10,7 +10,7 @@ import LoadingBC from "../infoboxes/LoadingBC";
 import { PrivateBid } from "../lease/BuyerForms";
 import { ProfileCollection } from "./ProfileCollection";
 import './profile.css'
-import { ProfileForge } from "./ProfileForge";
+// import { ProfileForge } from "./ProfileForge";
 import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { ProfileSendFT } from "./ProfileSendFT";
@@ -34,6 +34,7 @@ export function ProfileCard({ profileData }) {
     else if (currentPage[1] === "fund") {
       setKey("fund")
     }
+    //eslint-disable-next-line
   }, [])
   function handleTabs(k) {
     setKey(k)

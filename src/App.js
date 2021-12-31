@@ -17,7 +17,6 @@ import ReactGA from 'react-ga';
 import { CharityTreeAuction } from "./components/charitytree/CharityTreeAuction";
 
 export default function App() {
-
   ReactGA.initialize('UA-215684829-1')
 
   const [user, setUser] = useState({ loggedIn: null })

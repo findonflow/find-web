@@ -26,20 +26,20 @@ export function CadenceInfo() {
               <Accordion.Header><span className="titletxt">Use .find in your cadence code</span></Accordion.Header>
               <Accordion.Body>
                 <p>In order to use FIND in your cadence code you have to use the following snippet of code</p>
-                <p>//testnet</p>
+                <p>{"//testnet"}</p>
                 <p>import FIND from 0x37a05b1ecacc80f7</p>
-                <p>//mainnet</p>
-                <p>//import FIND from 0x097bafa4e0b48eef</p>
+                <p>{"//mainnet"}</p>
+                <p>{"//import FIND from 0x097bafa4e0b48eef"}</p>
                 <p>pub fun main(name: String) :  Address? &#123;</p>
                 <p>return FIND.lookupAddress(name) &#125;</p>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1" className="implementaccordion m-md-3 mb-3 p-3">
               <Accordion.Header><span className="titletxt">Directly get a user's profile</span></Accordion.Header>
-              <Accordion.Body><p>//testnet</p>
+              <Accordion.Body><p>{"//testnet"}</p>
                 <p>import FIND, Profile from 0x37a05b1ecacc80f7</p>
-                <p>//mainnet</p>
-                <p>//import FIND, Profile from 0x097bafa4e0b48eef</p>
+                <p>{"//mainnet"}</p>
+                <p>{"//import FIND, Profile from 0x097bafa4e0b48eef"}</p>
                 <p>[pub](pub) fun main(name: String) :  Profile.UserProfile? &#123;</p>
                 <p>   return FIND.lookup(name)?.asProfile()&#125;</p>
               </Accordion.Body>

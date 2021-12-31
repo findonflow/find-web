@@ -1,7 +1,6 @@
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { transactions } from 'find-flow-contracts'
-import ReactTimeago from "react-timeago";
 import { Tx } from "../functions/transaction";
 import ReactGA from 'react-ga'
 

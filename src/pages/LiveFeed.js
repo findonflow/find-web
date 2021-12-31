@@ -17,6 +17,7 @@ export default function LiveFeed() {
             let newEvent = {}
             let eventData = latestMessage.blockEventData
             let eventDate = latestMessage.eventDate
+            //eslint-disable-next-line
             let eventType = latestMessage.flowEventId.split(/\.(?=[^\.]+$)/);
             //manage auction and offer events
             if (eventType[1] === "AuctionCanceled" ||
@@ -117,7 +118,10 @@ export default function LiveFeed() {
         }
     }, [latestMessage])
 
-    const streamSDK = new GraffleSDK();
+    
+    let conn = useRef();
+    useEffect(() => {
+        const streamSDK = new GraffleSDK();
     const feed = async (message) => {
         if (get(message, "flowEventId") === "A.a16ab1d0abde3625.FIND.Name") {
             return;
@@ -128,10 +132,11 @@ export default function LiveFeed() {
         setLatestMessage(message);
         //console.log(message)
     };
-    let conn = useRef();
-    useEffect(async () => {
+        async function startConn() {
         //console.log("Creating the stream")
         conn.current = await streamSDK.stream(feed);
+        }
+        startConn()
     }, []);
     useEffect(() => () => {
         //console.log("Stopping the connection")

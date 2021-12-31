@@ -39,7 +39,7 @@ export default function SalesAuction() {
 
     useEffect(() => {
         if (filteredSold && filteredForSale) {
-
+            //eslint-disable-next-line
             filteredForSale.map((nameForSale) => {
                 if (nameForSale.blockEventData.active) {
                     let isForSale = true
@@ -47,6 +47,7 @@ export default function SalesAuction() {
                     let forSaleNames = filteredForSale.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
 
                     //check to see if the item was withdrawn AFTER it was listed and remove any prior listings
+                    //eslint-disable-next-line
                     forSaleNames.map((saleNames) => {
                         if (!saleNames.blockEventData.active && saleNames.eventDate > nameForSale.eventDate) {
                             isForSale = false
@@ -56,6 +57,7 @@ export default function SalesAuction() {
                         }
                     })
                     //check to see if the item was sold after this listing
+                    //eslint-disable-next-line
                     soldNames.map((soldNames) => {
                         if (soldNames.eventDate > nameForSale.eventDate) {
                             isForSale = false
@@ -78,6 +80,7 @@ export default function SalesAuction() {
                 }
             })
         }
+       //eslint-disable-next-line 
     }, [filteredForSale])
 
     const handleSubmit = (name, amount) => {
@@ -102,6 +105,7 @@ export default function SalesAuction() {
             };
             const sortProperty = types[type];
             const sorted = [...activeSales]
+            //eslint-disable-next-line
                 .sort((a, b) => {
                     if (b[sortProperty] > a[sortProperty]) return -1
                 })
@@ -109,7 +113,7 @@ export default function SalesAuction() {
         };
 
         sortArray(sortType);
-
+        //eslint-disable-next-line
     }, [sortType]);
 
     function handleSetSort(sortedBy) {
@@ -133,10 +137,10 @@ export default function SalesAuction() {
                                 <Table hover id="eventTable">
                                     <thead>
                                         <tr>
-                                            <th><a style={{ cursor: "pointer" }} onClick={() => handleSetSort('name')}>Name</a></th>
-                                            <th><a style={{ cursor: "pointer" }} onClick={() => handleSetSort('amount')}>Price</a></th>
-                                            <th className="d-none d-md-table-cell"><a style={{ cursor: "pointer" }} onClick={() => handleSetSort('owner')}>Owner</a></th>
-                                            <th className="d-none d-md-table-cell"><a style={{ cursor: "pointer" }} onClick={() => handleSetSort('validUntil')}>Valid Until</a></th>
+                                            <th><button style={{ cursor: "pointer", border: "none", backgroundColor: "transparent", fontWeight: "bold" }} onClick={() => handleSetSort('name')}>Name</button></th>
+                                            <th><button style={{ cursor: "pointer", border: "none", backgroundColor: "transparent", fontWeight: "bold" }} onClick={() => handleSetSort('amount')}>Price</button></th>
+                                            <th className="d-none d-md-table-cell"><button style={{ cursor: "pointer", border: "none", backgroundColor: "transparent", fontWeight: "bold" }} onClick={() => handleSetSort('owner')}>Owner</button></th>
+                                            <th className="d-none d-md-table-cell"><button style={{ cursor: "pointer", border: "none", backgroundColor: "transparent", fontWeight: "bold" }} onClick={() => handleSetSort('validUntil')}>Valid Until</button></th>
                                             <th>Buy</th>
                                         </tr>
                                     </thead>

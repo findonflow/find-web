@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Row, Col, Card, Image, Button } from "react-bootstrap"
+import { Row, Col, Card, Button } from "react-bootstrap"
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { scripts } from 'find-flow-contracts'
@@ -48,11 +48,11 @@ export function ProfileCollection({ profileData }) {
 
 			{findList && findList !== "first_init" && findList !== "" &&
 				<Row className="justify-content-center d-flex">
-					<Col className="mb-3" xs="auto">
+					<Col key="0" className="mb-3" xs="auto">
 						<Button variant="light" size="sm" active={filterValue === "All" ? true : false} onClick={() => handleFilter("All")}>{"All NFTs"}</Button>
 					</Col>
-					{FILTER_NAMES.map((filters) =>
-						<Col className="mb-3" xs="auto">
+					{FILTER_NAMES.map((filters, i) => 
+						<Col key={i+1} className="mb-3" xs="auto">
 							<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters}</Button>
 						</Col>
 					)}</Row>
@@ -91,7 +91,7 @@ export function ProfileCollection({ profileData }) {
 
 												<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
 											<a href={url} target="_blank" rel="noreferrer">
-												<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} fluid />
+												<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
 												<Card.Body>
 													<Card.Text className="fw-bold">{nftData.name}</Card.Text>
 													{nftData.listPrice &&
@@ -131,7 +131,7 @@ export function ProfileCollection({ profileData }) {
 
 											<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
 										<a href={url} target="_blank" rel="noreferrer">
-											<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} fluid />
+											<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
 											<Card.Body>
 												<Card.Text className="fw-bold">{nftData.name}</Card.Text>
 												{nftData.listPrice &&

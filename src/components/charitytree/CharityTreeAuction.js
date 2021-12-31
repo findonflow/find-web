@@ -198,7 +198,10 @@ export function CharityTreeAuction() {
 
     }
 
-    const streamSDK = new GraffleSDK();
+    
+    let conn = useRef();
+    useEffect(() => {
+        const streamSDK = new GraffleSDK();
     const feed = async (message) => {
         if (get(message, "flowEventId") === "A.097bafa4e0b48eef.Profile.Verification") {
             addDonation(message.blockEventData.account, message.blockEventData.message, message.eventDate)
@@ -211,10 +214,11 @@ export function CharityTreeAuction() {
         //setLatestMessage(message);
         //console.log(message)
     };
-    let conn = useRef();
-    useEffect(async () => {
         //console.log("Creating the stream")
+        async function startConn() {
         conn.current = await streamSDK.stream(feed);
+        }
+        startConn()
     }, []);
     useEffect(() => () => {
         //console.log("Stopping the connection")
@@ -259,7 +263,7 @@ export function CharityTreeAuction() {
                             </Row>
                             <Row className="">
                                 <div className="auction-description">This NFT contains all the PFPs of the Neo Advent Calendar Competition Winners and images of the FLOW projects that donated prizes. It is being auctioned off as a 1/1 NFT to raise money for the Women for Afghan Women Charity</div>
-                                <div className="mt-3"><a href="https://medium.com/@NeoCollectibles/what-is-the-neo-x-flowverse-community-christmas-tree-4fc5a30da24f" target="_blank">More info can be found on our medium</a></div>
+                                <div className="mt-3"><a href="https://medium.com/@NeoCollectibles/what-is-the-neo-x-flowverse-community-christmas-tree-4fc5a30da24f" target="_blank" rel="noreferrer">More info can be found on our medium</a></div>
                             </Row>
 
                             <Row className="mt-3">
@@ -285,8 +289,8 @@ export function CharityTreeAuction() {
                         <Col xs="12" md="4" className="p-3" align="center">
                             <Image src="/assets/img/charitytree/waw.webp" className="mb-2" />
                            
-                                    {nameStatus.profile?.wallets?.map((wallet) =>
-                                        <div className="current-donations">{wallet.balance*1} {wallet.name} donated so far</div>
+                                    {nameStatus.profile?.wallets?.map((wallet, i) =>
+                                        <div key={i} className="current-donations">{wallet.balance*1} {wallet.name} donated so far</div>
                                     )}
                         </Col>
                         <Col>

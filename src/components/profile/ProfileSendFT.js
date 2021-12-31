@@ -1,21 +1,13 @@
 import { Button, Form, Col, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { handleSendFungible } from "../../functions/txfunctions";
 import { useFormStatus } from "../../functions/DisabledState";
-import { useImmer } from "use-immer";
 import { ValidateNameAddress } from "../../functions/ValidateNameAddress";
 
 export function ProfileSendFT({ profileData }) {
 
     const [sendFT, setSendFT] = useState("flow")
     const [nameAdr, setNameAdr] = useState("")
-    const [error, setError] = useState("")
-    const [formValues, setFormValues] = useImmer([
-        {
-            id: "sendAmt",
-            value: 0
-        }
-    ])
 
     const handleSubmit = async (event) => {
         const form = event.currentTarget;
@@ -68,11 +60,9 @@ export function ProfileSendFT({ profileData }) {
         }
     
     function validateInputFormatting(e) {
-        setFormValues((draft) => {
-            const varVal = draft.find((varVal) => varVal.id === e.target.name);
-            varVal.value = e.target.value;
+            let varVal = e.target.value;
             //now validate
-            if (varVal.value <= 0) {
+            if (varVal <= 0) {
                 e.target.classList.add("is-invalid")
                 e.target.classList.remove("is-valid")
             }
@@ -80,7 +70,6 @@ export function ProfileSendFT({ profileData }) {
                 e.target.classList.add("is-valid")
                 e.target.classList.remove("is-invalid")
             }
-        })
     }
 
     function validateNameAdrFormatting(e) {
@@ -98,11 +87,9 @@ export function ProfileSendFT({ profileData }) {
     const validateInput = (amount) => {
 
         if (amount <= 0) {
-            setError("Value must be greater than 0");
             return false
         }
         else {
-            setError("")
             return true
         }
 

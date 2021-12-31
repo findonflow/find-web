@@ -242,7 +242,7 @@ export function CharityTreeAuction() {
                         <Col className="p-0 m-2" xs="12" md="auto">
                             <Row className="justify-content-center">
                                 {/* NFT IMAGE */}
-                                <Image className=" p-0 shadow" src="/assets/img/charitytree/Community_Tree.webp" style={{ maxWidth: "420px" }} rounded></Image>
+                                <Image className=" p-0 shadow" src="/assets/img/charitytree/Community_Tree.webp" style={{ maxWidth: "420px", height: "100%" }} rounded></Image>
                             </Row>
                         </Col>
                         <Col className="" xs="12" lg={{ span: 5, offset: 1 }} xl={{ span: 6, offset: 1 }}>

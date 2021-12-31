@@ -31,8 +31,7 @@ function NavHead() {
   const [profile, setProfile] = useState("")
   const [user, setUser] = useState({ loggedIn: null })
   const [expanded, setExpanded] = useState(false);
-  const formStatus = useState(useFormStatus())
-
+  let formStatus = useFormStatus()
 
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
   

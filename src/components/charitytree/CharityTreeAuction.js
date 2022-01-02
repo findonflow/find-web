@@ -229,14 +229,16 @@ export function CharityTreeAuction() {
         <Container style={{ backgroundColor: "white" }} fluid>
             <fieldset id="a" disabled={useFormStatus()}>
                 <Container className="px-5 pb-4">
-                    {auctionLocked ?
+                    {/* {auctionLocked ?
                         <div className="text-center">
                             <h1>The countdown has begun!</h1>
                             <p>The auction will begin soon, but you can donate immediately</p>
                         </div>
                         :
                         <h1 align="center">The charity auction is now live!</h1>
-                    }
+                    } */}
+                    <div className="text-center"><h1>The charity auction has now ended!</h1></div>
+                    
                     {/* This is the row for the Col containing NFTT image, Timer and the Col containing Description, auction buttons and gift options */}
                     <Row className="pt-lg-5 pt-3 justify-content-center">
                         <Col className="p-0 m-2" xs="12" md="auto">
@@ -246,14 +248,14 @@ export function CharityTreeAuction() {
                             </Row>
                         </Col>
                         <Col className="" xs="12" lg={{ span: 5, offset: 1 }} xl={{ span: 6, offset: 1 }}>
-                            <Row>
+                            {/* <Row>
                                 {
                                     auctionLocked ?
                                         <Col><Countdown date={new Date(1640797200 * 1000).toUTCString()} renderer={countdownTimer} /></Col>
                                         :
                                         <Col><Countdown date={new Date(auctionEndDate)} renderer={countdownTimer} key={'2'} /></Col>
                                 }
-                            </Row>
+                            </Row> */}
                             <Row>
                             </Row>
 
@@ -267,11 +269,15 @@ export function CharityTreeAuction() {
                             </Row>
 
                             <Row className="mt-3">
-                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus && 
-                                                                                                                    nameStatus.lease?.latestBid * 1 + " FUSD - By "}
-                                                                                                                    {bidderName ? <Link className="current-bid-flow" to={"/"+bidderName}>{bidderName+".find"}</Link> : nameStatus.lease?.latestBidBy}</span></div>
+                                <div className="fw-bold my-3">Winning bid: <span className="current-bid-flow" >450 FUSD - By <Link className="current-bid-flow" to="/dumbo">dumbo.find</Link></span></div>
                             </Row>
-                            <Form onSubmit={handleSubmitBid} className="formInputs">
+                            <Row>
+                                <Col className="mt-3">
+                                <div className="d-flex justify-content-center"><div className="profilePic image"><img src="/assets/img/avatars/eldumbo.webp" height="150" width="150" alt="El Dumbo's profile avatar" /></div></div>
+                                <div align="center"><h1>WINNER!</h1></div>
+                                </Col>
+                            </Row>
+                            {/* <Form onSubmit={handleSubmitBid} className="formInputs">
                                 <Row>
                                     <Col sm="12" lg="7">
                                         <Form.Label>How much would you like to bid?</Form.Label>
@@ -281,19 +287,20 @@ export function CharityTreeAuction() {
                                         <Button type="submit" className="w-100" disabled={auctionLocked} variant="dark">Bid</Button>
                                     </Col>
                                 </Row>
-                            </Form>
+                            </Form> */}
                         </Col>
                     </Row>
-                    <h4 className="mt-5" align="center">Want to give something to WAW and be on our Wall of Fame as well as receive an airdrop in the New Year?</h4>
+                    {/* <h4 className="mt-5" align="center">Want to give something to WAW and be on our Wall of Fame as well as receive an airdrop in the New Year?</h4> */}
                     <Row className="auction-box charity-gift-widget shadow my-5 p-3">
-                        <Col xs="12" md="4" className="p-3" align="center">
-                            <Image src="/assets/img/charitytree/waw.webp" className="mb-2" />
+                        <Col xs="12" className="p-3" align="center">
+                            <a href="https://womenforafghanwomen.org/" target="_blank" rel="noreferrer"><Image src="/assets/img/charitytree/waw.webp" className="mb-2" /></a>
                            
-                                    {nameStatus.profile?.wallets?.map((wallet, i) =>
-                                        <div key={i} className="current-donations">{wallet.balance*1} {wallet.name} donated so far</div>
-                                    )}
+                                    
+                                        <div className="current-donations">1390.29 FUSD donated</div>
+                                        <div className="current-donations">56.121 FLOW donated</div>
+               
                         </Col>
-                        <Col>
+                        {/* <Col>
                             <Form noValidate className="formInputs">
                                 <Row>
                                     <Col xs="12" lg="6">
@@ -318,10 +325,10 @@ export function CharityTreeAuction() {
                                     </Col>
                                 </Row>
                             </Form>
-                        </Col>
+                        </Col> */}
 
                     </Row>
-                    <p>If you donate above you will appear on the wall of fame below. There is no limit to the number of times you can donate and your name will appear on the wall as many times as you donate. Every person who donates will receive an airdrop in the new year in the form of an NFT.</p>
+                    {/* <p>If you donate above you will appear on the wall of fame below. There is no limit to the number of times you can donate and your name will appear on the wall as many times as you donate. Every person who donates will receive an airdrop in the new year in the form of an NFT.</p> */}
                 </Container>
                 <Container className="pb-5" style={{ backgroundColor: "#F6F6F6" }} fluid>
                     <Container>
@@ -359,7 +366,7 @@ export function CharityTreeAuction() {
                         </Row>
                         <Row className="pt-5 px-5">
                             <Col>
-                            <div>If you sent in a donation before x on the x you will need to enable the charity collection using the button below. This allows us to airdrop an NFT to you.</div>
+                            <div>If you sent in a donation before {new Date('2021/12/29 16:30:00').toLocaleString()} you will need to enable the charity collection using the button below. This allows us to airdrop an NFT to you. If you did not donate and still click the below button, a collection will be created but no airdrop will take place.</div>
                             <Button variant="dark" className="mt-3" onClick={() => CreateCharityCollection()}>Enable Charity Collection</Button>
                             </Col>
                         </Row>

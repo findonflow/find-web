@@ -121,8 +121,11 @@ function NavHead() {
                                     <Form.Control required placeholder="your name here" onChange={updateField} />
                                 </Form.Group>
                             </Col>
+                            <Col xs="12" className="mx-auto mt-3 px-4" align="center">
+                                <Button onClick={() => formValues && handleProfile(formValues)} variant="outline-dark" className="w-100">Create</Button>
+                            </Col>
                             <Col xs="12" className="mx-auto mt-3" align="center">
-                                <Button onClick={() => formValues && handleProfile(formValues)} variant="outline-dark">Create</Button>
+                            <div align="center"><AuthCluster user={user} /></div>
                             </Col>
                         </fieldset>
                     </Row>
@@ -173,8 +176,11 @@ function NavHead() {
                                     <Form.Control required placeholder="your name here" onChange={updateField} />
                                 </Form.Group>
                             </Col>
+                            <Col xs="12" className="mx-auto mt-3 px-4" align="center">
+                                <Button onClick={() => formValues && handleProfile(formValues)} variant="outline-dark" className="w-100">Create</Button>
+                            </Col>
                             <Col xs="12" className="mx-auto mt-3" align="center">
-                                <Button onClick={() => formValues && handleProfile(formValues)} variant="outline-dark">Create</Button>
+                            <div align="center"><AuthCluster user={user} /></div>
                             </Col>
                         </fieldset>
                     </Row>
@@ -189,49 +195,6 @@ function NavHead() {
       </Navbar>
       {/* {JSON.stringify(profile, null,2)} */}<div className="site-header"></div>
     </Container>
-    // <Container id="navBar">
-    //   <Navbar collapseOnSelect={true} expand="md">
-    //     <Container>
-    //       <Link to="/"><img src="/find.png" alt="Find Logo" className=" logo img-fluid" /></Link>
-    //       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-    //       <Navbar.Collapse id="responsive-navbar-nav">
-    //         <Nav>
-    //           <div className="d-sm-block d-md-none">
-    //             {user.loggedIn ?
-    //               <div>
-    //                 <div className="p-2 fw-bold" style={{ fontSize: "16px" }}>Wallet Address</div>
-    //                 <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
-    //                   <div className="px-3" style={{ fontSize: "12px", cursor: "copy" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
-    //                 </OverlayTrigger>
-    //                 <Nav.Link as={Link} to={"/"}>Home</Nav.Link>
-    //                 <Nav.Link as={Link} to={"/me"}>Dashboard</Nav.Link>
-    //                 <div align="center" className="m-1"><AuthCluster user={user} /></div>
-    //               </div>
-    //               :
-    //               <div align="center"><AuthCluster user={user} /></div>
-    //             }
-    //           </div>
-    //         </Nav>
-    //       </Navbar.Collapse>
-    //       <div className="d-none d-md-block">
-    //         {user.loggedIn ?
-    //           <DropdownButton align="end" title={user.addr} id="dropdown-menu-align-end" variant="dark" data-toggle="dropdown">
-    //             <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>Wallet Address</div>
-    //             <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>
-    //               <div className="p-2" style={{ fontSize: "16px", cursor: "copy" }} onClick={() => runCopy(user.addr)}>{user.addr} <i className="copyicon fa fa-copy"></i></div>
-    //             </OverlayTrigger>
-    //             <Dropdown.Divider />
-    //             <Dropdown.Item as={Link} to={"/"} className="p-5">Home</Dropdown.Item>
-    //             <Dropdown.Item as={Link} to={"/me"}>Dashboard</Dropdown.Item>
-    //             <Dropdown.Divider />
-    //             <div align="center" className="mx-4"><AuthCluster user={user} /></div>
-    //           </DropdownButton>
-    //           :
-    //           <AuthCluster user={user} />}
-    //       </div>
-    //     </Container>
-    //   </Navbar>
-    // </Container>
   )
 }
 export default NavHead;

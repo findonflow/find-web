@@ -4,7 +4,7 @@ import { Col, Row, Image, Button, Container, Form, Table } from "react-bootstrap
 import Countdown from "react-countdown";
 import { useImmer } from "use-immer";
 import { useFormStatus, useStateChanged } from "../../functions/DisabledState";
-import { handleBid, SendFLOWCharity, SendFUSDCharity } from "../../functions/txfunctions";
+import { CreateCharityCollection, handleBid, SendFLOWCharity, SendFUSDCharity } from "../../functions/txfunctions";
 import './charity-tree.css';
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
@@ -357,7 +357,16 @@ export function CharityTreeAuction() {
                                 <div align="right" className="pe-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{maxHeight: "44px"}} fluid></Image></a></div>
                             </div>
                         </Row>
+                        <Row className="pt-5 px-5">
+                            <Col>
+                            <div>If you sent in a donation before x on the x you will need to enable the charity collection using the button below. This allows us to airdrop an NFT to you.</div>
+                            <Button variant="dark" className="mt-3" onClick={() => CreateCharityCollection()}>Enable Charity Collection</Button>
+                            </Col>
+                        </Row>
+
+                        
                     </Container>
+                    
                 </Container>
             </fieldset >
         </Container >

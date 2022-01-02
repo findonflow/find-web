@@ -824,3 +824,41 @@ export const SendFLOWCharity = async (e) => {
     console.log(e);
   }
 }
+export const CreateCharityCollection = async (e) => {
+  try {
+    await Tx(
+      [
+        //name: String, amount: UFix64, type: String
+        fcl.transaction(transactions.createCharity),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start");
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          ReactGA.event({
+            category: 'Charity Collection',
+            action: 'Collection Created',
+            label: 'Collection Created'
+          })
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}

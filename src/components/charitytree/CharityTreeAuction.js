@@ -273,7 +273,7 @@ export function CharityTreeAuction() {
                             </Row>
                             <Row>
                                 <Col className="mt-3">
-                                <div className="d-flex justify-content-center"><div className="profilePic image"><img src="/assets/img/avatars/eldumbo.webp" height="150" width="150" alt="El Dumbo's profile avatar" /></div></div>
+                                <div className="d-flex justify-content-center"><div className="profilePic image"><img src="/assets/img/avatars/eldumbo1000.webp" height="150" width="150" alt="El Dumbo's profile avatar" /></div></div>
                                 <div align="center"><h1>WINNER!</h1></div>
                                 </Col>
                             </Row>

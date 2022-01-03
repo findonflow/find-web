@@ -15,6 +15,7 @@ import LiveFeed from "./pages/LiveFeed";
 import SalesAuction from "./pages/SalesAuctions";
 import ReactGA from 'react-ga';
 import { CharityTreeAuction } from "./components/charitytree/CharityTreeAuction";
+import { SeatchWidget } from "./components/search/searchWidget";
 
 export default function App() {
   ReactGA.initialize('UA-215684829-1')
@@ -47,6 +48,7 @@ export default function App() {
         <NavHead />
         <Routes className="site-header">
           <Route path='/' element={<Home />} />
+          <Route path='/s' element={<SeatchWidget />} />
           {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />
           <Route path=':id' element={<NameSearch default="profile" />} />

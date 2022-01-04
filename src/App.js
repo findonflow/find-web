@@ -49,7 +49,6 @@ export default function App() {
         <Routes className="site-header">
           <Route path='/' element={<Home />} />
           <Route path='/s' element={<SeatchWidget />} />
-          {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />
           <Route path=':id' element={<NameSearch default="profile" />} />
           <Route path=':id/collection' element={<NameSearch default="collection" />} />

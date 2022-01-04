@@ -2,7 +2,9 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { InstantSearch, SearchBox } from "react-instantsearch-dom";
 import Hits from "react-instantsearch-dom/dist/cjs/widgets/Hits";
+import Pagination from "react-instantsearch-dom/dist/cjs/widgets/Pagination";
 import TypesenseInstantSearchAdapter from "typesense-instantsearch-adapter";
+import "./search.css"
 
 export function SeatchWidget() {
 
@@ -30,10 +32,11 @@ export function SeatchWidget() {
     return (
         <Container>
             <Row className="mt-4">
-                <Col>
+                <Col align="center">
                     <InstantSearch indexName="names" searchClient={searchClient}>
                         <SearchBox />
                         <Hits />
+                        <Pagination />
                     </InstantSearch>
                 </Col>
             </Row>

@@ -15,6 +15,7 @@ import LiveFeed from "./pages/LiveFeed";
 import SalesAuction from "./pages/SalesAuctions";
 import ReactGA from 'react-ga';
 import { CharityTreeAuction } from "./components/charitytree/CharityTreeAuction";
+import { ScriptChecker } from "./functions/ScriptChecker";
 
 export default function App() {
   ReactGA.initialize('UA-215684829-1')
@@ -47,6 +48,7 @@ export default function App() {
         <NavHead />
         <Routes className="site-header">
           <Route path='/' element={<Home />} />
+          <Route path='scriptcheckutility' element={<ScriptChecker />} />
           {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />
           <Route path=':id' element={<NameSearch default="profile" />} />
@@ -58,6 +60,7 @@ export default function App() {
           <Route path='/lf' element={<LiveFeed />} />
           <Route path='/neo-x-flowverse-community-charity-tree' element={<CharityTreeAuction />} />
           <Route path='mp' element={<SalesAuction />} />
+          
         </Routes>
         <Footer />
       </Router>

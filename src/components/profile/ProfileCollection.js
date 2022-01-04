@@ -32,7 +32,8 @@ export function ProfileCollection({ profileData }) {
 	}, [user, useStateChanged()]);
 
 
-	const FILTER_NAMES = findList ? Object.keys(findList) : ""
+	const FILTER_NAMES = findList.collections ? Object.keys(findList.collections) : ""
+	const NFTITEMS = findList.items ? findList.items : ""
 
 	const [filterValue, setFilterValue] = useState("All")
 
@@ -63,45 +64,47 @@ export function ProfileCollection({ profileData }) {
 				<Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
 					{
 						findList && findList !== "first_init" && findList !== "" && filterValue === "All" &&
-						FILTER_NAMES.map((collection) =>
-							findList[collection]?.items.map((nftData, i) => {
-								let url
-								let imgUrl
-								if (nftData.image.includes("ipfs://")) {
-									// console.log("It does include!")
-									imgUrl = nftData.image.replace("ipfs://", "https://ipfs.fleek.co/ipfs/")
-								} else {
-									imgUrl = nftData.image
-								}
-								if (collection === "Gaia") {
-									if (nftData.url.includes("/collection/")) {
-										url = nftData.url.replace("/collection/", "/")
-									}
-								} else {
-									url = nftData.url
-								}
-								return (
-									<Col key={i} className="mb-5">
+							<div>{findList.items.Flovatar2267.name}</div>
+							
+						
+							// findList["items"].map((nftData, i) => {
+							// 	let url
+							// 	let imgUrl
+							// 	if (nftData.image.includes("ipfs://")) {
+							// 		// console.log("It does include!")
+							// 		imgUrl = nftData.image.replace("ipfs://", "https://ipfs.fleek.co/ipfs/")
+							// 	} else {
+							// 		imgUrl = nftData.image
+							// 	}
+							// 	if (collection === "Gaia") {
+							// 		if (nftData.url.includes("/collection/")) {
+							// 			url = nftData.url.replace("/collection/", "/")
+							// 		}
+							// 	} else {
+							// 		url = nftData.url
+							// 	}
+							// 	return (
+							// 		<Col key={i} className="mb-5">
 
-										{/* {JSON.stringify(collection, null, 2)} */}
+							// 			{/* {JSON.stringify(collection, null, 2)} */}
 
-										<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
+							// 			<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
 
-											{user.addr === profileData.profile.address &&
+							// 				{user.addr === profileData.profile.address &&
 
-												<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
-											<a href={url} target="_blank" rel="noreferrer">
-												<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
-												<Card.Body>
-													<Card.Text className="fw-bold">{nftData.name}</Card.Text>
-													{nftData.listPrice &&
-														<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
-												</Card.Body>
-											</a>
-										</Card>
-									</Col>)
-							}))
-					}
+							// 					<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
+							// 				<a href={url} target="_blank" rel="noreferrer">
+							// 					<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+							// 					<Card.Body>
+							// 						<Card.Text className="fw-bold">{nftData.name}</Card.Text>
+							// 						{nftData.listPrice &&
+							// 							<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
+							// 					</Card.Body>
+							// 				</a>
+							// 			</Card>
+							// 		</Col>)
+							// })}
+						}
 					{
 						findList && findList !== "first_init" && findList !== "" && filterValue !== "All" &&
 						findList[filterValue]?.items.map((nftData, i) => {

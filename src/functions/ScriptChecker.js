@@ -22,7 +22,7 @@ export function ScriptChecker() {
 			setResult(checkResult)
 		}
 		try {
-			getScript("0x886f3aeaf848c535")
+			getScript(user.addr)
 		}
 		catch (error) {
 			console.log(error)
@@ -31,6 +31,6 @@ export function ScriptChecker() {
 	}, [user, useStateChanged()]);
 
     return(
-        <Container>{JSON.stringify(result)}</Container>
+        <Container>{JSON.stringify(result.collections.Flovatar)}</Container>
     )
 }

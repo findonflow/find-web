@@ -33,7 +33,6 @@ export function ProfileCollection({ profileData }) {
 
 
 	const FILTER_NAMES = findList.collections ? Object.keys(findList.collections) : ""
-	const NFTITEMS = findList.items ? findList.items : ""
 
 	const [filterValue, setFilterValue] = useState("All")
 
@@ -52,8 +51,8 @@ export function ProfileCollection({ profileData }) {
 					<Col key="0" className="mb-3" xs="auto">
 						<Button variant="light" size="sm" active={filterValue === "All" ? true : false} onClick={() => handleFilter("All")}>{"All NFTs"}</Button>
 					</Col>
-					{FILTER_NAMES.map((filters, i) => 
-						<Col key={i+1} className="mb-3" xs="auto">
+					{FILTER_NAMES.map((filters, i) =>
+						<Col key={i + 1} className="mb-3" xs="auto">
 							<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters}</Button>
 						</Col>
 					)}</Row>
@@ -64,50 +63,8 @@ export function ProfileCollection({ profileData }) {
 				<Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
 					{
 						findList && findList !== "first_init" && findList !== "" && filterValue === "All" &&
-							<div>{findList.items.Flovatar2267.name}</div>
-							
-						
-							// findList["items"].map((nftData, i) => {
-							// 	let url
-							// 	let imgUrl
-							// 	if (nftData.image.includes("ipfs://")) {
-							// 		// console.log("It does include!")
-							// 		imgUrl = nftData.image.replace("ipfs://", "https://ipfs.fleek.co/ipfs/")
-							// 	} else {
-							// 		imgUrl = nftData.image
-							// 	}
-							// 	if (collection === "Gaia") {
-							// 		if (nftData.url.includes("/collection/")) {
-							// 			url = nftData.url.replace("/collection/", "/")
-							// 		}
-							// 	} else {
-							// 		url = nftData.url
-							// 	}
-							// 	return (
-							// 		<Col key={i} className="mb-5">
-
-							// 			{/* {JSON.stringify(collection, null, 2)} */}
-
-							// 			<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
-
-							// 				{user.addr === profileData.profile.address &&
-
-							// 					<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
-							// 				<a href={url} target="_blank" rel="noreferrer">
-							// 					<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
-							// 					<Card.Body>
-							// 						<Card.Text className="fw-bold">{nftData.name}</Card.Text>
-							// 						{nftData.listPrice &&
-							// 							<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
-							// 					</Card.Body>
-							// 				</a>
-							// 			</Card>
-							// 		</Col>)
-							// })}
-						}
-					{
-						findList && findList !== "first_init" && findList !== "" && filterValue !== "All" &&
-						findList[filterValue]?.items.map((nftData, i) => {
+						Object.keys(findList.items).map((object) => {
+							let nftData = findList.items[object]
 							let url
 							let imgUrl
 							if (nftData.image.includes("ipfs://")) {
@@ -116,7 +73,7 @@ export function ProfileCollection({ profileData }) {
 							} else {
 								imgUrl = nftData.image
 							}
-							if (filterValue === "Gaia") {
+							if ("collection" === "Gaia") {
 								if (nftData.url.includes("/collection/")) {
 									url = nftData.url.replace("/collection/", "/")
 								}
@@ -124,7 +81,7 @@ export function ProfileCollection({ profileData }) {
 								url = nftData.url
 							}
 							return (
-								<Col key={i} className="mb-5">
+								<Col className="mb-5">
 
 									{/* {JSON.stringify(collection, null, 2)} */}
 
@@ -134,7 +91,11 @@ export function ProfileCollection({ profileData }) {
 
 											<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
 										<a href={url} target="_blank" rel="noreferrer">
-											<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+										{nftData.contentType === "video" ?
+													<video src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+													:
+													<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+												}
 											<Card.Body>
 												<Card.Text className="fw-bold">{nftData.name}</Card.Text>
 												{nftData.listPrice &&
@@ -145,6 +106,50 @@ export function ProfileCollection({ profileData }) {
 								</Col>)
 						})
 					}
+					{
+						findList && findList !== "first_init" && findList !== "" && filterValue !== "All" &&
+								findList.collections[filterValue]?.map((nftid) => {
+									let nftData = findList.items[nftid]
+									let url
+									let imgUrl
+									if (nftData.image.includes("ipfs://")) {
+										// console.log("It does include!")
+										imgUrl = nftData.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+									} else {
+										imgUrl = nftData.image
+									}
+									if (filterValue === "Gaia") {
+										if (nftData.url.includes("/collection/")) {
+											url = nftData.url.replace("/collection/", "/")
+										}
+									} else {
+										url = nftData.url
+									}
+									return (
+										<Col className="mb-5">
+
+											{/* {JSON.stringify(collection, null, 2)} */}
+
+											<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
+
+												{user.addr === profileData.profile.address &&
+
+													<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
+												
+													{nftData.contentType === "video" ?
+													<video src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} preload="false" controls="true" muted playsinline />
+													:
+													<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+												}<a href={url} target="_blank" rel="noreferrer">
+													<Card.Body>
+														<Card.Text className="fw-bold">{nftData.name}</Card.Text>
+														{nftData.listPrice &&
+															<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
+													</Card.Body>
+												</a>
+											</Card>
+										</Col>)
+								})}
 				</Row></fieldset>
 			{/* {JSON.stringify(findList, null, 2)} */}
 			{!findList &&

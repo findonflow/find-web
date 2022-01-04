@@ -31,6 +31,6 @@ export function ScriptChecker() {
 	}, [user, useStateChanged()]);
 
     return(
-        <Container>{JSON.stringify(result.collections.Flovatar)}</Container>
+        <Container>{JSON.stringify(result)}</Container>
     )
 }

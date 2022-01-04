@@ -51,6 +51,8 @@ export default function App() {
           <Route path='scriptcheckutility' element={<ScriptChecker />} />
           {/* <Route path='/profile' element={<Profile user={user} />} /> */}
           <Route path='/me' element={<Profile user={user} />} />
+          <Route path='/me/collection' element={<Profile user={user} default="collection"/>} />
+          <Route path='/me/collection/:col' element={<Profile user={user} default="collection"/>} />
           <Route path=':id' element={<NameSearch default="profile" />} />
           <Route path=':id/collection' element={<NameSearch default="collection" />} />
           <Route path=':id/collection/:col' element={<NameSearch default="collection" />} />

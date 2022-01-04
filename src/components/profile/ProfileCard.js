@@ -11,7 +11,7 @@ import { PrivateBid } from "../lease/BuyerForms";
 import { ProfileCollection } from "./ProfileCollection";
 import './profile.css'
 // import { ProfileForge } from "./ProfileForge";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { ProfileSendFT } from "./ProfileSendFT";
 import { ProfileGifting } from "./ProfileGifting";
@@ -25,10 +25,14 @@ export function ProfileCard({ profileData }) {
   const location = useLocation()
 
   let navigate = useNavigate();
+  let params = useParams();
 
   let currentPage = location.pathname.split(/^.*\//)
   useEffect(() => {
     if (currentPage[1] === "collection") {
+      setKey("collection")
+    }
+    if (params.col) {
       setKey("collection")
     }
     else if (currentPage[1] === "fund") {
@@ -38,11 +42,19 @@ export function ProfileCard({ profileData }) {
   }, [])
   function handleTabs(k) {
     setKey(k)
-    if (currentPage[1] !== "me" && !currentPage[1] !== "") {
+    if (params.id) {
       if (k === "profile") {
         navigate("/" + profileData.lease.name)
       } else {
         navigate("/" + profileData.lease.name + "/" + k)
+      }
+    }
+    if (!params.id) {
+      if (k === "profile") {
+        navigate("/me")
+      }
+      if (k === "collection") {
+        navigate("/me/collection")
       }
     }
   }

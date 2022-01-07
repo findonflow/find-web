@@ -6,9 +6,6 @@ import { scripts } from 'find-flow-contracts'
 import { useFormStatus, useStateChanged } from "../../functions/DisabledState";
 import { CreateNewAlbum, handleSetPfp, RemoveAlbum } from "../../functions/txfunctions";
 import { useNavigate, useParams } from "react-router";
-import { set } from "lodash";
-import { transactions } from 'find-flow-contracts'
-import { Tx } from "../../functions/transaction";
 
 export function ProfileCollection({ profileData }) {
 
@@ -36,7 +33,6 @@ export function ProfileCollection({ profileData }) {
 		}
 		try {
 			getFindUser(profileData.profile.address)
-			console.log("Collection data refresh triggered")
 		}
 		catch (error) {
 			console.log(error)
@@ -54,14 +50,11 @@ export function ProfileCollection({ profileData }) {
 			if (findList.curatedCollections) {
 				if (Object.keys(findList.curatedCollections).length > 0) {
 					setFILTER_NAMESCURATED(Object.keys(findList.curatedCollections))
-					console.log(Object.keys(findList.curatedCollections))
 				} else {
 					setFILTER_NAMESCURATED(null)
-					console.log("Null value set on curated names filter")
 				}
 			} else {
 				setFILTER_NAMESCURATED(null)
-				console.log("Null value set on curated names filter")
 			}
 		}
 	}, [findList])
@@ -146,45 +139,11 @@ export function ProfileCollection({ profileData }) {
 
 		async function handleSubmitAlbum(e) {
 			if (albumName && albumArray.length > 0) {
-				try {
-					await Tx(
-					  [
-						//name: String, amount: UFix64, type: String
-						fcl.transaction(transactions.addCuratedCollection),
-						fcl.args([
-						  fcl.arg(albumName, t.String),
-						  fcl.arg(albumArray, t.Array(t.String))
-						]),
-						fcl.proposer(fcl.currentUser().authorization),
-						fcl.payer(fcl.currentUser().authorization),
-						fcl.authorizations([fcl.currentUser().authorization]),
-						fcl.limit(9999),
-					  ],
-					  {
-						onStart() {
-						  console.log("start");
-						},
-						onSubmission() {
-						  console.log("submitted")
-						},
-						async onSuccess(status) {
-						  console.log("success")
-						},
-						async onError(error) {
-						  if (error) {
-							const { message } = error;
-							console.log(message)
-						  }
-						},
-					  }
-					);
-				  } catch (e) {
-					console.log(e);
-				  }
-					//CreateNewAlbum(albumName, albumArray)
+
+				CreateNewAlbum(albumName, albumArray)
 
 
-					//handleClose()
+				//handleClose()
 			}
 		}
 		//console.log(albumArray)
@@ -203,16 +162,18 @@ export function ProfileCollection({ profileData }) {
 					<Modal.Body>
 						<fieldset id="a" disabled={useFormStatus()}>
 							<Container>
-								<Form>
+								<Form onSubmit={e => { e.preventDefault(); }}>
 									<Row className="d-flex justify-content-center">
 										<Col className="name mb-3" xs="12" align="center">Create an album</Col>
 										<Col align="center">You can choose any NFT's from your collection to create an album to display in your profile</Col>
 									</Row>
 									<Row className="d-flex justify-content-center mt-5">
 										<Col className="formInputs" xs="12" md="6">
-											<Form.Control placeholder="Name of album" name="albumName" onChange={(e) => {
-												setAlbumName(e.target.value)
-												if (e.target.value === "") {
+											<Form.Control placeholder="Name of album" value={albumName} name="albumName" maxLength="32" onChange={(e) => {
+												let enteredName = e.target.value.toLowerCase()
+												enteredName = enteredName.replace(/[^a-z0-9-]/g, '')
+												setAlbumName(enteredName)
+												if (enteredName === "") {
 													e.target.classList.add("is-invalid")
 													e.target.classList.remove("is-valid")
 												} else {
@@ -228,7 +189,6 @@ export function ProfileCollection({ profileData }) {
 											findList && findList !== "first_init" && findList !== "" &&
 											Object.keys(findList.items).map((object, i) => {
 												let nftData = findList.items[object]
-												let url
 												let imgUrl
 												if (nftData.image.includes("ipfs://")) {
 													// console.log("It does include!")
@@ -236,19 +196,18 @@ export function ProfileCollection({ profileData }) {
 												} else {
 													imgUrl = nftData.image
 												}
-												url = nftData.url
-
 												return (<Col key={i} className="mb-3" xs="auto">
 													<Form.Check type="checkbox" id={object}>
-														<Form.Check.Label><Card id={"card" + object} className="create-album-card p-3">
-															{nftData.contentType === "video" ?
-																<video className="" alt={"Picture of " + nftData.name} loop="" playsinline="">
-																	<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
-																	Sorry this video is not supported by your browser
-																</video>
-																:
-																<Image src={imgUrl} alt={"Picture of " + nftData.name} />}
-														</Card>
+														<Form.Check.Label>
+															<Card id={"card" + object} className="create-album-card p-3">
+																{nftData.contentType === "video" ?
+																	<video className="" alt={"Picture of " + nftData.name} loop="" playsinline="">
+																		<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
+																		Sorry this video is not supported by your browser
+																	</video>
+																	:
+																	<Image src={imgUrl} alt={"Picture of " + nftData.name} />}
+															</Card>
 														</Form.Check.Label>
 														<Form.Check.Input type="checkbox" hidden value={object} onClick={(e) => handleSelectNft(e)} />
 													</Form.Check>

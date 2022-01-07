@@ -268,11 +268,7 @@ export function ProfileCollection({ profileData }) {
 
 								{FILTER_NAMESCURATED.map((filters, i) =>
 									<Col key={i + 1} className="mb-3" xs="auto">
-										{filters !== "Automatic Shooter/-@#" ?
-											<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilterCurated(filters)}>{filters}</Button>
-											:
-											<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => setFilterValue(filters)}>{filters}</Button>
-										}
+										<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilterCurated(filters)}>{filters.replace("-", " ")}</Button>
 									</Col>
 								)}
 							</Row></div>}

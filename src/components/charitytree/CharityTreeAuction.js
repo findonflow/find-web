@@ -1,171 +1,171 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { Col, Row, Image, Button, Container, Form, Table } from "react-bootstrap"
-import Countdown from "react-countdown";
-import { useImmer } from "use-immer";
-import { useFormStatus, useStateChanged } from "../../functions/DisabledState";
-import { CreateCharityCollection, handleBid, SendFLOWCharity, SendFUSDCharity } from "../../functions/txfunctions";
+import { useEffect, useState } from "react";
+import { Col, Row, Image, Button, Container, Table } from "react-bootstrap"
+// import { useImmer } from "use-immer";
+import { useFormStatus } from "../../functions/DisabledState";
+import { CreateCharityCollection } from "../../functions/txfunctions";
 import './charity-tree.css';
-import * as fcl from "@onflow/fcl";
-import * as t from "@onflow/types";
-import { scripts } from 'find-flow-contracts'
-import { get } from "lodash";
-import GraffleSDK from "../../functions/graffle";
+// import * as fcl from "@onflow/fcl";
+// import * as t from "@onflow/types";
+// import { scripts } from 'find-flow-contracts'
+// import { get } from "lodash";
+// import GraffleSDK from "../../functions/graffle";
 import ReactGA from 'react-ga'
-import { ReverseLookup } from "../../functions/ReverseLookup";
+//import { ReverseLookup } from "../../functions/ReverseLookup";
 import { Link } from "react-router-dom";
 
 export function CharityTreeAuction() {
     document.title = ".find - Neo x Flowverse Charity Christmas Auction"
     ReactGA.pageview(window.location.pathname);
-    const [auctionLocked, setAuctionLocked] = useState(true)
-    const [auctionEndDate, setAuctionEndDate] = useState(new Date(1641142800 * 1000).toUTCString())
-    const [validated, setValidated] = useState(false)
-    const [nameStatus, setNameStatus] = useState("")
-    const [donations, setDonations] = useState()
-    const [newBid, setNewBid] = useState()
-    const [bidderName, setBidderName] = useState([])
-    const cutOffDate = 1640736000
+    // const [auctionLocked, setAuctionLocked] = useState(true)
+    // const [auctionEndDate, setAuctionEndDate] = useState(new Date(1641142800 * 1000).toUTCString())
+    //const [validated, setValidated] = useState(false)
+    // const [nameStatus, setNameStatus] = useState("")
+     const [donations, setDonations] = useState()
+    // const [newBid, setNewBid] = useState()
+    // const [bidderName, setBidderName] = useState([])
+     const cutOffDate = 1640736000
 
-    useEffect(() => {
-        async function SearchName(searchName) {
-            const response = await fcl.send([
-                fcl.script(scripts.name_status),
-                fcl.args([fcl.arg(searchName, t.String)]),
-            ]);
-            const nameStatus = await fcl.decode(response);
-            setNameStatus(nameStatus)
-            if (nameStatus.lease.auctionEnds) {
-                setAuctionEndDate(new Date(nameStatus.lease.auctionEnds*1000).toUTCString())
-            }
-            if (nameStatus.lease.latestBidBy) {
-                setBidderName(await ReverseLookup(nameStatus.lease.latestBidBy))
-            }
+    // useEffect(() => {
+    //     async function SearchName(searchName) {
+    //         const response = await fcl.send([
+    //             fcl.script(scripts.name_status),
+    //             fcl.args([fcl.arg(searchName, t.String)]),
+    //         ]);
+    //         const nameStatus = await fcl.decode(response);
+    //         setNameStatus(nameStatus)
+    //         if (nameStatus.lease.auctionEnds) {
+    //             setAuctionEndDate(new Date(nameStatus.lease.auctionEnds*1000).toUTCString())
+    //         }
+    //         if (nameStatus.lease.latestBidBy) {
+    //             setBidderName(await ReverseLookup(nameStatus.lease.latestBidBy))
+    //         }
         
-            // setEnteredName(searchName)
-        }
-        SearchName("charity2021")
+    //         // setEnteredName(searchName)
+    //     }
+    //     SearchName("charity2021")
         
-    }
-        // eslint-disable-next-line
-        , [useStateChanged(), newBid])
+    // }
+    //     // eslint-disable-next-line
+    //     , [useStateChanged(), newBid])
 
-    function StartAuction() {
-        setAuctionLocked(false);
-    }
+    // function StartAuction() {
+    //     setAuctionLocked(false);
+    // }
 
-    const [formValues, setFormValues] = useImmer([
-        {
-            id: "amount",
-            value: 1
-        },
-        {
-            id: "name",
-            value: "charity2021"
-        },
-        {
-            id: "message",
-            value: " With thanks"
-        }
-    ])
+    // const [formValues, setFormValues] = useImmer([
+    //     {
+    //         id: "amount",
+    //         value: 1
+    //     },
+    //     {
+    //         id: "name",
+    //         value: "charity2021"
+    //     },
+    //     {
+    //         id: "message",
+    //         value: " With thanks"
+    //     }
+    // ])
 
-    const handleSubmitBid = (event) => {
-        const form = event.currentTarget;
-        event.preventDefault();
-        console.log(form.bidAmt.value)
-        if (form.bidAmt.value < 1) {
-            form.bidAmt.classList.add("is-invalid")
-            form.bidAmt.classList.remove("is-valid")
-            return
-        } else {
-            form.bidAmt.classList.add("is-valid")
-            form.bidAmt.classList.remove("is-invalid")
-        }
+    // const handleSubmitBid = (event) => {
+    //     const form = event.currentTarget;
+    //     event.preventDefault();
+    //     console.log(form.bidAmt.value)
+    //     if (form.bidAmt.value < 1) {
+    //         form.bidAmt.classList.add("is-invalid")
+    //         form.bidAmt.classList.remove("is-valid")
+    //         return
+    //     } else {
+    //         form.bidAmt.classList.add("is-valid")
+    //         form.bidAmt.classList.remove("is-invalid")
+    //     }
 
-        const bidSubmitted = [
-            {
-                id: "name",
-                value: "charity2021"
-            },
-            {
-                id: "bidAmt",
-                value: form.bidAmt.value
-            }
-        ]
-        handleBid(bidSubmitted)
-    }
+    //     const bidSubmitted = [
+    //         {
+    //             id: "name",
+    //             value: "charity2021"
+    //         },
+    //         {
+    //             id: "bidAmt",
+    //             value: form.bidAmt.value
+    //         }
+    //     ]
+    //     handleBid(bidSubmitted)
+    // }
 
-    function updateField(e) {
-        if (e.target.name === "bidAmt") {
-            if (e.target.value < 1) {
-                e.target.classList.add("is-invalid")
-                e.target.classList.remove("is-valid")
-                return
-            } else {
-                e.target.classList.add("is-valid")
-                e.target.classList.remove("is-invalid")
-                return
-            }
-        }
-        setFormValues((draft) => {
-            const varVal = draft.find((varVal) => varVal.id === e.target.name);
-            varVal.value = e.target.value;
-            //now validate
-            if (e.target.name === "bidAmt") {
-                if (e.target.value < 1) {
-                    e.target.classList.add("is-invalid")
-                    e.target.classList.remove("is-valid")
-                } else {
-                    e.target.classList.add("is-valid")
-                    e.target.classList.remove("is-invalid")
-                }
-            }
-            if (e.target.name === "message") {
-                const msgLength = varVal.value.length
-                console.log(msgLength)
-                if (msgLength > 255) {
-                    e.target.classList.add("is-invalid")
-                    e.target.classList.remove("is-valid")
-                    setValidated(false)
-                } else {
-                    e.target.classList.add("is-valid")
-                    e.target.classList.remove("is-invalid")
-                    setValidated(true)
-                }
-            }
-            if (e.target.name === "amount") {
-                if (varVal.value < 0.1) {
-                    e.target.classList.add("is-invalid")
-                    e.target.classList.remove("is-valid")
-                    setValidated(false)
-                }
-                else {
-                    e.target.classList.add("is-valid")
-                    e.target.classList.remove("is-invalid")
-                    setValidated(true)
-                }
-            }
-        })
-    }
+    // function updateField(e) {
+    //     if (e.target.name === "bidAmt") {
+    //         if (e.target.value < 1) {
+    //             e.target.classList.add("is-invalid")
+    //             e.target.classList.remove("is-valid")
+    //             return
+    //         } else {
+    //             e.target.classList.add("is-valid")
+    //             e.target.classList.remove("is-invalid")
+    //             return
+    //         }
+    //     }
 
-    const countdownTimer = ({ days, hours, minutes, seconds, completed }) => {
-        if (completed) {
-            // Render a completed state
-            StartAuction()
-            return null
-        } else {
-            // Render a countdown
-            return <Row className="auction-digits justify-content-center justify-content-md-start">
-                <Col xs="auto" className="p-2">{days}<div className="auction-dayshoursmins p-0">days</div></Col>
-                <Col xs="auto" className="p-2">:</Col>
-                <Col xs="auto" className="p-2">{hours} <div className="auction-dayshoursmins">hours</div></Col>
-                <Col xs="auto" className="p-2">:</Col>
-                <Col xs="auto" className="p-2">{minutes} <div className="auction-dayshoursmins">mins</div></Col>
-                <Col xs="auto" className="p-2">:</Col>
-                <Col xs="auto" className="p-2">{seconds} <div className="auction-dayshoursmins">secs</div></Col>
-            </Row>;
-        }
-    };
+    //     setFormValues((draft) => {
+    //         const varVal = draft.find((varVal) => varVal.id === e.target.name);
+    //         varVal.value = e.target.value;
+    //         //now validate
+    //         if (e.target.name === "bidAmt") {
+    //             if (e.target.value < 1) {
+    //                 e.target.classList.add("is-invalid")
+    //                 e.target.classList.remove("is-valid")
+    //             } else {
+    //                 e.target.classList.add("is-valid")
+    //                 e.target.classList.remove("is-invalid")
+    //             }
+    //         }
+    //         if (e.target.name === "message") {
+    //             const msgLength = varVal.value.length
+    //             console.log(msgLength)
+    //             if (msgLength > 255) {
+    //                 e.target.classList.add("is-invalid")
+    //                 e.target.classList.remove("is-valid")
+    //                 setValidated(false)
+    //             } else {
+    //                 e.target.classList.add("is-valid")
+    //                 e.target.classList.remove("is-invalid")
+    //                 setValidated(true)
+    //             }
+    //         }
+    //         if (e.target.name === "amount") {
+    //             if (varVal.value < 0.1) {
+    //                 e.target.classList.add("is-invalid")
+    //                 e.target.classList.remove("is-valid")
+    //                 setValidated(false)
+    //             }
+    //             else {
+    //                 e.target.classList.add("is-valid")
+    //                 e.target.classList.remove("is-invalid")
+    //                 setValidated(true)
+    //             }
+    //         }
+    //     })
+    // }
+
+    // const countdownTimer = ({ days, hours, minutes, seconds, completed }) => {
+    //     if (completed) {
+    //         // Render a completed state
+    //         StartAuction()
+    //         return null
+    //     } else {
+    //         // Render a countdown
+    //         return <Row className="auction-digits justify-content-center justify-content-md-start">
+    //             <Col xs="auto" className="p-2">{days}<div className="auction-dayshoursmins p-0">days</div></Col>
+    //             <Col xs="auto" className="p-2">:</Col>
+    //             <Col xs="auto" className="p-2">{hours} <div className="auction-dayshoursmins">hours</div></Col>
+    //             <Col xs="auto" className="p-2">:</Col>
+    //             <Col xs="auto" className="p-2">{minutes} <div className="auction-dayshoursmins">mins</div></Col>
+    //             <Col xs="auto" className="p-2">:</Col>
+    //             <Col xs="auto" className="p-2">{seconds} <div className="auction-dayshoursmins">secs</div></Col>
+    //         </Row>;
+    //     }
+    // };
 
     useEffect(() => {
         const getDonations = async () => {
@@ -180,50 +180,50 @@ export function CharityTreeAuction() {
         getDonations()
     }, [])
 
-    function addDonation(from, details, date) {
+    // function addDonation(from, details, date) {
 
-        let tableRef = document.getElementById("eventBody");
+    //     let tableRef = document.getElementById("eventBody");
 
-        // Insert a row at the beginning of the table
-        let newRow = tableRef.insertRow(0);
-        let newCell = newRow.insertCell(0);
-        let newText = document.createTextNode(from);
-        newCell.appendChild(newText);
-        newCell = newRow.insertCell(1);
-        newText = document.createTextNode(details);
-        newCell.appendChild(newText);
-        newCell = newRow.insertCell(2);
-        newText = document.createTextNode(new Date(date).toLocaleString());
-        newCell.appendChild(newText);
+    //     // Insert a row at the beginning of the table
+    //     let newRow = tableRef.insertRow(0);
+    //     let newCell = newRow.insertCell(0);
+    //     let newText = document.createTextNode(from);
+    //     newCell.appendChild(newText);
+    //     newCell = newRow.insertCell(1);
+    //     newText = document.createTextNode(details);
+    //     newCell.appendChild(newText);
+    //     newCell = newRow.insertCell(2);
+    //     newText = document.createTextNode(new Date(date).toLocaleString());
+    //     newCell.appendChild(newText);
 
-    }
+    // }
 
     
-    let conn = useRef();
-    useEffect(() => {
-        const streamSDK = new GraffleSDK();
-    const feed = async (message) => {
-        if (get(message, "flowEventId") === "A.097bafa4e0b48eef.Profile.Verification") {
-            addDonation(message.blockEventData.account, message.blockEventData.message, message.eventDate)
-        }
-        if (get(message, "flowEventId") === "A.097bafa4e0b48eef.FIND.AuctionBid") {
-            setNewBid(message)
+    // let conn = useRef();
+    // useEffect(() => {
+    //     const streamSDK = new GraffleSDK();
+    // const feed = async (message) => {
+    //     if (get(message, "flowEventId") === "A.097bafa4e0b48eef.Profile.Verification") {
+    //         addDonation(message.blockEventData.account, message.blockEventData.message, message.eventDate)
+    //     }
+    //     if (get(message, "flowEventId") === "A.097bafa4e0b48eef.FIND.AuctionBid") {
+    //         setNewBid(message)
 
-        }
+    //     }
 
-        //setLatestMessage(message);
-        //console.log(message)
-    };
-        //console.log("Creating the stream")
-        async function startConn() {
-        conn.current = await streamSDK.stream(feed);
-        }
-        startConn()
-    }, []);
-    useEffect(() => () => {
-        //console.log("Stopping the connection")
-        conn.current.stop()
-    }, []);
+    //     //setLatestMessage(message);
+    //     //console.log(message)
+    // };
+    //     //console.log("Creating the stream")
+    //     async function startConn() {
+    //     conn.current = await streamSDK.stream(feed);
+    //     }
+    //     startConn()
+    // }, []);
+    // useEffect(() => () => {
+    //     //console.log("Stopping the connection")
+    //     conn.current.stop()
+    // }, []);
 
     return (
         <Container style={{ backgroundColor: "white" }} fluid>

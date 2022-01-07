@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Faq } from "../components/home/Faq";
 import { InfoCards } from "../components/home/InfoCards";
 import { JoinDiscord } from "../components/home/JoinDiscord";

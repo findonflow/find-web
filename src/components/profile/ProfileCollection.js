@@ -63,7 +63,7 @@ export function ProfileCollection({ profileData }) {
 		if (params.col) {
 			if (FILTER_NAMES) {
 				if (FILTER_NAMES.length > 0) {
-					FILTER_NAMES.map((filter) => {
+					FILTER_NAMES.forEach(filter => {
 						if (params.col.toLowerCase() === filter.toLowerCase()) {
 							setCollectionType("collections")
 							setFilterValue(filter)
@@ -76,7 +76,7 @@ export function ProfileCollection({ profileData }) {
 			}
 			if (FILTER_NAMESCURATED) {
 				if (FILTER_NAMESCURATED.length > 0) {
-					FILTER_NAMESCURATED.map((filter) => {
+					FILTER_NAMESCURATED.forEach(filter => {
 						if (params.col.toLowerCase() === filter.toLowerCase()) {
 							setCollectionType("curatedCollections")
 							setFilterValue(filter)
@@ -158,16 +158,17 @@ export function ProfileCollection({ profileData }) {
 				<Modal show={show} onHide={handleClose} size="xl" scrollable>
 
 					<Modal.Header closeButton>
+						<div className="name" align="center">Create an album</div>
 					</Modal.Header>
 					<Modal.Body>
 						<fieldset id="a" disabled={useFormStatus()}>
 							<Container>
 								<Form onSubmit={e => { e.preventDefault(); }}>
 									<Row className="d-flex justify-content-center">
-										<Col className="name mb-3" xs="12" align="center">Create an album</Col>
-										<Col align="center">You can choose any NFT's from your collection to create an album to display in your profile</Col>
+										<Col className="name mb-3" xs="12" align="center"></Col>
+										<Col align="center"><p>You can choose any NFT's from your collection to create an album to display in your profile</p><p>Type a name and click each nft you want in the album, they will appear in the order you select them.</p></Col>
 									</Row>
-									<Row className="d-flex justify-content-center mt-5">
+									<Row className="d-flex justify-content-center mt-3">
 										<Col className="formInputs" xs="12" md="6">
 											<Form.Control placeholder="Name of album" value={albumName} name="albumName" maxLength="32" onChange={(e) => {
 												let enteredName = e.target.value.toLowerCase()
@@ -222,7 +223,7 @@ export function ProfileCollection({ profileData }) {
 						</fieldset>
 					</Modal.Body>
 					<Modal.Footer>
-						<fieldset id="a" disabled={useFormStatus()}>
+						<fieldset id="b" disabled={useFormStatus()}>
 							<Button variant="dark" onClick={(e) => handleSubmitAlbum(e)}>
 								Save Changes
 							</Button>

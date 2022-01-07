@@ -12,8 +12,8 @@ export function ProfileCollection({ profileData }) {
 	const [user, setUser] = useState({ loggedIn: null })
 	useEffect(() => fcl.currentUser().subscribe(setUser), [])
 	const [findList, setFindList] = useState("first_init");
-	const [FILTER_NAMES, setFILTER_NAMES] = useState(null)
-	const [FILTER_NAMESCURATED, setFILTER_NAMESCURATED] = useState(null)
+	const [FILTER_NAMES, setFILTER_NAMES] = useState([])
+	const [FILTER_NAMESCURATED, setFILTER_NAMESCURATED] = useState([])
 	const [filterValue, setFilterValue] = useState("All")
 	const [collectionType, setCollectionType] = useState("collections")
 
@@ -137,10 +137,17 @@ export function ProfileCollection({ profileData }) {
 
 		}
 
-		async function handleSubmitAlbum(e) {
-			let collectionCheck = FILTER_NAMES.filter(filter => filter.toLowerCase() === albumName.toLowerCase())
-			let albumCheck = FILTER_NAMESCURATED.filter(filter => filter.toLowerCase() === albumName.toLowerCase())
-			if(collectionCheck.length > 0 || albumCheck.length > 0){
+		async function handleSubmitAlbum() {
+			let collectionCheck = ""
+			let albumCheck = ""
+			if (FILTER_NAMES) {
+				collectionCheck = FILTER_NAMES.filter(filter => filter.toLowerCase() === albumName.toLowerCase())
+			}
+			if (FILTER_NAMESCURATED) {
+				albumCheck = FILTER_NAMESCURATED.filter(filter => filter.toLowerCase() === albumName.toLowerCase())
+			}
+
+			if (collectionCheck.length > 0 || albumCheck.length > 0) {
 				document.getElementById("inputName").classList.add("is-invalid")
 				document.getElementById("inputName").classList.remove("is-valid")
 				return

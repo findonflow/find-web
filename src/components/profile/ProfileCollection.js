@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
-import { Row, Col, Card, Button } from "react-bootstrap"
+import { Row, Col, Card, Button, Modal, Container, Form, Image } from "react-bootstrap"
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { scripts } from 'find-flow-contracts'
 import { useFormStatus, useStateChanged } from "../../functions/DisabledState";
-import { handleSetPfp } from "../../functions/txfunctions";
+import { CreateNewAlbum, handleSetPfp, RemoveAlbum } from "../../functions/txfunctions";
 import { useNavigate, useParams } from "react-router";
+import { set } from "lodash";
+import { transactions } from 'find-flow-contracts'
+import { Tx } from "../../functions/transaction";
 
 export function ProfileCollection({ profileData }) {
 
@@ -16,12 +19,9 @@ export function ProfileCollection({ profileData }) {
 	const [FILTER_NAMESCURATED, setFILTER_NAMESCURATED] = useState(null)
 	const [filterValue, setFilterValue] = useState("All")
 	const [collectionType, setCollectionType] = useState("collections")
-	const [filterChanged, setFilterChanged] = useState()
-	//let collectionType = "collections"
 
 	let navigate = useNavigate();
 	let params = useParams();
-	console.log("Param cols"+JSON.stringify(params, null, 2))
 
 	useEffect(() => {
 		async function getFindUser(addr) {
@@ -32,15 +32,11 @@ export function ProfileCollection({ profileData }) {
 
 			const findList = await fcl.decode(response)
 			setFindList(findList)
-			setFILTER_NAMES(Object.keys(findList.collections))
-
-			if (Object.keys(findList.curatedCollections).length > 0) {
-				setFILTER_NAMESCURATED(Object.keys(findList.curatedCollections))
-			}
 
 		}
 		try {
 			getFindUser(profileData.profile.address)
+			console.log("Collection data refresh triggered")
 		}
 		catch (error) {
 			console.log(error)
@@ -48,18 +44,37 @@ export function ProfileCollection({ profileData }) {
 		// eslint-disable-next-line
 	}, [user, useStateChanged()]);
 
-	useEffect(() =>{
-		if (params.col) {
-			console.log("there are collections params available")
-			if (FILTER_NAMES) {
-				console.log("collections found")
+	useEffect(() => {
+		if (findList) {
+			if (findList.collections) {
 				if (Object.keys(findList.collections).length > 0) {
+					setFILTER_NAMES(Object.keys(findList.collections))
+				}
+			}
+			if (findList.curatedCollections) {
+				if (Object.keys(findList.curatedCollections).length > 0) {
+					setFILTER_NAMESCURATED(Object.keys(findList.curatedCollections))
+					console.log(Object.keys(findList.curatedCollections))
+				} else {
+					setFILTER_NAMESCURATED(null)
+					console.log("Null value set on curated names filter")
+				}
+			} else {
+				setFILTER_NAMESCURATED(null)
+				console.log("Null value set on curated names filter")
+			}
+		}
+	}, [findList])
+
+	useEffect(() => {
+		if (params.col) {
+			if (FILTER_NAMES) {
+				if (FILTER_NAMES.length > 0) {
 					FILTER_NAMES.map((filter) => {
 						if (params.col.toLowerCase() === filter.toLowerCase()) {
-							console.log("it worked")
 							setCollectionType("collections")
 							setFilterValue(filter)
-						}else if (params.col.toLocaleLowerCase() === "all"){
+						} else if (params.col.toLocaleLowerCase() === "all") {
 							setCollectionType("collections")
 							setFilterValue("All")
 						}
@@ -69,9 +84,7 @@ export function ProfileCollection({ profileData }) {
 			if (FILTER_NAMESCURATED) {
 				if (FILTER_NAMESCURATED.length > 0) {
 					FILTER_NAMESCURATED.map((filter) => {
-						console.log("This is the filter "+filter)
 						if (params.col.toLowerCase() === filter.toLowerCase()) {
-							console.log("Update collection filter")
 							setCollectionType("curatedCollections")
 							setFilterValue(filter)
 						}
@@ -79,29 +92,202 @@ export function ProfileCollection({ profileData }) {
 				}
 			}
 		}
-	},[FILTER_NAMES, FILTER_NAMESCURATED, params])
+	}, [FILTER_NAMES, FILTER_NAMESCURATED, params])
+
 	function handleFilter(filters) {
 		//setCollectionType("collections")
-		if(params.id){
-		navigate("/"+params.id+"/collection/"+filters)
-		}else{
-			navigate("/me/collection/"+filters)
+		if (params.id) {
+			navigate("/" + params.id + "/collection/" + filters)
+		} else {
+			navigate("/me/collection/" + filters)
 		}
-		setFilterChanged(filters)
-		
+
 	}
 	function handleFilterCurated(filters) {
 		//setCollectionType("curatedCollections")
-		if(params.id){
-			navigate("/"+params.id+"/collection/"+filters)
-			}else{
-				navigate("/me/collection/"+filters)
-			}
-		setFilterValue(filters)
+		if (params.id) {
+			navigate("/" + params.id + "/collection/" + filters)
+		} else {
+			navigate("/me/collection/" + filters)
+		}
 	}
 
+	function CreateAlbum() {
+		const [show, setShow] = useState(false);
+		const [albumArray, setAlbumArray] = useState([])
+		const [albumName, setAlbumName] = useState()
+		const handleClose = () => {
+
+			setAlbumArray([]);
+			setAlbumName("")
+			setShow(false);
+		}
+		const handleShow = () => {
+
+			setAlbumArray([]);
+			setAlbumName("")
+			setShow(true);
+		}
+
+
+		function handleSelectNft(e) {
+
+			let docid = document.getElementById("card" + e.target.id)
+			if (e.target.checked) {
+				docid.classList.add("create-album-card-selected")
+				setAlbumArray(albumArray => [...albumArray, e.target.value])
+			} else {
+				docid.classList.remove("create-album-card-selected")
+				const newAlbum = albumArray.filter((nft) => nft !== e.target.value)
+				setAlbumArray(newAlbum)
+			}
+
+		}
+
+		async function handleSubmitAlbum(e) {
+			if (albumName && albumArray.length > 0) {
+				try {
+					await Tx(
+					  [
+						//name: String, amount: UFix64, type: String
+						fcl.transaction(transactions.addCuratedCollection),
+						fcl.args([
+						  fcl.arg(albumName, t.String),
+						  fcl.arg(albumArray, t.Array(t.String))
+						]),
+						fcl.proposer(fcl.currentUser().authorization),
+						fcl.payer(fcl.currentUser().authorization),
+						fcl.authorizations([fcl.currentUser().authorization]),
+						fcl.limit(9999),
+					  ],
+					  {
+						onStart() {
+						  console.log("start");
+						},
+						onSubmission() {
+						  console.log("submitted")
+						},
+						async onSuccess(status) {
+						  console.log("success")
+						},
+						async onError(error) {
+						  if (error) {
+							const { message } = error;
+							console.log(message)
+						  }
+						},
+					  }
+					);
+				  } catch (e) {
+					console.log(e);
+				  }
+					//CreateNewAlbum(albumName, albumArray)
+
+
+					//handleClose()
+			}
+		}
+		//console.log(albumArray)
+
+
+		return (
+			<>
+				<button className="btn-create-album" onClick={handleShow}>
+					Create an album
+				</button>
+
+				<Modal show={show} onHide={handleClose} size="xl" scrollable>
+
+					<Modal.Header closeButton>
+					</Modal.Header>
+					<Modal.Body>
+						<fieldset id="a" disabled={useFormStatus()}>
+							<Container>
+								<Form>
+									<Row className="d-flex justify-content-center">
+										<Col className="name mb-3" xs="12" align="center">Create an album</Col>
+										<Col align="center">You can choose any NFT's from your collection to create an album to display in your profile</Col>
+									</Row>
+									<Row className="d-flex justify-content-center mt-5">
+										<Col className="formInputs" xs="12" md="6">
+											<Form.Control placeholder="Name of album" name="albumName" onChange={(e) => {
+												setAlbumName(e.target.value)
+												if (e.target.value === "") {
+													e.target.classList.add("is-invalid")
+													e.target.classList.remove("is-valid")
+												} else {
+													e.target.classList.add("is-valid")
+													e.target.classList.remove("is-invalid")
+												}
+											}} />
+										</Col>
+									</Row>
+									<Row className="mt-5 d-flex justify-content-center justify-content-lg-start">
+
+										{
+											findList && findList !== "first_init" && findList !== "" &&
+											Object.keys(findList.items).map((object, i) => {
+												let nftData = findList.items[object]
+												let url
+												let imgUrl
+												if (nftData.image.includes("ipfs://")) {
+													// console.log("It does include!")
+													imgUrl = nftData.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+												} else {
+													imgUrl = nftData.image
+												}
+												url = nftData.url
+
+												return (<Col key={i} className="mb-3" xs="auto">
+													<Form.Check type="checkbox" id={object}>
+														<Form.Check.Label><Card id={"card" + object} className="create-album-card p-3">
+															{nftData.contentType === "video" ?
+																<video className="" alt={"Picture of " + nftData.name} loop="" playsinline="">
+																	<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
+																	Sorry this video is not supported by your browser
+																</video>
+																:
+																<Image src={imgUrl} alt={"Picture of " + nftData.name} />}
+														</Card>
+														</Form.Check.Label>
+														<Form.Check.Input type="checkbox" hidden value={object} onClick={(e) => handleSelectNft(e)} />
+													</Form.Check>
+												</Col>
+												)
+											})
+										}
+
+									</Row>
+								</Form>
+							</Container>
+						</fieldset>
+					</Modal.Body>
+					<Modal.Footer>
+						<fieldset id="a" disabled={useFormStatus()}>
+							<Button variant="dark" onClick={(e) => handleSubmitAlbum(e)}>
+								Save Changes
+							</Button>
+						</fieldset>
+					</Modal.Footer>
+				</Modal>
+			</>
+		);
+
+	}
+
+	async function handleRemoveAlbum() {
+		try {
+			await (RemoveAlbum(filterValue))
+		}
+		finally {
+			handleFilterCurated("All")
+		}
+
+	}
 	return (
 		<div>
+			{profileData.profile.address === user.addr &&
+				<div align="right"><CreateAlbum /></div>}
 			{/* {JSON.stringify(findList,null,2)} */}
 
 
@@ -116,14 +302,16 @@ export function ProfileCollection({ profileData }) {
 						</Col>
 					)}
 					{FILTER_NAMESCURATED &&
-						<Row className="justify-content-center d-flex">
-							<div className="text-center"><span className="idd">{profileData.profile.name}'s albums</span></div>
-							{FILTER_NAMESCURATED.map((filters, i) =>
-								<Col key={i + 1} className="mb-3" xs="auto">
-									<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilterCurated(filters)}>{filters}</Button>
-								</Col>
-							)}
-						</Row>}
+						<div>
+							<div className="seperator50 m-auto"></div>
+							<Row className="justify-content-center d-flex mt-3">
+
+								{FILTER_NAMESCURATED.map((filters, i) =>
+									<Col key={i + 1} className="mb-3" xs="auto">
+										<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilterCurated(filters)}>{filters}</Button>
+									</Col>
+								)}
+							</Row></div>}
 				</Row>
 			}
 
@@ -132,7 +320,7 @@ export function ProfileCollection({ profileData }) {
 				<Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
 					{
 						findList && findList !== "first_init" && findList !== "" && filterValue === "All" &&
-						Object.keys(findList.items).map((object) => {
+						Object.keys(findList.items).map((object, i) => {
 							let nftData = findList.items[object]
 							let url
 							let imgUrl
@@ -142,23 +330,18 @@ export function ProfileCollection({ profileData }) {
 							} else {
 								imgUrl = nftData.image
 							}
-							if ("collection" === "Gaia") {
-								if (nftData.url.includes("/collection/")) {
-									url = nftData.url.replace("/collection/", "/")
-								}
-							} else {
-								url = nftData.url
-							}
+							url = nftData.url
+
 							return (
-								<Col className="mb-5">
+								<Col key={i} className="mb-5">
 
 									{/* {JSON.stringify(collection, null, 2)} */}
 
 									<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
 
 										{user.addr === profileData.profile.address &&
-
-											<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
+											<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
+										}
 										<a href={url} target="_blank" rel="noreferrer">
 											{nftData.contentType === "video" ?
 												<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsinline="">
@@ -180,8 +363,7 @@ export function ProfileCollection({ profileData }) {
 					}
 					{
 						findList && findList !== "first_init" && findList !== "" && filterValue !== "All" &&
-
-						findList[collectionType][filterValue]?.map((nftid) => {
+						findList[collectionType][filterValue]?.map((nftid, i) => {
 							let nftData = findList.items[nftid]
 							let url
 							let imgUrl
@@ -191,32 +373,27 @@ export function ProfileCollection({ profileData }) {
 							} else {
 								imgUrl = nftData.image
 							}
-							if (filterValue === "Gaia") {
-								if (nftData.url.includes("/collection/")) {
-									url = nftData.url.replace("/collection/", "/")
-								}
-							} else {
-								url = nftData.url
-							}
+							url = nftData.url
+
 							return (
-								<Col className="mb-5">
+								<Col key={i} className="mb-5">
 
 									{/* {JSON.stringify(collection, null, 2)} */}
 
 									<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
 
 										{user.addr === profileData.profile.address &&
-
-											<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>}
-
-										{nftData.contentType === "video" ?
-											<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsinline="">
-												<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
-												Sorry this video is not supported by your browser
-											</video>
-											:
-											<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
-										}<a href={url} target="_blank" rel="noreferrer">
+											<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
+										}
+										<a href={url} target="_blank" rel="noreferrer">
+											{nftData.contentType === "video" ?
+												<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsinline="">
+													<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
+													Sorry this video is not supported by your browser
+												</video>
+												:
+												<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+											}
 											<Card.Body>
 												<Card.Text className="fw-bold">{nftData.name}</Card.Text>
 												{nftData.listPrice &&
@@ -226,7 +403,11 @@ export function ProfileCollection({ profileData }) {
 									</Card>
 								</Col>)
 						})}
-				</Row></fieldset>
+				</Row>
+				{profileData.profile.address === user.addr && collectionType === "curatedCollections" &&
+					<Row><Col align="center"><Button variant="dark" onClick={() => handleRemoveAlbum()}>Remove Album</Button></Col></Row>
+				}
+			</fieldset>
 			{/* {JSON.stringify(findList, null, 2)} */}
 			{!findList &&
 				<Row>

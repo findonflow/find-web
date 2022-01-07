@@ -862,3 +862,86 @@ export const CreateCharityCollection = async (e) => {
     console.log(e);
   }
 }
+export const CreateNewAlbum = async (albumName, albumArray) => {
+  try {
+    await Tx(
+      [
+        //name: String, amount: UFix64, type: String
+        fcl.transaction(transactions.addCuratedCollection),
+        fcl.args([
+          fcl.arg(albumName, t.String),
+          fcl.arg(albumArray, t.Array(t.String))
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start");
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          ReactGA.event({
+            category: 'Album Created',
+            action: 'User created an album',
+            label: 'Album'
+          })
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}
+export const RemoveAlbum = async (albumName) => {
+  try {
+    await Tx(
+      [
+        //name: String, amount: UFix64, type: String
+        fcl.transaction(transactions.removeCurratedCollection),
+        fcl.args([
+          fcl.arg(albumName, t.String)
+        ]),
+        fcl.proposer(fcl.currentUser().authorization),
+        fcl.payer(fcl.currentUser().authorization),
+        fcl.authorizations([fcl.currentUser().authorization]),
+        fcl.limit(9999),
+      ],
+      {
+        onStart() {
+          console.log("start");
+        },
+        onSubmission() {
+          console.log("submitted")
+        },
+        async onSuccess(status) {
+          console.log("success")
+          ReactGA.event({
+            category: 'Album Removed',
+            action: 'User removed an album',
+            label: 'Album'
+          })
+        },
+        async onError(error) {
+          if (error) {
+            const { message } = error;
+            console.log(message)
+          }
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}

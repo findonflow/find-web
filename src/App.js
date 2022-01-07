@@ -57,7 +57,6 @@ export default function App() {
           <Route path=':id/collection' element={<NameSearch default="collection" />} />
           <Route path=':id/collection/:col' element={<NameSearch default="collection" />} />
           <Route path=':id/fund' element={<NameSearch default="fund" />} />
-
           <Route path='/remove' element={<RemoveProfile />} />
           <Route path='/lf' element={<LiveFeed />} />
           <Route path='/neo-x-flowverse-community-charity-tree' element={<CharityTreeAuction />} />

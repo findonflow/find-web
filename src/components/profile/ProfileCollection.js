@@ -138,11 +138,17 @@ export function ProfileCollection({ profileData }) {
 		}
 
 		async function handleSubmitAlbum(e) {
+			let collectionCheck = FILTER_NAMES.filter(filter => filter.toLowerCase() === albumName.toLowerCase())
+			let albumCheck = FILTER_NAMESCURATED.filter(filter => filter.toLowerCase() === albumName.toLowerCase())
+			if(collectionCheck.length > 0 || albumCheck.length > 0){
+				document.getElementById("inputName").classList.add("is-invalid")
+				document.getElementById("inputName").classList.remove("is-valid")
+				return
+			}
 			if (albumName && albumArray.length > 0) {
-
+				document.getElementById("inputName").classList.add("is-valid")
+				document.getElementById("inputName").classList.remove("is-invalid")
 				CreateNewAlbum(albumName, albumArray)
-
-
 				//handleClose()
 			}
 		}
@@ -170,7 +176,7 @@ export function ProfileCollection({ profileData }) {
 									</Row>
 									<Row className="d-flex justify-content-center mt-3">
 										<Col className="formInputs" xs="12" md="6">
-											<Form.Control placeholder="Name of album" value={albumName} name="albumName" maxLength="32" onChange={(e) => {
+											<Form.Control placeholder="Name of album" value={albumName} id="inputName" name="albumName" maxLength="32" onChange={(e) => {
 												let enteredName = e.target.value.toLowerCase()
 												enteredName = enteredName.replace(/[^a-z0-9-]/g, '')
 												setAlbumName(enteredName)

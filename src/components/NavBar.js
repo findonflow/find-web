@@ -31,7 +31,7 @@ function NavHead() {
   const [profile, setProfile] = useState("")
   const [user, setUser] = useState({ loggedIn: null })
   const [expanded, setExpanded] = useState(false);
-  const [profileStatus, setProfileStatus] = useState({ profile: "awaiting_init"})
+  const [profileStatus, setProfileStatus] = useState({ profile: "start"})
   let formStatus = useFormStatus()
 
   useEffect(() => fcl.currentUser().subscribe(setUser), [])
@@ -63,8 +63,11 @@ function NavHead() {
   }
 
   useEffect(() => {
-    if(profile.avatar) {
-      setProfileStatus({ profile: true})
+    if(profile) {
+      setProfileStatus({ profile: "found"})
+    }
+    if(!profile) {
+      setProfileStatus({ profile: "not_found"})
     }
   }, [profile])
 
@@ -90,7 +93,7 @@ function NavHead() {
           <Nav>
             <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-md-block">
               {user.loggedIn ?
-                profileStatus.profile ?
+                profileStatus.profile === "found" ?
                   <DropdownButton align="end" title={<Image src={profile.avatar} />} id="dropdown-menu-align-end" className="profileMenuPic" data-toggle="dropdown">
                     <div className="p-2 fw-bold" style={{ fontSize: "20px" }}>{profile.name ? profile.name : user.addr}'s Wallet</div>
                     <OverlayTrigger key="wallet" placement="top" overlay={<Tooltip id={`tooltip-wallet`}>Copy</Tooltip>}>

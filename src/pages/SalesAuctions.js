@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Container, Table, Image, Button } from "react-bootstrap";
+import { Row, Col, Container, Table, Image, Button, Form } from "react-bootstrap";
 import '../components/livefeed/livefeed.css'
 import axios from "axios";
 import { useImmer } from "use-immer";
@@ -15,6 +15,7 @@ export default function SalesAuction() {
     const [salesData, setSalesData] = useState()
     const [filteredSold, setFilteredSold] = useState()
     const [filteredForSale, setFilteredForSale] = useState()
+    const [filterInput, setFilterInput] = useState("")
     const [activeSales, setActiveSales] = useImmer([])
     const [sortType, setSortType] = useState("");
 
@@ -40,7 +41,7 @@ export default function SalesAuction() {
     useEffect(() => {
         if (filteredSold && filteredForSale) {
             //eslint-disable-next-line
-            filteredForSale.map((nameForSale) => {
+            filteredForSale.forEach(nameForSale => {
                 if (nameForSale.blockEventData.active) {
                     let isForSale = true
                     let soldNames = filteredSold.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
@@ -80,7 +81,7 @@ export default function SalesAuction() {
                 }
             })
         }
-       //eslint-disable-next-line 
+        //eslint-disable-next-line 
     }, [filteredForSale])
 
     const handleSubmit = (name, amount) => {
@@ -105,7 +106,7 @@ export default function SalesAuction() {
             };
             const sortProperty = types[type];
             const sorted = [...activeSales]
-            //eslint-disable-next-line
+                //eslint-disable-next-line
                 .sort((a, b) => {
                     if (b[sortProperty] > a[sortProperty]) return -1
                 })
@@ -129,8 +130,18 @@ export default function SalesAuction() {
                     <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>
 
                         {/* {JSON.stringify(activeSales, null, 2)} */}
-                        <h4>For sale right now 🔥</h4>
-                        <div className="tableHeight">
+                        <Row>
+                            <Col xs="12" className="my-auto" lg="auto"> 
+                            <h4>For sale right now 🔥</h4>
+                            </Col>
+                            <Col>
+                            <div className="formInputs"><Form.Control type="input" placeholder="Type to filter" onChange={(e) => setFilterInput(e.target.value)}/></div>
+                            </Col>
+                        </Row>
+                       
+                        
+                        
+                        <div className="tableHeight mt-3">
 
                             {/* <div>{JSON.stringify(activeSales, null, 2)}</div> */}
                             <fieldset id="a" disabled={useFormStatus()}>
@@ -147,14 +158,15 @@ export default function SalesAuction() {
 
                                     <tbody id="eventBody">
 
-                                        {activeSales.map((salesMap, i) =>
-                                            <tr key={i}>
-                                                <td><Link to={"/" + salesMap.name}>{salesMap.name}</Link></td>
-                                                <td>{salesMap.amount} FUSD</td>
-                                                <td className="d-none d-md-table-cell">{salesMap.owner}</td>
-                                                <td className="d-none d-md-table-cell">{epochToJsDate(salesMap.validUntil)}</td>
-                                                <td><Button size="sm" className="btn-dark-buy" variant="dark" onClick={() => handleSubmit(salesMap.name, salesMap.amount)}>Buy</Button></td>
-                                            </tr>
+                                        {activeSales.filter(filter => filter.name.includes(filterInput)).map((salesMap, i) => 
+                                                <tr key={i}>
+                                                    <td><Link to={"/" + salesMap.name}>{salesMap.name}</Link></td>
+                                                    <td>{salesMap.amount} FUSD</td>
+                                                    <td className="d-none d-md-table-cell">{salesMap.owner}</td>
+                                                    <td className="d-none d-md-table-cell">{epochToJsDate(salesMap.validUntil)}</td>
+                                                    <td><Button size="sm" className="btn-dark-buy" variant="dark" onClick={() => handleSubmit(salesMap.name, salesMap.amount)}>Buy</Button></td>
+                                                </tr>
+                                            
                                         )}
 
                                     </tbody>
@@ -203,7 +215,7 @@ export default function SalesAuction() {
 
                     </div>
                 </Col> */}
-            </Row>            
+            </Row>
         </Container>
     )
 

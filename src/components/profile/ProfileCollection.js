@@ -340,41 +340,45 @@ export function ProfileCollection({ profileData }) {
 							let nftData = findList.items[nftid]
 							let url
 							let imgUrl
-							if (nftData.image.includes("ipfs://")) {
-								// console.log("It does include!")
-								imgUrl = nftData.image.replace("ipfs://", "https://ipfs.io/ipfs/")
-							} else {
-								imgUrl = nftData.image
+							if (nftData && nftData !== "") {
+
+								if (nftData.image.includes("ipfs://")) {
+									// console.log("It does include!")
+									imgUrl = nftData.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+								} else {
+									imgUrl = nftData.image
+								}
+								url = nftData.url
 							}
-							url = nftData.url
-
 							return (
-								<Col key={i} className="mb-5">
+								nftData && nftData !== "" &&
+									<Col key={i} className="mb-5">
 
-									{/* {JSON.stringify(collection, null, 2)} */}
+										{/* {JSON.stringify(collection, null, 2)} */}
 
-									<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
+										<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
 
-										{user.addr === profileData.profile.address &&
-											<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
-										}
-										<a href={url} target="_blank" rel="noreferrer">
-											{nftData.contentType === "video" ?
-												<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsinline="">
-													<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
-													Sorry this video is not supported by your browser
-												</video>
-												:
-												<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+											{user.addr === profileData.profile.address &&
+												<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
 											}
-											<Card.Body>
-												<Card.Text className="fw-bold">{nftData.name}</Card.Text>
-												{nftData.listPrice &&
-													<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
-											</Card.Body>
-										</a>
-									</Card>
-								</Col>)
+											<a href={url} target="_blank" rel="noreferrer">
+												{nftData.contentType === "video" ?
+													<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsinline="">
+														<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
+														Sorry this video is not supported by your browser
+													</video>
+													:
+													<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+												}
+												<Card.Body>
+													<Card.Text className="fw-bold">{nftData.name}</Card.Text>
+													{nftData.listPrice &&
+														<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
+												</Card.Body>
+											</a>
+										</Card>
+									</Col>
+							)
 						})}
 				</Row>
 				{profileData.profile.address === user.addr && collectionType === "curatedCollections" &&

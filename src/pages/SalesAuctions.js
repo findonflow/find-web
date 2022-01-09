@@ -40,7 +40,6 @@ export default function SalesAuction() {
 
     useEffect(() => {
         if (filteredSold && filteredForSale) {
-            //eslint-disable-next-line
             filteredForSale.forEach(nameForSale => {
                 if (nameForSale.blockEventData.active) {
                     let isForSale = true
@@ -48,8 +47,7 @@ export default function SalesAuction() {
                     let forSaleNames = filteredForSale.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
 
                     //check to see if the item was withdrawn AFTER it was listed and remove any prior listings
-                    //eslint-disable-next-line
-                    forSaleNames.map((saleNames) => {
+                    forSaleNames.forEach(saleNames => {
                         if (!saleNames.blockEventData.active && saleNames.eventDate > nameForSale.eventDate) {
                             isForSale = false
                         }
@@ -58,8 +56,7 @@ export default function SalesAuction() {
                         }
                     })
                     //check to see if the item was sold after this listing
-                    //eslint-disable-next-line
-                    soldNames.map((soldNames) => {
+                    soldNames.forEach(soldNames => {
                         if (soldNames.eventDate > nameForSale.eventDate) {
                             isForSale = false
                         }
@@ -158,7 +155,7 @@ export default function SalesAuction() {
 
                                     <tbody id="eventBody">
 
-                                        {activeSales.filter(filter => filter.name.includes(filterInput)).map((salesMap, i) => 
+                                        {activeSales.filter(filter => filter.name.includes(filterInput.toLocaleLowerCase())).map((salesMap, i) => 
                                                 <tr key={i}>
                                                     <td><Link to={"/" + salesMap.name}>{salesMap.name}</Link></td>
                                                     <td>{salesMap.amount} FUSD</td>

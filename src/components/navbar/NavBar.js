@@ -6,7 +6,7 @@ import * as t from "@onflow/types"
 import { Link } from 'react-router-dom'
 import { Link as scrollLink } from 'react-scroll'
 import './navbar.css'
-import { AuthCluster } from "../auth-cluster"
+import { AuthCluster } from "../../auth-cluster"
 import toast from "react-hot-toast";
 import {
   Container,
@@ -23,8 +23,8 @@ import {
   Form,
   Button
 } from "react-bootstrap";
-import { useFormStatus, useStateChanged } from "../functions/DisabledState";
-import { handleProfile } from "../functions/txfunctions";
+import { useFormStatus, useStateChanged } from "../../functions/DisabledState";
+import { handleProfile } from "../../functions/txfunctions";
 import { useImmer } from "use-immer";
 
 function NavHead() {
@@ -78,8 +78,8 @@ function NavHead() {
   }
   return (
     <Container id="navbar" fluid>
-      <Navbar collapseOnSelect={true} expanded={expanded} expand="md" style={{ background: "rgba(255, 255, 255)" }} className="p-3 navbar-custom">        <Container>
-        <Link onClick={() => setExpanded(false)} to="/"><img src="/find-alt.png" alt="Find Logo" style={{ maxHeight: "34px" }} /></Link>
+      <Navbar collapseOnSelect={true} expanded={expanded} expand="md" className="p-3 navbar-custom">        <Container>
+        <Link onClick={() => setExpanded(false)} to="/"><img src="/assets/img/find_logo.png" alt="Find Logo" style={{ maxHeight: "34px" }} /></Link>
         <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
           <Nav className="me-auto pt-3 pt-lg-0" id="mainLinks">
@@ -203,7 +203,8 @@ function NavHead() {
 
       </Container>
       </Navbar>
-      {/* {JSON.stringify(profile, null,2)} */}<div className="site-header"></div>
+      {/* {JSON.stringify(profile, null,2)} */}
+      {/* <div className="site-header"></div> */}
     </Container>
   )
 }

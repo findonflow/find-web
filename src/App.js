@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Home from "./pages/Home"
 import { Profile } from "./pages/Profile"
 import * as fcl from "@onflow/fcl"
-import NavHead from "./components/NavBar";
+import NavHead from "./components/navbar/NavBar";
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import Footer from "./components/Footer";
 import toast, { ToastBar, Toaster } from 'react-hot-toast';

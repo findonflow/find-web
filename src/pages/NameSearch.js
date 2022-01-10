@@ -5,7 +5,7 @@ import * as t from "@onflow/types";
 import { scripts } from 'find-flow-contracts'
 import { Register } from "../pages/Register";
 import { ProfileCard } from "../components/profile/ProfileCard";
-import { SearchBar } from "../components/SearchBar";
+import { SearchBar } from "../components/searchbar/SearchBar";
 import LoadingBC from "../components/infoboxes/LoadingBC";
 import { Container } from "react-bootstrap";
 import { useStateChanged } from "../functions/DisabledState";

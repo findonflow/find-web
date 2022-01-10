@@ -62,6 +62,7 @@
 }
 .navbar-custom {
     min-height: 120px;
+    background-color: white;
   }
 #lgmenu .dropdown-menu-end {
     margin-right: 20px !important;

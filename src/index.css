@@ -14,8 +14,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
-
-  /* background-color: #f8f8f8; */
+  background-color: #f6f6f6;
 }
 .main-container {
   min-height: 100vh; 
@@ -35,6 +34,7 @@ h1 {
   font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: 900;
   font-size: calc(1.75rem + 1.5vw);
+  color: #58B792;
 }
 h2 {
   font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -90,10 +90,6 @@ border-radius: 34px;
   border-radius: 24px 24px 0px 0px;
   min-height: 600px;
 }
-.frontCards {
-  border-radius: 24px 24px 0px 0px;
-  min-height: 600px;
-}
 .frontCards .card{
   background: #FFFFFF;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
@@ -104,10 +100,28 @@ height: 100%;
 .btn-dark {
   height: 52px;
   padding: 10px 40px;
-  background: #000000;
-/* shadow */
+  background: #58B792;
   box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
   border-radius: 34px;
+  border-color: #58B792;
+}
+.btn-dark:hover {
+  height: 52px;
+  padding: 10px 40px;
+  background: #58B792;
+/* shadow */
+  box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.25);
+  border-radius: 34px;
+  border-color: #58B792;
+}
+.btn-dark:focus {
+  height: 52px;
+  padding: 10px 40px;
+  background: #58B792;
+/* shadow */
+  box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.25);
+  border-radius: 34px;
+  border-color: #58B792;
 }
 .btn-dark-buy {
   height: 30px;
@@ -135,18 +149,12 @@ height: 100%;
   font-weight: bold
 }
 .cardprofile {
-  /* width: 350px; */
-  /* background-color: #ffffff;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06); */
   background: #FFFFFF;
   box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   transition: all 0.5s
 }
 .cardprofile .card{
-  /* width: 350px; */
-  /* background-color: #ffffff;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06); */
 border: none;
 }
 .cardprofile .list-group-item a{
@@ -248,58 +256,6 @@ aspect-ratio: 1 / 1;
 .icons i {
   font-size: 19px
 }
-.easy-edit-button {
-  border-width: 1px !important;
-  border-style: solid !important;
-  border-width: 1px !important;
-  border-radius: 34px !important;
-  height: 52px;
-  padding: 10px 40px;
-  min-width: 95px;
-  background-color: white;
-}
-.easy-edit-button:hover {
-  background-color: black;
-  color: white;
-}
-.easy-edit-component-wrapper input {
-  background: #FFFFFF;
-  border: 1px solid #DEDEDE;
-  box-sizing: border-box;
-  border-radius: 12px;
-  height: 52px;
-  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 16px;
-  /* identical to box height, or 100% */
-  padding-left: 10px;
-  letter-spacing: 0.2px;
-  color: #5C5C5C;
-  width: 100%;
-}
-.easy-edit-wrapper .easy-edit-hover-on {
-  background-color: black;
-  color: white;
-  text-decoration: none;
-}
-.easy-edit-wrapper {
-  color:black;
-  background-color: white;
-  border-style: solid;
-  border-width: 1px;
-  border-color: black;
-  width: 200px;
-  height: 52px;
-  border-top-left-radius: 34px;
-    border-top-right-radius: 34px;
-    border-bottom-right-radius: 34px;
-    border-bottom-left-radius: 34px;
-  line-height: 52px;
-  text-align: center;
-  align-content: space-around;
-}
 .cadencehint .accordion-item {
   border: 1px solid #DEDEDE;
   box-sizing: border-box;
@@ -333,7 +289,7 @@ margin-right:auto;
   font-weight: 700;
   color: #5C5C5C;
 }
-body:before {
+/* body:before {
   content: " ";
   width: 100%;
   height: 75vh;
@@ -343,8 +299,8 @@ body:before {
   left: 0;
   background-image: url(./findbg.webp);
   background-size: cover;
-  /* background: linear-gradient(180deg, rgba(255, 255, 255, 0.132) 0%, rgba(107, 211, 177, 0.498) 42.22%, rgba(255, 255, 255, 0.6) 77.06%); */
-}
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.132) 0%, rgba(107, 211, 177, 0.498) 42.22%, rgba(255, 255, 255, 0.6) 77.06%);
+} */
 .disclaimer {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -401,66 +357,6 @@ body:before {
   .accordionBids .accordion-item{
     border: none
     }
-#editProfile input {
-  background: #FFFFFF;
-  border: 1px solid #DEDEDE;
-  box-sizing: border-box;
-  border-radius: 12px;
-  height: 52px;
-  font-family: 'Roboto', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 16px;
-  letter-spacing: 0.2px;
-  color: #5C5C5C;
-}
-#editProfile textarea {
-  background: #FFFFFF;
-  border: 1px solid #DEDEDE;
-  box-sizing: border-box;
-  border-radius: 12px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 0px 24px;
-  padding-top: 15px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 16px;
-  letter-spacing: 0.2px;
-  color: #5C5C5C;
-}
-#editProfile select {
-  background: #FFFFFF;
-  border: 1px solid #DEDEDE;
-  box-sizing: border-box;
-  border-radius: 34px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 0px 24px;
-  height: 52px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 16px;
-  letter-spacing: 0.2px;
-  color: #5C5C5C;
-}
-
-#editProfile label {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 16px;
-  letter-spacing: 0.2px;
-  color: #000000;
-}
 .nobidsnonames {
   border-radius: 34px;
   border-style: solid;

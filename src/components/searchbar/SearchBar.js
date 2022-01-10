@@ -1,6 +1,8 @@
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import React, { useRef } from "react";
+import "./searchbar.css"
+
 
 export function SearchBar() {
   let navigate = useNavigate();
@@ -20,15 +22,17 @@ export function SearchBar() {
     navigate("/" + searchName)
   }
   return (
-    <Container id="searchSection">
-      <Row className="m-3 mt-4 mt-md-5 pt-3">
+    <Container id="searchSection" className="d-flex align-items-center justify-content-center">
+      <Row>
+      <Col>
+      <Row className="align-self-center">
         <Col align="center">
           <h1>Claim your .find identity</h1>
           <p className="mt-3 mt-md-5 m-auto fw-bold" style={{ color: '#5C5C5C' }}>Find a name today that will connect to your wallet address<br />and bring an identity to your crypto life</p>
         </Col>
       </Row>
       <Row className="mb-md-5 mt-md-5 mb-3 mt-4 justify-content-center">
-        <Col className="mb-2" align="center" xs="12" md="5">
+        <Col className="mb-2" align="center" xs="12" md="8">
           <Form ref={form} onSubmit={handleSubmit} className="w-full relative">
             <Form.Control type="string" placeholder="Search for a name or 0xAddress" name="name" className="txtinput" />
           </Form>
@@ -37,6 +41,12 @@ export function SearchBar() {
           <Button text="Confirm" onClick={handleSubmit} variant="dark">Search</Button>
         </Col>
       </Row>
+      <Row>
+        <Col align="center" className="mb-5 pb-5">Scroll to learn more</Col>
+      </Row>
+      </Col>
+      </Row>
+      
     </Container>
   )
 }

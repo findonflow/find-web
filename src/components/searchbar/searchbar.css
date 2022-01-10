@@ -1,0 +1,4 @@
+#searchSection {
+    height: calc(100vh - 120px);
+    min-height: 400px;
+}

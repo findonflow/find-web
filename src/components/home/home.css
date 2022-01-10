@@ -8,3 +8,21 @@
     font-weight: 900;
     font-size: calc(1.75rem + 1.5vw);
 }
+#homeBody {
+    background-color: white;
+}
+.infocardheight {
+    height: calc(100vh - 50%)
+}
+.infocardsbg {
+    background-image: url(./findbg.webp);
+  background-size: cover;
+    height: 350px;
+    position: relative;
+
+}
+.whitespace {
+    height: 350px;
+    /* background-color: white; */
+    position: relative;
+}

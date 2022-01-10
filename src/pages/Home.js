@@ -4,7 +4,7 @@ import { Faq } from "../components/home/Faq";
 import { InfoCards } from "../components/home/InfoCards";
 import { JoinDiscord } from "../components/home/JoinDiscord";
 import { WhoUses } from "../components/home/whoUses";
-import { SearchBar } from "../components/SearchBar";
+import { SearchBar } from "../components/searchbar/SearchBar";
 import '../components/home/home.css'
 import { BuiltOnFlow } from "../components/home/BuiltOnflow";
 import { PlaceToShowCollections } from "../components/home/PlaceToShowCollections";
@@ -18,9 +18,10 @@ function Home() {
   return (
     <Container className="p-0 g-0" fluid>
       <Container id="homeBody" className="px-3 px-lg-0" fluid>
-        <SearchBar />
-        <Container id="homeInfo" className="frontCards p-4">
-          <InfoCards />
+        <SearchBar /> 
+        <InfoCards />
+        <Container id="homeInfo" className="p-4">
+         
           <GiftNamesSendFlow />
           <PlaceToShowCollections />
           <MakeWalletFindable />

@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useFormStatus } from "../functions/DisabledState";
-import { BuyerBid, BuyerFirstBid, BuyerOffer, BuyerPurchase, HighestBidder, HighestBidderEnded, AuctionEndedNoWinner, OfferMade } from "./lease/BuyerForms";
+import { BuyerBid, BuyerFirstBid, BuyerOffer, BuyerPurchase, HighestBidder, HighestBidderEnded, AuctionEndedNoWinner, OfferMade, BuyerForSaleOffer } from "./lease/BuyerForms";
 import { DurationLegend } from "./lease/SharedComponents";
 import * as fcl from "@onflow/fcl";
 
@@ -42,7 +42,9 @@ export function PublicLease({ lease }) {
       {<DurationLegend lease={lease} />}
       <fieldset id="a" disabled={useFormStatus()}>
         {bidLegend === "Bid" &&
+        <div>
           <BuyerPurchase lease={lease} />
+          <BuyerForSaleOffer lease={lease} /></div>
         }
         {bidLegend === "Add auction bid" &&
           <BuyerBid lease={lease} />

@@ -222,6 +222,69 @@ export function BuyerOffer({ lease }) {
         </Form>
     )
 }
+export function BuyerForSaleOffer({ lease }) {
+
+    let validated = false
+
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        // console.log(event.target.bidAmt.value)
+        if(form.bidAmt.value < 1) {
+            event.preventDefault();
+            event.stopPropagation();
+            return
+        }else
+        event.preventDefault();
+        //setValidated(true)
+        handleOffer(formValues)
+    }
+
+    const [formValues, setFormValues] = useImmer([
+        {
+            id: "bidAmt",
+            value: "1"
+        },
+        {
+            id: "name",
+            value: lease.name
+        }
+    ])
+
+    function updateField(e) {
+        setFormValues((draft) => {
+            const varVal = draft.find((varVal) => varVal.id === e.target.name);
+            varVal.value = e.target.value;
+            //now validate
+            if (varVal.value < 1) {
+                e.target.classList.add("is-invalid")
+                e.target.classList.remove("is-valid")
+            }
+            else {
+                e.target.classList.add("is-valid")
+                e.target.classList.remove("is-invalid")
+            }
+        })
+    }
+    return (
+        <Form noValidate validated={validated} onSubmit={handleSubmit} className="formInputs">
+            <Form.Group as={Col}>
+                <Row className="mt-3">
+                    <Col xs="12" md="auto" className="py-3">
+                        <Form.Label>{<div className="idd">you can also make an offer for this name.</div>}</Form.Label>
+                        <Form.Control type="number" placeholder="Enter an amount in FUSD" onChange={updateField} name="bidAmt" />
+                    </Col>
+                    <Col className="mt-auto py-3" align="right">
+                        <Button variant="outline-dark" type="submit">Make offer</Button>
+                    </Col>
+                </Row>
+                <Row>
+                        {/* <span className="idd1 my-3">For pre registered names, please enter the correct amount and click Make Offer. Within a couple of minutes you can refresh the page which will show you as the shiny new owner!</span> */}
+                    {/* <span className="idd1 my-3">The owner of the name will be notified and can choose to either accept the offer directly, reject it, or start an auction with you as the top bidder.</span> */}
+                </Row>
+            </Form.Group>
+        </Form>
+    )
+}
 //Form to directly purchase a name that has been placed up for sale
 export function BuyerPurchase({ lease }) {
     const formValues = [{
@@ -240,14 +303,14 @@ export function BuyerPurchase({ lease }) {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Row>
-                <Col className="d-flex align-items-center" xs="12" md="auto">
-                    <Form.Group className="p-3">
+            <Row className="mt-3">
+                <Col className="pt-3" xs="12" md="auto">
+                    <Form.Group className="">
                         <Form.Label><div>{lease.name} is for sale You can buy it for: <b>{parseFloat(lease.salePrice)} FUSD</b></div></Form.Label>
                     </Form.Group>
                 </Col>
-                <Col align="right">
-                    <Form.Group className="p-3">
+                <Col className="" align="right">
+                    <Form.Group className="mt-auto">
                         <Button type="submit" variant="outline-dark">Purchase this name</Button>
                     </Form.Group>
                 </Col>

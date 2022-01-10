@@ -7,6 +7,7 @@ import '../components/livefeed/livefeed.css'
 import { Faq } from "../components/home/Faq";
 import ReactGA from 'react-ga'
 import axios from "axios";
+import { ReverseLookup } from "../functions/ReverseLookup";
 
 export default function LiveFeed() {
     document.title = ".find - live feed"
@@ -29,11 +30,11 @@ export default function LiveFeed() {
         getEvents()
     }, [])
 
-    useEffect(() => {
-        if (eventsData !== "") {
+    useEffect(()  => {
+            async function getEventsData() {
             // eslint-disable-next-line
             limitedEventData = eventsData.slice(0, 50)
-            limitedEventData.forEach(events => {
+            limitedEventData.forEach(async events => {
                 
             let newEvent = {}
             let eventData = events.blockEventData
@@ -118,6 +119,8 @@ export default function LiveFeed() {
             let newRow = tableRef.insertRow(-1);
             let newCell = newRow.insertCell(0);
             let newText = document.createTextNode(newEvent.type);
+            let fromName = newEvent.from.length === 18 && await ReverseLookup(newEvent.from)
+            let toName = newEvent.to.length === 18 && await ReverseLookup(newEvent.to)
             newCell.appendChild(newText);
             newCell = newRow.insertCell(1);
             newText = document.createElement('div')
@@ -127,21 +130,24 @@ export default function LiveFeed() {
             newText = document.createTextNode(newEvent.price !== "-" ? newEvent.price+" FUSD" : "-");
             newCell.appendChild(newText);
             newCell = newRow.insertCell(3);
-            newText = document.createTextNode(newEvent.from);
+            newText = document.createTextNode(!fromName ? newEvent.from : fromName);
             newCell.appendChild(newText);
             newCell = newRow.insertCell(4);
-            newText = document.createTextNode(newEvent.to);
+            newText = document.createTextNode(!toName ? newEvent.to : toName);
             newCell.appendChild(newText);
             newCell = newRow.insertCell(5);
             newText = document.createTextNode(new Date(newEvent.date).toLocaleDateString() + " " + new Date(newEvent.date).toLocaleTimeString());
             newCell.appendChild(newText);
         })
+    }
+    if (eventsData !== "") {
+    getEventsData()
         }
     }, [eventsData])
 
 
     useEffect(() => {
-        if (latestMessage !== "") {
+            async function getLatestMessage() {
             let newEvent = {}
             let eventData = latestMessage.blockEventData
             let eventDate = latestMessage.eventDate
@@ -220,7 +226,8 @@ export default function LiveFeed() {
                 return
             }
             let tableRef = document.getElementById("eventBody");
-
+            let fromName = newEvent.from.length === 18 && await ReverseLookup(newEvent.from)
+            let toName = newEvent.to.length === 18 && await ReverseLookup(newEvent.to)
             // Insert a row at the beginning of the table
             let newRow = tableRef.insertRow(0);
             let newCell = newRow.insertCell(0);
@@ -234,15 +241,19 @@ export default function LiveFeed() {
             newText = document.createTextNode(newEvent.price ? newEvent.price+" FUSD" : "-");
             newCell.appendChild(newText);
             newCell = newRow.insertCell(3);
-            newText = document.createTextNode(newEvent.from);
+            newText = document.createTextNode(!fromName ? newEvent.from : fromName);
             newCell.appendChild(newText);
             newCell = newRow.insertCell(4);
-            newText = document.createTextNode(newEvent.to);
+            newText = document.createTextNode(!toName ? newEvent.to : toName);
             newCell.appendChild(newText);
             newCell = newRow.insertCell(5);
             newText = document.createTextNode(new Date(newEvent.date).toLocaleDateString() + " " + new Date(newEvent.date).toLocaleTimeString());
             newCell.appendChild(newText);
 
+        }
+    
+        if (latestMessage !== "") {
+            getLatestMessage()
         }
     }, [latestMessage])
 

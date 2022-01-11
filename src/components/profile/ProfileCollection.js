@@ -312,7 +312,7 @@ export function ProfileCollection({ profileData }) {
 							} else {
 								url = nftData.url
 							}
-
+								url = url.replace("#", "-")
 							return (
 								<Col key={i} className="mb-5">
 
@@ -362,6 +362,8 @@ export function ProfileCollection({ profileData }) {
 							} else {
 								url = nftData.url
 							}
+							url = url.replace("#", "-")
+							url = url.replace(" ", "")
 							}
 							return (
 								nftData && nftData !== "" &&

@@ -85,6 +85,9 @@ export function ProfileCollection({ profileData }) {
 				}
 			}
 		}
+		if (!params.col) {
+			setFilterValue("All")
+		}
 	}, [FILTER_NAMES, FILTER_NAMESCURATED, params])
 
 	function handleFilter(filters) {
@@ -206,7 +209,7 @@ export function ProfileCollection({ profileData }) {
 												let imgUrl
 												if (nftData.image.includes("ipfs://")) {
 													// console.log("It does include!")
-													imgUrl = nftData.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+													imgUrl = nftData.image.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
 												} else {
 													imgUrl = nftData.image
 												}
@@ -299,13 +302,13 @@ export function ProfileCollection({ profileData }) {
 							let imgUrl
 							if (nftData.image.includes("ipfs://")) {
 								// console.log("It does include!")
-								imgUrl = nftData.image.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
+								imgUrl = nftData.image.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
 							} else {
 								imgUrl = nftData.image
 							}
 							if (nftData.url.includes("ipfs://")) {
 								// console.log("It does include!")
-								url = nftData.url.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
+								url = nftData.url.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
 							} else {
 								url = nftData.url
 							}
@@ -349,13 +352,13 @@ export function ProfileCollection({ profileData }) {
 
 								if (nftData.image.includes("ipfs://")) {
 									// console.log("It does include!")
-									imgUrl = nftData.image.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
+									imgUrl = nftData.image.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
 								} else {
 									imgUrl = nftData.image
 								}
 								if (nftData.url.includes("ipfs://")) {
 								// console.log("It does include!")
-								url = nftData.url.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
+								url = nftData.url.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
 							} else {
 								url = nftData.url
 							}

@@ -313,6 +313,7 @@ export function ProfileCollection({ profileData }) {
 								url = nftData.url
 							}
 								url = url.replace("#", "-")
+								url = url.replace(" ", "")
 							return (
 								<Col key={i} className="mb-5">
 

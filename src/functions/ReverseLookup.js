@@ -12,6 +12,6 @@ export async function ReverseLookup(address) {
           ]);
           const nameStatus = await fcl.decode(response);
           // setEnteredName(searchName)
-          console.log(nameStatus)
+          // console.log(nameStatus)
     return (nameStatus)
 }

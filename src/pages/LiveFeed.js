@@ -35,12 +35,16 @@ export default function LiveFeed() {
             // eslint-disable-next-line
             limitedEventData = eventsData.slice(0, 50)
             limitedEventData.forEach(async events => {
-                
             let newEvent = {}
             let eventData = events.blockEventData
             let eventDate = events.eventDate
             //eslint-disable-next-line
             let eventType = events.flowEventId.split(/\.(?=[^\.]+$)/);
+            if(eventType[1] === "Register"){
+                if (limitedEventData.filter(checkEvent => checkEvent.eventDate === eventDate && checkEvent.flowEventId !== events.flowEventId).length > 0) {
+                    return
+                }
+            }
             //manage auction and offer events
             if (eventType[1] === "AuctionCanceled" ||
                 eventType[1] === "AuctionCanceledReservePrice" ||

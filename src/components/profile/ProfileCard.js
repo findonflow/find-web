@@ -32,14 +32,18 @@ export function ProfileCard({ profileData }) {
     if (currentPage[1] === "collection") {
       setKey("collection")
     }
+    else {
+      setKey("profile")
+    }
     if (params.col) {
       setKey("collection")
     }
     else if (currentPage[1] === "fund") {
       setKey("fund")
     }
+    
     //eslint-disable-next-line
-  }, [])
+  }, [params])
   function handleTabs(k) {
     setKey(k)
     if (params.id) {

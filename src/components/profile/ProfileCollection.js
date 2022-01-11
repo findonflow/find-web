@@ -299,11 +299,16 @@ export function ProfileCollection({ profileData }) {
 							let imgUrl
 							if (nftData.image.includes("ipfs://")) {
 								// console.log("It does include!")
-								imgUrl = nftData.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+								imgUrl = nftData.image.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
 							} else {
 								imgUrl = nftData.image
 							}
-							url = nftData.url
+							if (nftData.url.includes("ipfs://")) {
+								// console.log("It does include!")
+								url = nftData.url.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
+							} else {
+								url = nftData.url
+							}
 
 							return (
 								<Col key={i} className="mb-5">
@@ -344,11 +349,16 @@ export function ProfileCollection({ profileData }) {
 
 								if (nftData.image.includes("ipfs://")) {
 									// console.log("It does include!")
-									imgUrl = nftData.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+									imgUrl = nftData.image.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
 								} else {
 									imgUrl = nftData.image
 								}
+								if (nftData.url.includes("ipfs://")) {
+								// console.log("It does include!")
+								url = nftData.url.replace("ipfs://", "https://gateway.pinata.cloud/ipfs/")
+							} else {
 								url = nftData.url
+							}
 							}
 							return (
 								nftData && nftData !== "" &&

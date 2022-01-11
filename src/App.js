@@ -53,10 +53,11 @@ export default function App() {
           <Route path='/me' element={<Profile user={user} />} />
           <Route path='/me/collection' element={<Profile user={user} default="collection"/>} />
           <Route path='/me/collection/:col' element={<Profile user={user} default="collection"/>} />
+          <Route path='/me/gift' element={<Profile user={user} default="gift"/>} />
           <Route path=':id' element={<NameSearch default="profile" />} />
           <Route path=':id/collection' element={<NameSearch default="collection" />} />
           <Route path=':id/collection/:col' element={<NameSearch default="collection" />} />
-          <Route path=':id/fund' element={<NameSearch default="fund" />} />
+          <Route path='/:id/gift' element={<NameSearch default="gift"/>} />
           <Route path='/remove' element={<RemoveProfile />} />
           <Route path='/lf' element={<LiveFeed />} />
           <Route path='/neo-x-flowverse-community-charity-tree' element={<CharityTreeAuction />} />

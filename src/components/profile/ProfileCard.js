@@ -38,8 +38,8 @@ export function ProfileCard({ profileData }) {
     if (params.col) {
       setKey("collection")
     }
-    else if (currentPage[1] === "fund") {
-      setKey("fund")
+    else if (currentPage[1] === "gift") {
+      setKey("gift")
     }
     
     //eslint-disable-next-line
@@ -48,9 +48,9 @@ export function ProfileCard({ profileData }) {
     setKey(k)
     if (params.id) {
       if (k === "profile") {
-        navigate("/" + profileData.lease.name)
+        navigate("/" + params.id)
       } else {
-        navigate("/" + profileData.lease.name + "/" + k)
+        navigate("/" + params.id + "/" + k)
       }
     }
     if (!params.id) {
@@ -59,6 +59,9 @@ export function ProfileCard({ profileData }) {
       }
       if (k === "collection") {
         navigate("/me/collection")
+      }
+      if (k === "gift") {
+        navigate("/me/gift")
       }
     }
   }
@@ -72,8 +75,8 @@ export function ProfileCard({ profileData }) {
     if (currentPage[1] === "collection") {
       document.title = ".find - " + profileData.profile.name + "'s collection"
     }
-    else if (currentPage[1] === "fund") {
-      document.title = ".fund - " + profileData.profile.name + "'s wallet"
+    else if (currentPage[1] === "gift") {
+      document.title = ".gift - " + profileData.profile.name
     }
     else {
       document.title = ".find - " + profileData.profile.name + "'s profile"
@@ -291,7 +294,7 @@ export function ProfileCard({ profileData }) {
                 </Card>
               </Tab>
               {user.addr === profileData.profile.address &&
-                <Tab eventKey='' title='Gifting'>
+                <Tab eventKey='gift' title='Gifting'>
                   <Row>
                     <Col xs="12" md="4">
                       <Row className="mt-3 mb-3" id="profileName">

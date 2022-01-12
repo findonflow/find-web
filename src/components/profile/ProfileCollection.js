@@ -384,6 +384,11 @@ export function ProfileCollection({ profileData }) {
 								}
 								url = url.replace("#", "-")
 								url = url.replace(" ", "")
+								if(url.includes("www.geniace.com")) {
+									if (url.includes("-1")) {
+										url = url.replace("-1", "")
+									}
+								}
 								return (
 									<Col key={i} className="mb-5">
 

@@ -6,6 +6,7 @@ import { scripts } from 'find-flow-contracts'
 import { useFormStatus, useStateChanged } from "../../functions/DisabledState";
 import { CreateNewAlbum, handleSetPfp, RemoveAlbum } from "../../functions/txfunctions";
 import { useNavigate, useParams } from "react-router";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export function ProfileCollection({ profileData }) {
 
@@ -16,7 +17,36 @@ export function ProfileCollection({ profileData }) {
 	const [FILTER_NAMESCURATED, setFILTER_NAMESCURATED] = useState([])
 	const [filterValue, setFilterValue] = useState("All")
 	const [collectionType, setCollectionType] = useState("collections")
+	const [collection, setCollection] = useState()
+	const [filterCollection, setFilterCollection] = useState()
+	const [arrayNextPosition, setArrayNextPosition] = useState(20)
+	const [hasMore, setHasMore] = useState(true)
+	const loadLength = 20
 
+	function LoadMoreCollection() {
+		//get the current position and add the load length to it.
+		setArrayNextPosition(Number(arrayNextPosition) + Number(loadLength))
+		if (Number(arrayNextPosition) + Number(loadLength) > Object.keys(findList.items).length) {
+			setCollection(Object.keys(findList.items))
+			setHasMore(false)
+		} else {
+			setCollection(Object.keys(findList.items).slice(0, Number(arrayNextPosition) + Number(loadLength)))
+		}
+
+	}
+	function LoadMoreFilteredCollection() {
+		//get the current position and add the load length to it.
+		setArrayNextPosition(Number(arrayNextPosition) + Number(loadLength))
+		if (Number(arrayNextPosition) + Number(loadLength) >= findList[collectionType][filterValue].length) {
+			setFilterCollection(findList[collectionType][filterValue])
+			setHasMore(false)
+			console.log("End of array hit")
+		} else {
+			setFilterCollection(findList[collectionType][filterValue].slice(0, Number(arrayNextPosition) + Number(loadLength)))
+			setHasMore(true)
+		}
+
+	}
 	let navigate = useNavigate();
 	let params = useParams();
 
@@ -56,6 +86,12 @@ export function ProfileCollection({ profileData }) {
 			} else {
 				setFILTER_NAMESCURATED(null)
 			}
+			if (findList.items) {
+				setCollection(Object.keys(findList.items).slice(0, loadLength))
+				if (Object.keys(findList.items).length < loadLength) {
+					setHasMore(false)
+				}
+			}
 		}
 	}, [findList])
 
@@ -67,9 +103,27 @@ export function ProfileCollection({ profileData }) {
 						if (params.col.toLowerCase() === filter.toLowerCase()) {
 							setCollectionType("collections")
 							setFilterValue(filter)
+							if (findList["collections"][filter].length <= loadLength) {
+								setHasMore(false)
+								setFilterCollection(findList["collections"][filter])
+							}else{
+							setFilterCollection(findList["collections"][filter].slice(0, loadLength))
+							setArrayNextPosition(20)
+							setHasMore(true)
+							}
+
+
 						} else if (params.col.toLocaleLowerCase() === "all") {
 							setCollectionType("collections")
 							setFilterValue("All")
+							if (findList["collections"][filter].length <= loadLength) {
+								setHasMore(false)
+								setFilterCollection(findList["collections"][filter])
+							}else{
+							setFilterCollection(findList["collections"][filter].slice(0, loadLength))
+							setArrayNextPosition(20)
+							setHasMore(true)
+							}
 						}
 					})
 				}
@@ -80,6 +134,15 @@ export function ProfileCollection({ profileData }) {
 						if (params.col.toLowerCase() === filter.toLowerCase()) {
 							setCollectionType("curatedCollections")
 							setFilterValue(filter)
+							if (findList["curatedCollections"][filter].length <= loadLength) {
+								setHasMore(false)
+								setFilterCollection(findList["curatedCollections"][filter])
+							}else{
+							setFilterCollection(findList["curatedCollections"][filter].slice(0, loadLength))
+							setArrayNextPosition(20)
+							setHasMore(true)
+							}
+
 						}
 					})
 				}
@@ -218,7 +281,7 @@ export function ProfileCollection({ profileData }) {
 														<Form.Check.Label>
 															<Card id={"card" + object} className="create-album-card p-3">
 																{nftData.contentType === "video" ?
-																	<video className="" alt={"Picture of " + nftData.name} loop="" playsinline="">
+																	<video className="" alt={"Picture of " + nftData.name} loop="" playsInline="">
 																		<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
 																		Sorry this video is not supported by your browser
 																	</video>
@@ -293,64 +356,20 @@ export function ProfileCollection({ profileData }) {
 
 
 			<fieldset id="a" disabled={useFormStatus()}>
-				<Row className=" my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
-					{
-						findList && findList !== "first_init" && findList !== "" && filterValue === "All" &&
-						Object.keys(findList.items).map((object, i) => {
-							let nftData = findList.items[object]
-							let url
-							let imgUrl
-							if (nftData.image.includes("ipfs://")) {
-								// console.log("It does include!")
-								imgUrl = nftData.image.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
-							} else {
-								imgUrl = nftData.image
-							}
-							if (nftData.url.includes("ipfs://")) {
-								// console.log("It does include!")
-								url = nftData.url.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
-							} else {
-								url = nftData.url
-							}
-								url = url.replace("#", "-")
-								url = url.replace(" ", "")
-							return (
-								<Col key={i} className="mb-5">
-
-									{/* {JSON.stringify(collection, null, 2)} */}
-
-									<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
-
-										{user.addr === profileData.profile.address &&
-											<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
-										}
-										<a href={url} target="_blank" rel="noreferrer">
-											{nftData.contentType === "video" ?
-												<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsinline="">
-													<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
-													Sorry this video is not supported by your browser
-												</video>
-												:
-												<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
-											}
-											<Card.Body>
-												<Card.Text className="fw-bold">{nftData.name}</Card.Text>
-												{nftData.listPrice &&
-													<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
-											</Card.Body>
-										</a>
-									</Card>
-								</Col>)
-						})
-					}
-					{
-						findList && findList !== "first_init" && findList !== "" && filterValue !== "All" &&
-						findList[collectionType][filterValue]?.map((nftid, i) => {
-							let nftData = findList.items[nftid]
-							let url
-							let imgUrl
-							if (nftData && nftData !== "") {
-
+				{
+					findList && findList !== "first_init" && findList !== "" && filterValue === "All" && collection &&
+					<InfiniteScroll
+						dataLength={collection.length}
+						next={LoadMoreCollection}
+						hasMore={hasMore}
+						loader={<h4>Loading...</h4>}
+					>
+						<Row className=" m-0 my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="Collection">
+							{collection.map((object, i) => {
+								let nftData = findList.items[object]
+								//console.log(nftData)
+								let url
+								let imgUrl
 								if (nftData.image.includes("ipfs://")) {
 									// console.log("It does include!")
 									imgUrl = nftData.image.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
@@ -358,16 +377,14 @@ export function ProfileCollection({ profileData }) {
 									imgUrl = nftData.image
 								}
 								if (nftData.url.includes("ipfs://")) {
-								// console.log("It does include!")
-								url = nftData.url.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
-							} else {
-								url = nftData.url
-							}
-							url = url.replace("#", "-")
-							url = url.replace(" ", "")
-							}
-							return (
-								nftData && nftData !== "" &&
+									// console.log("It does include!")
+									url = nftData.url.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
+								} else {
+									url = nftData.url
+								}
+								url = url.replace("#", "-")
+								url = url.replace(" ", "")
+								return (
 									<Col key={i} className="mb-5">
 
 										{/* {JSON.stringify(collection, null, 2)} */}
@@ -379,7 +396,7 @@ export function ProfileCollection({ profileData }) {
 											}
 											<a href={url} target="_blank" rel="noreferrer">
 												{nftData.contentType === "video" ?
-													<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsinline="">
+													<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsInline="">
 														<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
 														Sorry this video is not supported by your browser
 													</video>
@@ -393,15 +410,76 @@ export function ProfileCollection({ profileData }) {
 												</Card.Body>
 											</a>
 										</Card>
-									</Col>
-							)
-						})}
-				</Row>
+									</Col>)
+
+							})}</Row></InfiniteScroll>
+				}
+				{
+					findList && findList !== "first_init" && findList !== "" && filterValue !== "All" && filterCollection &&
+					<InfiniteScroll
+						dataLength={filterCollection.length}
+						next={LoadMoreFilteredCollection}
+						hasMore={hasMore}
+						loader={<h4>Loading...</h4>}
+					>
+						<Row className=" m-0 my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="FilterCollection">
+					{filterCollection.map((nftid, i) => {
+						let nftData = findList.items[nftid]
+						let url
+						let imgUrl
+						if (nftData && nftData !== "") {
+
+							if (nftData.image.includes("ipfs://")) {
+								// console.log("It does include!")
+								imgUrl = nftData.image.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
+							} else {
+								imgUrl = nftData.image
+							}
+							if (nftData.url.includes("ipfs://")) {
+								// console.log("It does include!")
+								url = nftData.url.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
+							} else {
+								url = nftData.url
+							}
+							url = url.replace("#", "-")
+							url = url.replace(" ", "")
+						}
+						return (
+							nftData && nftData !== "" &&
+							<Col key={i} className="mb-5">
+
+								{/* {JSON.stringify(collection, null, 2)} */}
+
+								<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
+
+									{user.addr === profileData.profile.address &&
+										<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
+									}
+									<a href={url} target="_blank" rel="noreferrer">
+										{nftData.contentType === "video" ?
+											<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsInline="">
+												<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
+												Sorry this video is not supported by your browser
+											</video>
+											:
+											<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+										}
+										<Card.Body>
+											<Card.Text className="fw-bold">{nftData.name}</Card.Text>
+											{nftData.listPrice &&
+												<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
+										</Card.Body>
+									</a>
+								</Card>
+							</Col>
+						)
+					})}</Row></InfiniteScroll>}
+
 				{profileData.profile.address === user.addr && collectionType === "curatedCollections" &&
 					<Row><Col align="center"><Button variant="dark" onClick={() => handleRemoveAlbum()}>Remove Album</Button></Col></Row>
 				}
 			</fieldset>
-			{/* {JSON.stringify(findList, null, 2)} */}
+			{/* {JSON.stringify(collection, null, 2)} */}
 			{!findList &&
 				<Row>
 					{profileData.profile.address === user.addr ?

@@ -16,6 +16,8 @@ import SalesAuction from "./pages/SalesAuctions";
 import ReactGA from 'react-ga';
 import { CharityTreeAuction } from "./components/charitytree/CharityTreeAuction";
 import { ScriptChecker } from "./functions/ScriptChecker";
+import BackToTop from "react-back-to-top-button";
+
 
 export default function App() {
   ReactGA.initialize('UA-215684829-1')
@@ -25,6 +27,14 @@ export default function App() {
 
   return (
     <Container className="main-container g-0" fluid>
+      <BackToTop
+        showOnScrollUp
+        showAt={100}
+        speed={1500}
+        easing="easeInOutQuint"
+      >
+        <span className="d-none d-md-block"><img src="/assets/img/scroll-to-top.png" height="40" width="40"/></span>
+      </BackToTop>
       <div className="toastText">
         <Toaster toastOptions={{
           duration: Infinity,

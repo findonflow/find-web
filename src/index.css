@@ -545,3 +545,6 @@ body:before {
   font-size: 12px;
   color:red;
 }
+.infinite-scroll-component {
+  overflow-x: hidden !important;
+}

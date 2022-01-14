@@ -235,7 +235,7 @@ export default function MarketplaceAuctions() {
                         {/* {JSON.stringify(activeSales, null, 2)} */}
                         <Row>
                             <Col xs="12" className="my-auto" lg="auto">
-                                <h4>Can be started 🔥</h4>
+                                <h4>Can be started ⏳</h4>
                             </Col>
                             <Col>
                                 <div className="formInputs"><Form.Control type="input" placeholder="Type to filter" onChange={(e) => setFilterAuctionInput(e.target.value)} /></div>

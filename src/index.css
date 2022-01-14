@@ -111,7 +111,8 @@ height: 100%;
 }
 .btn-dark-buy {
   height: 30px;
-  width: 50px;
+  width: 100%;
+  min-width: 50px;
   padding: 0px 0px;
   background: #000000;
 /* shadow */

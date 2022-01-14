@@ -17,6 +17,7 @@ import ReactGA from 'react-ga';
 import { CharityTreeAuction } from "./components/charitytree/CharityTreeAuction";
 import { ScriptChecker } from "./functions/ScriptChecker";
 import BackToTop from "react-back-to-top-button";
+import MarketplaceAuctions from "./pages/MarketplaceAuctions";
 
 
 export default function App() {
@@ -71,7 +72,10 @@ export default function App() {
           <Route path='/remove' element={<RemoveProfile />} />
           <Route path='/lf' element={<LiveFeed />} />
           <Route path='/neo-x-flowverse-community-charity-tree' element={<CharityTreeAuction />} />
-          <Route path='mp' element={<SalesAuction />} />
+          <Route path='/mp' element={<SalesAuction />} />
+          <Route path='/mp/sales' element={<SalesAuction />} />
+          <Route path='/mp/auctions' element={<SalesAuction />} />
+          <Route path='ma' element={<MarketplaceAuctions />} />
           
         </Routes>
         <Footer />

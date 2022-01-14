@@ -170,9 +170,9 @@ export default function MarketplaceAuctions() {
     }
 
     return (
-        <Container className="my-5">
+        <Container className="my-3">
             <Row>
-                <Col>
+                <Col className="mb-3">
                     <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>
 
                         {/* {JSON.stringify(activeSales, null, 2)} */}

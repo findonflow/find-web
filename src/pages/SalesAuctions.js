@@ -23,6 +23,9 @@ export default function SalesAuction() {
         if (currentPage[1] === "auctions") {
             setKey("auction")
         }
+        else {
+            setKey("sales")
+        }
 
         //eslint-disable-next-line
     }, [params])
@@ -39,7 +42,8 @@ export default function SalesAuction() {
 
 
     return (
-        <Container className="my-5">
+        <Container  fluid style={{ backgroundColor: "#F6F6F6" }}>
+        <Container className="py-5">
             <h1 align="center" className="py-3">What’s for sale? 💰</h1>
             <p align="center" className="pb-3">Check out the latest names for sale below</p>
             <Container id="profileCard" fluid className="frontCards" style={{ minHeight: "90vh" }}>
@@ -51,6 +55,7 @@ export default function SalesAuction() {
                         <MarketplaceAuctions />
                     </Tab>
                 </Tabs></Container>
+        </Container>
         </Container>
     )
 

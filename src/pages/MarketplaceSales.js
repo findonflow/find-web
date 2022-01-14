@@ -119,7 +119,7 @@ export default function MarketplaceSales() {
     }
 
     return (
-        <Container className="my-5">
+        <Container className="my-3">
             <Row>
                 <Col>
                     <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>

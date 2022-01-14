@@ -337,7 +337,7 @@ export function ProfileCollection({ profileData }) {
 					</Col>
 					{FILTER_NAMES.map((filters, i) =>
 						<Col key={i + 1} className="mb-3" xs="auto">
-							<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters}</Button>
+							<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters.replace(/[-_]/g," ")}</Button>
 						</Col>
 					)}
 					{FILTER_NAMESCURATED &&
@@ -347,7 +347,7 @@ export function ProfileCollection({ profileData }) {
 
 								{FILTER_NAMESCURATED.map((filters, i) =>
 									<Col key={i + 1} className="mb-3" xs="auto">
-										<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilterCurated(filters)}>{filters.replace("-", " ")}</Button>
+										<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilterCurated(filters)}>{filters.replace(/[-_]/g," ")}</Button>
 									</Col>
 								)}
 							</Row></div>}

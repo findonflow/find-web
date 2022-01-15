@@ -43,7 +43,8 @@ export default function MarketplaceAuctions() {
                             Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.SoldAuction') ||
                             Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionCanceled') ||
                             Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionCanceledReservePrice') ||
-                            Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionStarted')
+                            Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionStarted') ||
+                            Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.ForAuction')
                         )
                     }
                 )
@@ -58,16 +59,19 @@ export default function MarketplaceAuctions() {
             filteredForSale.forEach(nameForSale => {
                 let isForSale = true
                 let soldNames = filteredSold.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
-
+                let auctionEnds = nameForSale.blockEventData.auctionEndAt
+                let currentDate = new Date()
+                console.log("Auction ends: " + Number(auctionEnds * 1000) + " Current Date: " + Date.parse(currentDate))
                 //check to see if the item was sold after this listing
-                soldNames.forEach(soldNames => {
-                    if (soldNames.eventDate > nameForSale.eventDate) {
-                        isForSale = false
-                    }
-                })
-                //check to see if this is the most recent listing
-
-
+                if (Number(auctionEnds * 1000) < Date.parse(currentDate)) {
+                    isForSale = false
+                } else {
+                    soldNames.forEach(soldNames => {
+                        if (soldNames.eventDate > nameForSale.eventDate) {
+                            isForSale = false
+                        }
+                    })
+                }
                 //if either of the above events are true then do not add it.
                 if (isForSale) {
                     setActiveSales((formVals) => {
@@ -83,16 +87,22 @@ export default function MarketplaceAuctions() {
             })
             filteredForAuction.forEach(nameForAuction => {
                 let isForAuction = true
-                let soldNames = filteredSold.filter(Event => Event.blockEventData.name === nameForAuction.blockEventData.name)
+                let soldNames = filteredSold.filter(Event => {
+                    return (
+                        Event.blockEventData.name === nameForAuction.blockEventData.name &&
+                        Event.id !== nameForAuction.id
+                    )
+                })
                 if (!nameForAuction.blockEventData.active) {
                     isForAuction = false
+                } else {
+                    //check to see if the item was sold after this listing
+                    soldNames.forEach(soldNames => {
+                        if (soldNames.eventDate > nameForAuction.eventDate) {
+                            isForAuction = false
+                        }
+                    })
                 }
-                //check to see if the item was sold after this listing
-                soldNames.forEach(soldNames => {
-                    if (soldNames.eventDate > nameForAuction.eventDate) {
-                        isForAuction = false
-                    }
-                })
                 //if either of the above events are true then do not add it.
                 if (isForAuction) {
                     setActiveAuctions((formVals) => {
@@ -157,7 +167,7 @@ export default function MarketplaceAuctions() {
         if (sortType.container === "canbestarted") {
             sortArray(sortType);
         }
-       
+
         if (sortType.container === "canbestarted") {
             sortAuction(sortType.type);
         }
@@ -278,7 +288,7 @@ export default function MarketplaceAuctions() {
 
                                 </Table></fieldset>
                         </div>
-                        {/* {JSON.stringify(salesData, null, 2)} */}
+                        {JSON.stringify(salesData, null, 2)}
                         <Row>
                             <Col className="mt-4">Can be auctioned: {activeAuctions.length}</Col>
                             <Col align="right" className="mt-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{ maxHeight: "44px" }} fluid></Image></a></Col>

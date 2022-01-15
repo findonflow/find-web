@@ -288,7 +288,7 @@ export default function MarketplaceAuctions() {
 
                                 </Table></fieldset>
                         </div>
-                        {JSON.stringify(salesData, null, 2)}
+                        {/* {JSON.stringify(salesData, null, 2)} */}
                         <Row>
                             <Col className="mt-4">Can be auctioned: {activeAuctions.length}</Col>
                             <Col align="right" className="mt-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{ maxHeight: "44px" }} fluid></Image></a></Col>

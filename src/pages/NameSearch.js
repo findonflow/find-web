@@ -10,12 +10,14 @@ import LoadingBC from "../components/infoboxes/LoadingBC";
 import { Container } from "react-bootstrap";
 import { useStateChanged } from "../functions/DisabledState";
 import ReactGA from 'react-ga'
+import { ReverseLookup } from "../functions/ReverseLookup";
 
 function NameSearch() {
   ReactGA.pageview(window.location.pathname);
 
   let navigate = useNavigate();
   let { id } = useParams();
+  let addressSearch = false
 
   let searchName = id.toLowerCase()
   searchName = searchName.replace(/[^a-z0-9-]/g, '')
@@ -23,7 +25,10 @@ function NameSearch() {
     navigate("/")
   }
   if (searchName.length < 3 || searchName.length > 16) {
-    console.log("not long enough or too long")
+    if (searchName.length === 18 && searchName.includes("0x")){
+    addressSearch = true
+    }
+    else
     navigate("/")
   }
 
@@ -31,6 +36,18 @@ function NameSearch() {
   // const [enteredName, setEnteredName] = useState(null);
   useEffect(() => {
     async function SearchName(searchName) {
+      if(addressSearch){
+        searchName = await ReverseLookup(searchName)
+        if(searchName){
+          navigate("/"+searchName)
+        }
+        else{
+          navigate("/")
+          document.getElementById("feedback").classList.add("d-block")
+          return
+        }
+        
+      }
       const response = await fcl.send([
         fcl.script(scripts.name_status),
         fcl.args([fcl.arg(searchName, t.String)]),

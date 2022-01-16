@@ -1,12 +1,13 @@
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import React, { useRef } from "react";
+import { ReverseLookup } from "../functions/ReverseLookup";
 
 export function SearchBar() {
   let navigate = useNavigate();
   const form = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name } = form.current;
     let searchName = name.value.toLowerCase()
@@ -15,6 +16,15 @@ export function SearchBar() {
       return
     }
     if (searchName.length < 3 || searchName.length > 16) {
+      if (searchName.length === 18 && searchName.includes("0x")){
+      searchName = await ReverseLookup(searchName)
+      if(!searchName){
+        document.getElementById("feedback").classList.add("d-block")
+        console.log("no search name")
+        return
+      }
+      }
+      else
       return
     }
     navigate("/" + searchName)
@@ -31,6 +41,9 @@ export function SearchBar() {
         <Col className="mb-2" align="center" xs="12" md="5">
           <Form ref={form} onSubmit={handleSubmit} className="w-full relative">
             <Form.Control type="string" placeholder="Search for a name or 0xAddress" name="name" className="txtinput" />
+            <div id="feedback" className="invalid-feedback">
+            That address does not have a .find name
+          </div>
           </Form>
         </Col>
         <Col xs="auto" className="mt-3 mt-md-0">

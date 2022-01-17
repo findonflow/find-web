@@ -281,7 +281,7 @@ export function ProfileCollection({ profileData }) {
 														<Form.Check.Label>
 															<Card id={"card" + object} className="create-album-card p-3">
 																{nftData.contentType === "video" ?
-																	<video className="" alt={"Picture of " + nftData.name} loop="" playsInline="">
+																	<video className="" alt={"Picture of " + nftData.name} loop="" playsInline="" autoPlay muted>
 																		<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
 																		Sorry this video is not supported by your browser
 																	</video>
@@ -401,7 +401,7 @@ export function ProfileCollection({ profileData }) {
 											}
 											<a href={url} target="_blank" rel="noreferrer">
 												{nftData.contentType === "video" ?
-													<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsInline="">
+													<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsInline="" autoPlay muted>
 														<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
 														Sorry this video is not supported by your browser
 													</video>
@@ -462,7 +462,7 @@ export function ProfileCollection({ profileData }) {
 									}
 									<a href={url} target="_blank" rel="noreferrer">
 										{nftData.contentType === "video" ?
-											<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsInline="">
+											<video className="collection-img p-3" alt={"Picture of " + nftData.name} loop="" playsInline="" autoPlay muted>
 												<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
 												Sorry this video is not supported by your browser
 											</video>

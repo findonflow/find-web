@@ -49,8 +49,26 @@ export default function MarketplaceAuctions() {
                     }
                 )
             )
-            setFilteredForSale(salesData.filter(Event => Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionStarted')))
-            setFilteredForAuction(salesData.filter(Event => Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.ForAuction')))
+            setFilteredForSale(salesData.filter(
+                Event => {
+                    return (
+                        Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.ForAuction') ||
+                        Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionBid')
+                    )
+                }
+            )
+            )
+
+            setFilteredForAuction(
+                salesData.filter(
+                    Event => {
+                        return (
+                            Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.ForAuction') ||
+                            Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionBid')
+                        )
+                    }
+                )
+            )
         }
     }, [salesData])
 
@@ -59,10 +77,17 @@ export default function MarketplaceAuctions() {
             filteredForSale.forEach(nameForSale => {
                 let isForSale = true
                 let soldNames = filteredSold.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
+                let latestBid = filteredForSale.filter(Event => Event.eventDate > nameForSale.eventDate && Event.blockEventData.name === nameForSale.blockEventData.name && Event.id === nameForSale.id )
                 let auctionEnds = nameForSale.blockEventData.auctionEndAt
                 let currentDate = new Date()
                 console.log("Auction ends: " + Number(auctionEnds * 1000) + " Current Date: " + Date.parse(currentDate))
                 //check to see if the item was sold after this listing
+                if (!auctionEnds) {
+                    isForSale = false
+                }
+                if (latestBid.length > 0) {
+                    isForSale = false
+                }
                 if (Number(auctionEnds * 1000) < Date.parse(currentDate)) {
                     isForSale = false
                 } else {
@@ -185,7 +210,7 @@ export default function MarketplaceAuctions() {
                 <Col className="mb-3">
                     <div className="frontTray shadow p-4" style={{ borderRadius: "16px" }}>
 
-                        {/* {JSON.stringify(activeSales, null, 2)} */}
+                        {/* {JSON.stringify(filteredForSale, null, 2)} */}
                         <Row>
                             <Col xs="12" className="my-auto" lg="auto">
                                 <h4>Live Auctions 🔥</h4>

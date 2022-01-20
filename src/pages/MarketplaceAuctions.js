@@ -53,7 +53,8 @@ export default function MarketplaceAuctions() {
                 Event => {
                     return (
                         Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.ForAuction') ||
-                        Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionBid')
+                        Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionBid') ||
+                        Event.flowEventId.includes('A.097bafa4e0b48eef.FIND.AuctionStarted')
                     )
                 }
             )
@@ -77,7 +78,7 @@ export default function MarketplaceAuctions() {
             filteredForSale.forEach(nameForSale => {
                 let isForSale = true
                 let soldNames = filteredSold.filter(Event => Event.blockEventData.name === nameForSale.blockEventData.name)
-                let latestBid = filteredForSale.filter(Event => Event.eventDate > nameForSale.eventDate && Event.blockEventData.name === nameForSale.blockEventData.name && Event.id === nameForSale.id )
+                let latestBid = filteredForSale.filter(Event => Event.eventDate > nameForSale.eventDate && Event.blockEventData.name === nameForSale.blockEventData.name && Event.id !== nameForSale.id )
                 let auctionEnds = nameForSale.blockEventData.auctionEndAt
                 let currentDate = new Date()
                 console.log("Auction ends: " + Number(auctionEnds * 1000) + " Current Date: " + Date.parse(currentDate))

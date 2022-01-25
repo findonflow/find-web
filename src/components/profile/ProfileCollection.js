@@ -423,7 +423,7 @@ export function ProfileCollection({ profileData }) {
 													nftData.contentType === "image" &&
 													<Card.Img src={imgUrl} key={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />}
 													{nftData.contentType === "text" &&
-													<div className="titletxt fw-bold collection-img p-3" style={{whiteSpace: "pre", textAlign: "center"}}><span style={{verticalAlign: "middle"}}>{nftData.image}</span></div>
+													<div className="titletxt fw-bold collection-img p-3" style={{whiteSpace: "pre", textAlign: "center", verticalAlign: "middle"}}><div className="textNFT">{nftData.image}</div></div>
 												}
 												<Card.Body>
 													<Card.Text className="fw-bold">{nftData.name}</Card.Text>
@@ -494,7 +494,7 @@ export function ProfileCollection({ profileData }) {
 											nftData.contentType === "image" &&
 											<Card.Img src={imgUrl} key={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />}
 											{nftData.contentType === "text" &&
-											<div className="titletxt fw-bold collection-img p-3" style={{whiteSpace: "pre", textAlign: "center"}}>{nftData.image}</div>
+											<div className="titletxt fw-bold collection-img p-3" style={{whiteSpace: "pre", textAlign: "center"}}><div className="textNFT">{nftData.image}</div></div>
 										}
 										<Card.Body>
 											<Card.Text className="fw-bold">{nftData.name}</Card.Text>

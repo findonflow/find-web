@@ -282,6 +282,7 @@ export function ProfileCollection({ profileData }) {
 															<Card id={"card" + object} className="create-album-card p-3">
 																{nftData.contentType === "video" ?
 																	<video
+																		key={imgUrl}
 																		className=""
 																		alt={"Picture of " + nftData.name}
 																		loop="" playsInline=""
@@ -292,7 +293,7 @@ export function ProfileCollection({ profileData }) {
 																		Sorry this video is not supported by your browser
 																	</video>
 																	:
-																	<Image src={imgUrl} alt={"Picture of " + nftData.name} />}
+																	<Image src={imgUrl} key={imgUrl} alt={"Picture of " + nftData.name} />}
 															</Card>
 														</Form.Check.Label>
 														<Form.Check.Input type="checkbox" hidden value={object} onClick={(e) => handleSelectNft(e)} />
@@ -337,7 +338,7 @@ export function ProfileCollection({ profileData }) {
 
 
 			{FILTER_NAMES &&
-				<Row className="justify-content-center d-flex">
+				<Row className="justify-content-center d-flex infiniscroll">
 					<Col key="0" className="mb-3" xs="auto">
 						<Button variant="light" size="sm" active={filterValue === "All" ? true : false} onClick={() => handleFilter("All")}>{"All NFTs"}</Button>
 					</Col>
@@ -408,6 +409,7 @@ export function ProfileCollection({ profileData }) {
 											<a href={url} target="_blank" rel="noreferrer">
 												{nftData.contentType === "video" ?
 													<video
+														key={imgUrl}
 														className="collection-img p-3"
 														alt={"Picture of " + nftData.name}
 														loop="" playsInline=""
@@ -418,7 +420,10 @@ export function ProfileCollection({ profileData }) {
 														Sorry this video is not supported by your browser
 													</video>
 													:
-													<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+													nftData.contentType === "image" &&
+													<Card.Img src={imgUrl} key={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />}
+													{nftData.contentType === "text" &&
+													<div className="titletxt fw-bold collection-img p-3" style={{whiteSpace: "pre", textAlign: "center"}}><span style={{verticalAlign: "middle"}}>{nftData.image}</span></div>
 												}
 												<Card.Body>
 													<Card.Text className="fw-bold">{nftData.name}</Card.Text>
@@ -475,6 +480,7 @@ export function ProfileCollection({ profileData }) {
 									<a href={url} target="_blank" rel="noreferrer">
 										{nftData.contentType === "video" ?
 											<video
+												key={imgUrl}
 												className="collection-img p-3"
 												alt={"Picture of " + nftData.name}
 												loop="" playsInline=""
@@ -485,7 +491,10 @@ export function ProfileCollection({ profileData }) {
 												Sorry this video is not supported by your browser
 											</video>
 											:
-											<Card.Img src={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />
+											nftData.contentType === "image" &&
+											<Card.Img src={imgUrl} key={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />}
+											{nftData.contentType === "text" &&
+											<div className="titletxt fw-bold collection-img p-3" style={{whiteSpace: "pre", textAlign: "center"}}>{nftData.image}</div>
 										}
 										<Card.Body>
 											<Card.Text className="fw-bold">{nftData.name}</Card.Text>
@@ -502,7 +511,7 @@ export function ProfileCollection({ profileData }) {
 					<Row><Col align="center"><Button variant="dark" onClick={() => handleRemoveAlbum()}>Remove Album</Button></Col></Row>
 				}
 			</fieldset>
-			{/* {JSON.stringify(collection, null, 2)} */}
+			{/* {JSON.stringify(findList, null, 2)} */}
 			{!findList &&
 				<Row>
 					{profileData.profile.address === user.addr ?

@@ -53,22 +53,6 @@ export function Register({ enteredName }) {
               action: 'Name registered',
               label: 'Purchase'
             })
-
-            ReactGA.plugin.execute("ecommerce", "addTransaction", {
-              id: "Register",
-              revenue: enteredName.cost
-          });
-          
-          ReactGA.plugin.execute("ecommerce", "addItem", {
-              id: "Register",
-              name: searchName,
-              price: enteredName.cost,
-              category: "Tech",
-              quantity: "1"
-          });
-          
-          ReactGA.plugin.execute("ecommerce", "send", null);
-          ReactGA.plugin.execute("ecommerce", "clear", null);
             navigate("/"+searchName)
           },
           onError(error) {

@@ -515,7 +515,7 @@ export function ProfileCollection({ profileData }) {
 					<Row><Col align="center"><Button variant="dark" onClick={() => handleRemoveAlbum()}>Remove Album</Button></Col></Row>
 				}
 			</fieldset>
-			{JSON.stringify(findList, null, 2)}
+			{/* {JSON.stringify(findList, null, 2)} */}
 			{!findList &&
 				<Row>
 					{profileData.profile.address === user.addr ?

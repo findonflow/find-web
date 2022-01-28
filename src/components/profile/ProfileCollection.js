@@ -106,10 +106,10 @@ export function ProfileCollection({ profileData }) {
 							if (findList["collections"][filter].length <= loadLength) {
 								setHasMore(false)
 								setFilterCollection(findList["collections"][filter])
-							}else{
-							setFilterCollection(findList["collections"][filter].slice(0, loadLength))
-							setArrayNextPosition(20)
-							setHasMore(true)
+							} else {
+								setFilterCollection(findList["collections"][filter].slice(0, loadLength))
+								setArrayNextPosition(20)
+								setHasMore(true)
 							}
 
 
@@ -119,10 +119,10 @@ export function ProfileCollection({ profileData }) {
 							if (findList["collections"][filter].length <= loadLength) {
 								setHasMore(false)
 								setFilterCollection(findList["collections"][filter])
-							}else{
-							setFilterCollection(findList["collections"][filter].slice(0, loadLength))
-							setArrayNextPosition(20)
-							setHasMore(true)
+							} else {
+								setFilterCollection(findList["collections"][filter].slice(0, loadLength))
+								setArrayNextPosition(20)
+								setHasMore(true)
 							}
 						}
 					})
@@ -137,10 +137,10 @@ export function ProfileCollection({ profileData }) {
 							if (findList["curatedCollections"][filter].length <= loadLength) {
 								setHasMore(false)
 								setFilterCollection(findList["curatedCollections"][filter])
-							}else{
-							setFilterCollection(findList["curatedCollections"][filter].slice(0, loadLength))
-							setArrayNextPosition(20)
-							setHasMore(true)
+							} else {
+								setFilterCollection(findList["curatedCollections"][filter].slice(0, loadLength))
+								setArrayNextPosition(20)
+								setHasMore(true)
 							}
 
 						}
@@ -344,7 +344,7 @@ export function ProfileCollection({ profileData }) {
 					</Col>
 					{FILTER_NAMES.map((filters, i) =>
 						<Col key={i + 1} className="mb-3" xs="auto">
-							<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters.replace(/[-_]/g," ")}</Button>
+							<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilter(filters)}>{filters.replace(/[-_]/g, " ")}</Button>
 						</Col>
 					)}
 					{FILTER_NAMESCURATED &&
@@ -354,7 +354,7 @@ export function ProfileCollection({ profileData }) {
 
 								{FILTER_NAMESCURATED.map((filters, i) =>
 									<Col key={i + 1} className="mb-3" xs="auto">
-										<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilterCurated(filters)}>{filters.replace(/[-_]/g," ")}</Button>
+										<Button variant="light" size="sm" active={filterValue === filters ? true : false} onClick={() => handleFilterCurated(filters)}>{filters.replace(/[-_]/g, " ")}</Button>
 									</Col>
 								)}
 							</Row></div>}
@@ -389,9 +389,10 @@ export function ProfileCollection({ profileData }) {
 								} else {
 									url = nftData.url
 								}
-								url = url.replace("#", "-")
+								
+								if (url.includes("www.geniace.com")) {
+									url = url.replace("#", "-")
 								url = url.replace(" ", "")
-								if(url.includes("www.geniace.com")) {
 									if (url.includes("-1")) {
 										url = url.replace("-1", "")
 									}
@@ -407,7 +408,7 @@ export function ProfileCollection({ profileData }) {
 												<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
 											}
 											<a href={url} target="_blank" rel="noreferrer">
-												{nftData.contentType === "video" ?
+												{nftData.contentType.includes("video") ?
 													<video
 														key={imgUrl}
 														className="collection-img p-3"
@@ -420,10 +421,10 @@ export function ProfileCollection({ profileData }) {
 														Sorry this video is not supported by your browser
 													</video>
 													:
-													nftData.contentType === "image" &&
+													(nftData.contentType === "" || nftData.contentType.includes("image"))   &&
 													<Card.Img src={imgUrl} key={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />}
-													{nftData.contentType === "text" &&
-													<div className="titletxt fw-bold collection-img p-3" style={{whiteSpace: "pre", textAlign: "center", verticalAlign: "middle"}}><div className="textNFT">{nftData.image}</div></div>
+												{nftData.contentType === "text" &&
+													<div className="titletxt fw-bold collection-img p-3" style={{ whiteSpace: "pre", textAlign: "center", verticalAlign: "middle" }}><div className="textNFT">{nftData.image}</div></div>
 												}
 												<Card.Body>
 													<Card.Text className="fw-bold">{nftData.name}</Card.Text>
@@ -445,74 +446,76 @@ export function ProfileCollection({ profileData }) {
 						loader={<h4>Loading...</h4>}
 					>
 						<Row className=" m-0 my-3 d-flex align-items-start" xs={1} lg={3} md={2} id="FilterCollection">
-					{filterCollection.map((nftid, i) => {
-						let nftData = findList.items[nftid]
-						let url
-						let imgUrl
-						if (nftData && nftData !== "") {
+							{filterCollection.map((nftid, i) => {
+								let nftData = findList.items[nftid]
+								let url
+								let imgUrl
+								if (nftData && nftData !== "") {
 
-							if (nftData.image.includes("ipfs://")) {
-								// console.log("It does include!")
-								imgUrl = nftData.image.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
-							} else {
-								imgUrl = nftData.image
-							}
-							if (nftData.url.includes("ipfs://")) {
-								// console.log("It does include!")
-								url = nftData.url.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
-							} else {
-								url = nftData.url
-							}
-							if(nftData.url.toLowerCase().includes("geniace"))
-							url = url.replace("#", "-")
-							url = url.replace(" ", "")
-						}
-						return (
-							nftData && nftData !== "" &&
-							<Col key={i} className="mb-5">
-
-								{/* {JSON.stringify(collection, null, 2)} */}
-
-								<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
-
-									{user.addr === profileData.profile.address &&
-										<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
+									if (nftData.image.includes("ipfs://")) {
+										// console.log("It does include!")
+										imgUrl = nftData.image.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
+									} else {
+										imgUrl = nftData.image
 									}
-									<a href={url} target="_blank" rel="noreferrer">
-										{nftData.contentType === "video" ?
-											<video
-												key={imgUrl}
-												className="collection-img p-3"
-												alt={"Picture of " + nftData.name}
-												loop="" playsInline=""
-												onMouseOver={event => event.target.play()}
-												onMouseOut={event => event.target.pause()}
-											>
-												<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
-												Sorry this video is not supported by your browser
-											</video>
-											:
-											nftData.contentType === "image" &&
-											<Card.Img src={imgUrl} key={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />}
-											{nftData.contentType === "text" &&
-											<div className="titletxt fw-bold collection-img p-3" style={{whiteSpace: "pre", textAlign: "center"}}><div className="textNFT">{nftData.image}</div></div>
-										}
-										<Card.Body>
-											<Card.Text className="fw-bold">{nftData.name}</Card.Text>
-											{nftData.listPrice &&
-												<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
-										</Card.Body>
-									</a>
-								</Card>
-							</Col>
-						)
-					})}</Row></InfiniteScroll>}
+									if (nftData.url.includes("ipfs://")) {
+										// console.log("It does include!")
+										url = nftData.url.replace("ipfs://", "https://find.mypinata.cloud/ipfs/")
+									} else {
+										url = nftData.url
+									}
+									if (nftData.url.toLowerCase().includes("geniace")) {
+										url = url.replace("#", "-")
+									}
+
+									url = url.replace(" ", "")
+								}
+								return (
+									nftData && nftData !== "" &&
+									<Col key={i} className="mb-5">
+
+										{/* {JSON.stringify(collection, null, 2)} */}
+
+										<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
+
+											{user.addr === profileData.profile.address &&
+												<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
+											}
+											<a href={url} target="_blank" rel="noreferrer">
+												{nftData.contentType.includes("video")  ?
+													<video
+														key={imgUrl}
+														className="collection-img p-3"
+														alt={"Picture of " + nftData.name}
+														loop="" playsInline=""
+														onMouseOver={event => event.target.play()}
+														onMouseOut={event => event.target.pause()}
+													>
+														<source src={imgUrl + "#t=0.1"} type="video/mp4"></source>
+														Sorry this video is not supported by your browser
+													</video>
+													:
+													(nftData.contentType === "" || nftData.contentType.includes("image")) &&
+													<Card.Img src={imgUrl} key={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />}
+												{nftData.contentType === "text" &&
+													<div className="titletxt fw-bold collection-img p-3" style={{ whiteSpace: "pre", textAlign: "center" }}><div className="textNFT">{nftData.image}</div></div>
+												}
+												<Card.Body>
+													<Card.Text className="fw-bold">{nftData.name}</Card.Text>
+													{nftData.listPrice &&
+														<p>For sale: {nftData.listPrice * 1 + " " + nftData?.listToken} </p>}
+												</Card.Body>
+											</a>
+										</Card>
+									</Col>
+								)
+							})}</Row></InfiniteScroll>}
 
 				{profileData.profile.address === user.addr && collectionType === "curatedCollections" &&
 					<Row><Col align="center"><Button variant="dark" onClick={() => handleRemoveAlbum()}>Remove Album</Button></Col></Row>
 				}
 			</fieldset>
-			{/* {JSON.stringify(findList, null, 2)} */}
+			{JSON.stringify(findList, null, 2)}
 			{!findList &&
 				<Row>
 					{profileData.profile.address === user.addr ?

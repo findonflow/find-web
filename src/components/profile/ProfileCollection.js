@@ -463,6 +463,7 @@ export function ProfileCollection({ profileData }) {
 							} else {
 								url = nftData.url
 							}
+							if(nftData.url.toLowerCase().includes("geniace"))
 							url = url.replace("#", "-")
 							url = url.replace(" ", "")
 						}

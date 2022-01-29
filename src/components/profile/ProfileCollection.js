@@ -389,10 +389,10 @@ export function ProfileCollection({ profileData }) {
 								} else {
 									url = nftData.url
 								}
-								
+
 								if (url.includes("www.geniace.com")) {
 									url = url.replace("#", "-")
-								url = url.replace(" ", "")
+									url = url.replace(" ", "")
 									if (url.includes("-1")) {
 										url = url.replace("-1", "")
 									}
@@ -404,7 +404,7 @@ export function ProfileCollection({ profileData }) {
 
 										<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
 
-											{user.addr === profileData.profile.address &&
+											{user.addr === profileData.profile.address && nftData.contentType.includes("image") &&
 												<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
 											}
 											<a href={url} target="_blank" rel="noreferrer">
@@ -421,7 +421,7 @@ export function ProfileCollection({ profileData }) {
 														Sorry this video is not supported by your browser
 													</video>
 													:
-													(nftData.contentType === "" || nftData.contentType.includes("image"))   &&
+													(nftData.contentType === "" || nftData.contentType.includes("image")) &&
 													<Card.Img src={imgUrl} key={imgUrl} className="collection-img p-3" alt={"Picture of " + nftData.name} />}
 												{nftData.contentType === "text" &&
 													<div className="titletxt fw-bold collection-img p-3" style={{ whiteSpace: "pre", textAlign: "center", verticalAlign: "middle" }}><div className="textNFT">{nftData.image}</div></div>
@@ -478,11 +478,11 @@ export function ProfileCollection({ profileData }) {
 
 										<Card className="shadow collectionCard" style={{ maxWidth: "400px" }}>
 
-											{user.addr === profileData.profile.address &&
+											{user.addr === profileData.profile.address && nftData.contentType.includes("image") &&
 												<button className="setpfp shadow idd" onClick={() => handleSetPfp(imgUrl)}>Set as PFP</button>
 											}
 											<a href={url} target="_blank" rel="noreferrer">
-												{nftData.contentType.includes("video")  ?
+												{nftData.contentType.includes("video") ?
 													<video
 														key={imgUrl}
 														className="collection-img p-3"

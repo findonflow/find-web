@@ -389,14 +389,6 @@ export function ProfileCollection({ profileData }) {
 								} else {
 									url = nftData.url
 								}
-
-								if (url.includes("www.geniace.com")) {
-									url = url.replace("#", "-")
-									url = url.replace(" ", "")
-									if (url.includes("-1")) {
-										url = url.replace("-1", "")
-									}
-								}
 								return (
 									<Col key={i} className="mb-5">
 
@@ -464,10 +456,6 @@ export function ProfileCollection({ profileData }) {
 									} else {
 										url = nftData.url
 									}
-									if (nftData.url.toLowerCase().includes("geniace")) {
-										url = url.replace("#", "-")
-									}
-
 									url = url.replace(" ", "")
 								}
 								return (

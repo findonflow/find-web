@@ -515,7 +515,7 @@ export function ProfileCollection({ profileData }) {
 						<Col sm="12" align="center">
 							<div className="titletxt fw-bold pb-3">Uh oh, seems this collection is empty or we do not yet support the NFT's</div>
 							<p>No worries, supported NFT's will appear here soon!</p>
-						</Col>}
+						</Col>
 				</Row>
 			}
 		</div>

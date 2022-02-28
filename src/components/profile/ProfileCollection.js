@@ -503,10 +503,10 @@ export function ProfileCollection({ profileData }) {
 					<Row><Col align="center"><Button variant="dark" onClick={() => handleRemoveAlbum()}>Remove Album</Button></Col></Row>
 				}
 			</fieldset>
-			{/* {JSON.stringify(findList, null, 2)} */}
+			{JSON.stringify(findList, null, 2)}
 			{!findList &&
 				<Row>
-					{profileData.profile.address === user.addr ?
+					{/* {profileData.profile.address === user.addr ? */}
 						<Col sm="12" align="center">
 							<div className="titletxt fw-bold pb-3">Uh oh, either your collection is empty or we do not yet support your NFT's</div>
 							<p>No worries, supported NFT's will appear here soon!</p>

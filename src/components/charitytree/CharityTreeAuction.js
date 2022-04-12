@@ -25,6 +25,7 @@ export function CharityTreeAuction() {
     // const [newBid, setNewBid] = useState()
     // const [bidderName, setBidderName] = useState([])
      const cutOffDate = 1640736000
+     const endDate = 1641427200
 
     // useEffect(() => {
     //     async function SearchName(searchName) {
@@ -351,7 +352,7 @@ export function CharityTreeAuction() {
                                         <tbody id="eventBody">
                                             {donations &&
                                                 donations.map((donation, i) =>
-                                                new Date(donation.eventDate).valueOf() > cutOffDate*1000 &&
+                                                new Date(donation.eventDate).valueOf() > cutOffDate*1000 && new Date(donation.eventDate).valueOf() < endDate*1000 &&
                                                     <tr key={i}>
                                                         <td className="d-none d-md-table-cell">{donation.blockEventData.account}</td>
                                                         <td>{donation.blockEventData.message}</td>

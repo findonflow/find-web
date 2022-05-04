@@ -1,0 +1,92 @@
+.charity-tree-timer {
+    font-size: 54px;
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.2px;
+    color: #000000;
+}
+
+.charity-tree-headers {
+    font-size: 18px;
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24pxpx;
+    letter-spacing: 0.2px;
+    color: #000000;
+}
+
+.gift-option-button {
+    background-color: black;
+    border: black;
+    height: 50px;
+}
+
+.auction-box-background {
+    background-color: #F1F1F3;
+    border: black;
+    height: 50px;
+}
+.current-bid-flow {
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+font-style: normal;
+font-weight: bold;
+font-size: 26px;
+line-height: 40px;
+/* identical to box height, or 154% */
+
+
+color: #58B792;
+
+}
+.current-donations {
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 24px;
+/* identical to box height, or 154% */
+
+
+color: #58B792;
+
+}
+.auction-description {
+    font-family: 'Inter', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 24px;
+/* or 150% */
+
+font-feature-settings: 'salt' on, 'liga' off;
+
+color: #5C5C5C
+}
+.auction-digits {
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 40px;
+/* identical to box height, or 167% */
+
+
+color: #000000;
+}
+.auction-dayshoursmins {
+    font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 10px;
+line-height: 20px;
+}
+.charity-gift-widget {
+    background: url(./bgnogradient.webp);
+    background-color: #FFFFFF;
+    border: 1px solid #58B792;
+box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+border-radius: 10px;
+}

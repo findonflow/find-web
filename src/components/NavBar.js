@@ -88,7 +88,7 @@ function NavHead() {
             <Nav.Link onClick={() => setExpanded(false)} as={scrollLink} to="faq" spy={true} smooth={true} offset={50} duration={400} style={{ cursor: 'pointer' }} className="ms-lg-3">FAQ's</Nav.Link>
             <Nav.Link onClick={() => setExpanded(false)} as={Link} to={"/lf"} className="ms-lg-3">Live Feed</Nav.Link>
             <Nav.Link onClick={() => setExpanded(false)} as={Link} to={"/mp"} className="ms-lg-3">Marketplace</Nav.Link>
-            <Nav.Link onClick={() => setExpanded(false)} as={Link} to={"/neo-x-flowverse-community-charity-tree"} className="ms-lg-3">Charity Tree</Nav.Link>
+            <Nav.Link onClick={() => setExpanded(false)} as={Link} to={"/may-4th-charity"} className="ms-lg-3">Flovatar x Flow Charity</Nav.Link>
           </Nav>
           <Nav>
             <div id="lgmenu" className="p-3 p-lg-0 mx-auto d-none d-md-block">

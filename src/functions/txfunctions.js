@@ -737,11 +737,12 @@ export const SendFUSDCharity = async (e) => {
     await Tx(
       [
         //name: String, amount: UFix64, type: String
-        fcl.transaction(transactions.sendFusdWithMessage),
+        fcl.transaction(transactions.sendFusdWithTagAndMessage),
         fcl.args([
           fcl.arg(d.name, t.String),
           fcl.arg(parseFloat(d.amount).toFixed(2), t.UFix64),
-          fcl.arg(d.message, t.String)
+          fcl.arg(d.message, t.String),
+          fcl.arg(d.tag, t.String),
         ]),
         fcl.proposer(fcl.currentUser().authorization),
         fcl.payer(fcl.currentUser().authorization),
@@ -759,7 +760,7 @@ export const SendFUSDCharity = async (e) => {
           console.log("success")
           ReactGA.event({
             category: 'Charity',
-            action: 'User donated (2021)',
+            action: 'May 4th Flovatar (2022)',
             label: 'FUSD'
           })
         },
@@ -786,11 +787,12 @@ export const SendFLOWCharity = async (e) => {
     await Tx(
       [
         //name: String, amount: UFix64, type: String
-        fcl.transaction(transactions.sendFlowWithMessage),
+        fcl.transaction(transactions.sendFlowWithTagAndMessage),
         fcl.args([
           fcl.arg(d.name, t.String),
           fcl.arg(parseFloat(d.amount).toFixed(2), t.UFix64),
-          fcl.arg(d.message, t.String)
+          fcl.arg(d.message, t.String),
+          fcl.arg(d.tag, t.String)
         ]),
         fcl.proposer(fcl.currentUser().authorization),
         fcl.payer(fcl.currentUser().authorization),
@@ -808,7 +810,7 @@ export const SendFLOWCharity = async (e) => {
           console.log("success")
           ReactGA.event({
             category: 'Charity',
-            action: 'User donated (2021)',
+            action: 'May 4th Flovatar (2022)',
             label: 'FLOW'
           })
         },

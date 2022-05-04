@@ -19,7 +19,7 @@ export function May4thCharityAuction() {
     document.title = ".find - Flovatar x Flow May 4th Charity"
     ReactGA.pageview(window.location.pathname);
     const [auctionLocked, setAuctionLocked] = useState(true)
-    const [auctionEndDate, setAuctionEndDate] = useState(new Date(1641142800 * 1000).toUTCString())
+    const [auctionEndDate, setAuctionEndDate] = useState(new Date(1651791600 * 1000).toUTCString())
     const [validated, setValidated] = useState(false)
     const [nameStatus, setNameStatus] = useState("")
     const [donations, setDonations] = useState()
@@ -249,14 +249,14 @@ export function May4thCharityAuction() {
                         <Col className="p-0 m-2" xs="12" md="auto">
                             <Row className="justify-content-center">
                                 {/* NFT IMAGE */}
-                                <Image className=" p-0 shadow" src="https://flovatar.com/api/image/5286" style={{ maxWidth: "420px", height: "100%" }} rounded></Image>
+                                <Image className=" p-0 shadow" src="https://flovatar.com/api/image/5286" fluid rounded></Image>
                             </Row>
                         </Col>
                         <Col className="" xs="12" lg={{ span: 5, offset: 1 }} xl={{ span: 6, offset: 1 }}>
                             <Row>
                                 {
                                     auctionLocked ?
-                                        <Col><Countdown date={new Date(1651698000 * 1000).toUTCString()} renderer={countdownTimer} /></Col>
+                                        <Col><Countdown date={new Date(165169800 * 1000).toUTCString()} renderer={countdownTimer} /></Col>
                                         :
                                         <Col><Countdown date={new Date(auctionEndDate)} renderer={countdownTimer} key={'2'} /></Col>
                                 }

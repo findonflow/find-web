@@ -249,7 +249,7 @@ export function May4thCharityAuction() {
                         <Col className="p-0 m-2" xs="12" md="auto">
                             <Row className="justify-content-center">
                                 {/* NFT IMAGE */}
-                                <Image className=" p-0 shadow" src="https://flovatar.com/api/image/5286" fluid rounded></Image>
+                                <Image className=" p-0 shadow" src="https://flovatar.com/api/image/5286" style={{minWidth: "300px"}} fluid rounded></Image>
                             </Row>
                         </Col>
                         <Col className="" xs="12" lg={{ span: 5, offset: 1 }} xl={{ span: 6, offset: 1 }}>

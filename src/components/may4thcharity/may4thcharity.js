@@ -276,7 +276,7 @@ export function May4thCharityAuction() {
                             </Row>
 
                             <Row className="mt-3">
-                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus && nameStatus.lease?.auctionEnds > nameStatus.lease?.currentTime &&
+                                <div className="fw-bold my-3">{nameStatus && nameStatus.lease?.auctionEnds > nameStatus.lease?.currentTime ? "Current bid: " : "Winning bid: "} <span className="current-bid-flow" > {nameStatus && 
                                                                                                                     nameStatus.lease?.latestBid * 1 + " FUSD - By "}
                                                                                                                     {bidderName ? <Link className="current-bid-flow" to={"/"+bidderName}>{bidderName+".find"}</Link> : nameStatus.lease?.latestBidBy}</span></div>
                             </Row>

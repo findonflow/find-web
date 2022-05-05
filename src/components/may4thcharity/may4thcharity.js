@@ -232,6 +232,8 @@ export function May4thCharityAuction() {
         conn.current.stop()
     }, []);
 
+    //console.log(nameStatus)
+
     return (
         <Container style={{ backgroundColor: "white" }} fluid>
             <fieldset id="a" disabled={useFormStatus()}>
@@ -274,10 +276,11 @@ export function May4thCharityAuction() {
                             </Row>
 
                             <Row className="mt-3">
-                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus && 
+                                <div className="fw-bold my-3">Current bid: <span className="current-bid-flow" > {nameStatus && nameStatus.lease?.auctionEnds > nameStatus.lease?.currentTime &&
                                                                                                                     nameStatus.lease?.latestBid * 1 + " FUSD - By "}
                                                                                                                     {bidderName ? <Link className="current-bid-flow" to={"/"+bidderName}>{bidderName+".find"}</Link> : nameStatus.lease?.latestBidBy}</span></div>
                             </Row>
+                            {nameStatus && nameStatus.lease?.auctionEnds > nameStatus.lease?.currentTime &&
                             <Form onSubmit={handleSubmitBid} className="formInputs">
                                 <Row>
                                     <Col sm="12" lg="7">
@@ -288,7 +291,7 @@ export function May4thCharityAuction() {
                                         <Button type="submit" className="w-100" disabled={auctionLocked} variant="dark">Bid</Button>
                                     </Col>
                                 </Row>
-                            </Form>
+                            </Form>}
                         </Col>
                     </Row>
                     <h4 className="mt-5" align="center">Want to give something to NAMI and be on our Wall of Fame?</h4>

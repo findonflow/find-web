@@ -20,6 +20,7 @@ export function May4thCharityAuction() {
     ReactGA.pageview(window.location.pathname);
     const [auctionLocked, setAuctionLocked] = useState(true)
     const [auctionEndDate, setAuctionEndDate] = useState(new Date(1651791600 * 1000).toUTCString())
+    const [auctionFinished, setAuctionFinished] = useState(true)
     const [validated, setValidated] = useState(false)
     const [nameStatus, setNameStatus] = useState("")
     const [donations, setDonations] = useState()
@@ -36,16 +37,16 @@ export function May4thCharityAuction() {
             const nameStatus = await fcl.decode(response);
             setNameStatus(nameStatus)
             if (nameStatus.lease.auctionEnds) {
-                setAuctionEndDate(new Date(nameStatus.lease.auctionEnds*1000).toUTCString())
+                setAuctionEndDate(new Date(nameStatus.lease.auctionEnds * 1000).toUTCString())
             }
             if (nameStatus.lease.latestBidBy) {
                 setBidderName(await ReverseLookup(nameStatus.lease.latestBidBy))
             }
-        
+
             // setEnteredName(searchName)
         }
         SearchName("flovatarmay4")
-        
+
     }
         // eslint-disable-next-line
         , [useStateChanged(), newBid])
@@ -184,7 +185,7 @@ export function May4thCharityAuction() {
         getDonations()
     }, [])
 
-    function addDonation(from, details, amount,  date) {
+    function addDonation(from, details, amount, date) {
 
         let tableRef = document.getElementById("eventBody");
 
@@ -205,25 +206,25 @@ export function May4thCharityAuction() {
 
     }
 
-    
+
     let conn = useRef();
     useEffect(() => {
         const streamSDK = new GraffleSDK();
-    const feed = async (message) => {
-        if (get(message, "flowEventId") === "A.097bafa4e0b48eef.FIND.FungibleTokenSent" && get(message, "blockEventData.tag") === "may4thcharity") {
-            addDonation(message.blockEventData.fromName ? message.blockEventData.fromName : message.blockEventData.from, message.blockEventData.message, message.blockEventData.type === "A.3c5959b568896393.FUSD.Vault" ? parseFloat(message.blockEventData.amount).toFixed(2) + " FUSD" : parseFloat(message.blockEventData.amount).toFixed(2) + " FLOW", message.eventDate)
-        }
-        if (get(message, "flowEventId") === "A.097bafa4e0b48eef.FIND.AuctionBid") {
-            setNewBid(message)
+        const feed = async (message) => {
+            if (get(message, "flowEventId") === "A.097bafa4e0b48eef.FIND.FungibleTokenSent" && get(message, "blockEventData.tag") === "may4thcharity") {
+                addDonation(message.blockEventData.fromName ? message.blockEventData.fromName : message.blockEventData.from, message.blockEventData.message, message.blockEventData.type === "A.3c5959b568896393.FUSD.Vault" ? parseFloat(message.blockEventData.amount).toFixed(2) + " FUSD" : parseFloat(message.blockEventData.amount).toFixed(2) + " FLOW", message.eventDate)
+            }
+            if (get(message, "flowEventId") === "A.097bafa4e0b48eef.FIND.AuctionBid") {
+                setNewBid(message)
 
-        }
+            }
 
-        //setLatestMessage(message);
-        console.log(message)
-    };
+            //setLatestMessage(message);
+            console.log(message)
+        };
         //console.log("Creating the stream")
         async function startConn() {
-        conn.current = await streamSDK.stream(feed);
+            conn.current = await streamSDK.stream(feed);
         }
         startConn()
     }, []);
@@ -238,20 +239,24 @@ export function May4thCharityAuction() {
         <Container style={{ backgroundColor: "white" }} fluid>
             <fieldset id="a" disabled={useFormStatus()}>
                 <Container className="px-5 pb-4">
-                    {auctionLocked ?
+                    {
+                    !auctionFinished ?
+                    auctionLocked ?
                         <div className="text-center">
                             <h1>The countdown has begun!</h1>
                             <p>The auction will begin soon, but you can donate immediately</p>
                         </div>
                         :
                         <h1 align="center">The charity auction is now live!</h1>
+                        :
+                        <h1 align="center">The auction has ended!</h1>
                     }
                     {/* This is the row for the Col containing NFTT image, Timer and the Col containing Description, auction buttons and gift options */}
                     <Row className="pt-lg-5 pt-3 justify-content-center">
                         <Col className="p-0 m-2" xs="12" md="auto">
                             <Row className="justify-content-center">
                                 {/* NFT IMAGE */}
-                                <Image className=" p-0 shadow" src="https://flovatar.com/api/image/5286" style={{minWidth: "300px"}} fluid rounded></Image>
+                                <Image className=" p-0 shadow" src="https://flovatar.com/api/image/5286" style={{ minWidth: "300px" }} fluid rounded></Image>
                             </Row>
                         </Col>
                         <Col className="" xs="12" lg={{ span: 5, offset: 1 }} xl={{ span: 6, offset: 1 }}>
@@ -275,7 +280,7 @@ export function May4thCharityAuction() {
                                 <div className="mt-3"><a href="https://www.nami.org/home" target="_blank" rel="noreferrer">You can learn more about NAMI here</a></div>
                             </Row>
 
-                            <Row className="mt-3">
+                            {/* <Row className="mt-3">
                                 <div className="fw-bold my-3">{nameStatus && nameStatus.lease?.auctionEnds > nameStatus.lease?.currentTime ? "Current bid: " : "Winning bid: "} <span className="current-bid-flow" > {nameStatus && 
                                                                                                                     nameStatus.lease?.latestBid * 1 + " FUSD - By "}
                                                                                                                     {bidderName ? <Link className="current-bid-flow" to={"/"+bidderName}>{bidderName+".find"}</Link> : nameStatus.lease?.latestBidBy}</span></div>
@@ -291,19 +296,30 @@ export function May4thCharityAuction() {
                                         <Button type="submit" className="w-100" disabled={auctionLocked} variant="dark">Bid</Button>
                                     </Col>
                                 </Row>
-                            </Form>}
+                            </Form>} */}
+                            <Row className="mt-3">
+                                <div className="fw-bold my-3">Winning bid: <span className="current-bid-flow" >3333 FUSD - By <Link className="current-bid-flow" to="/wei">wei.find</Link></span></div>
+                            </Row>
+                            <Row>
+                                <Col className="mt-3">
+                                    <div className="d-flex justify-content-center"><div className="profilePic image"><img src="/assets/img/may4th/wei_profile.jpg" height="150" width="150" alt="El Dumbo's profile avatar" /></div></div>
+                                    <div align="center"><h1>WINNER!</h1></div>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                     <h4 className="mt-5" align="center">Want to give something to NAMI and be on our Wall of Fame?</h4>
                     <Row className="auction-box charity-gift-widget shadow my-5 p-3">
-                        <Col xs="12" md="4" className="p-3" align="center">
-                            <Image src="/assets/img/may4th/nami.png" className="mb-2" fluid/>
-                           
-                                    {nameStatus.profile?.wallets?.map((wallet, i) =>
-                                        <div key={i} className="current-donations">{parseFloat(wallet.balance*1).toFixed(2)} {wallet.name} donated so far</div>
-                                    )}
+                        <Col xs="12" md="12" className="p-3" align="center">
+                            <Image src="/assets/img/may4th/nami.png" className="mb-2" fluid />
+
+                            {/* {nameStatus.profile?.wallets?.map((wallet, i) =>
+                                <div key={i} className="current-donations">{parseFloat(wallet.balance * 1).toFixed(2)} {wallet.name} donated so far</div>
+                            )} */}
+                            <div className="current-donations">3,467.82 FUSD donated</div>
+                            <div className="current-donations">1,701 FLOW donated</div>
                         </Col>
-                        <Col>
+                        {/* <Col>
                             <Form noValidate className="formInputs">
                                 <Row>
                                     <Col xs="12" lg="6">
@@ -328,7 +344,7 @@ export function May4thCharityAuction() {
                                     </Col>
                                 </Row>
                             </Form>
-                        </Col>
+                        </Col> */}
 
                     </Row>
                     <p>If you donate above you will appear on the wall of fame below. There is no limit to the number of times you can donate and your name will appear on the wall as many times as you donate.</p>
@@ -355,18 +371,18 @@ export function May4thCharityAuction() {
                                         <tbody id="eventBody">
                                             {donations &&
                                                 donations.map((donation, i) =>
-                                                new Date(donation.eventDate).valueOf() > cutOffDate*1000 &&
+                                                    new Date(donation.eventDate).valueOf() > cutOffDate * 1000 &&
                                                     <tr key={i}>
                                                         <td className="d-none d-md-table-cell">{donation.blockEventData.fromName ? donation.blockEventData.fromName : donation.blockEventData.from}</td>
                                                         <td>{donation.blockEventData.message}</td>
-                                                        <td>{ donation.blockEventData.type === "A.3c5959b568896393.FUSD.Vault" ? parseFloat(donation.blockEventData.amount).toFixed(2) + " FUSD" : parseFloat(donation.blockEventData.amount).toFixed(2) + " FLOW"}</td>
+                                                        <td>{donation.blockEventData.type === "A.3c5959b568896393.FUSD.Vault" ? parseFloat(donation.blockEventData.amount).toFixed(2) + " FUSD" : parseFloat(donation.blockEventData.amount).toFixed(2) + " FLOW"}</td>
                                                         <td>{new Date(donation.eventDate).toLocaleString()}</td>
                                                     </tr>)
                                             }
                                         </tbody>
                                     </Table>
                                 </div>
-                                <div align="right" className="pe-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{maxHeight: "44px"}} fluid></Image></a></div>
+                                <div align="right" className="pe-2"><a href="https://graffle.io" target="_blank" rel="noreferrer"><Image src="/assets/img/livefeed/powered-by-graffle.webp" style={{ maxHeight: "44px" }} fluid></Image></a></div>
                             </div>
                         </Row>
                         {/* <Row className="pt-5 px-5">
@@ -376,9 +392,9 @@ export function May4thCharityAuction() {
                             </Col>
                         </Row> */}
 
-                        
+
                     </Container>
-                    
+
                 </Container>
             </fieldset >
         </Container >

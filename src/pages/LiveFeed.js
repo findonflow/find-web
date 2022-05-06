@@ -22,7 +22,7 @@ export default function LiveFeed() {
             // console.log("getSales fired")
             let data
             let res = await axios
-                .get("https://prod-main-net-dashboard-api.azurewebsites.net/api/company/04bd44ea-0ff1-44be-a5a0-e502802c56d8/search?eventType=A.097bafa4e0b48eef.FIND.Sold,A.097bafa4e0b48eef.FIND.ForSale,A.097bafa4e0b48eef.FIND.AuctionCanceled,A.097bafa4e0b48eef.FIND.AuctionCanceledReservePrice,,A.097bafa4e0b48eef.FIND.AuctionStarted,A.097bafa4e0b48eef.FIND.AuctionBid,A.097bafa4e0b48eef.FIND.DirectOffer,A.097bafa4e0b48eef.FIND.DirectOfferCanceled,A.097bafa4e0b48eef.FIND.Register,A.097bafa4e0b48eef.FIND.Moved,A.097bafa4e0b48eef.FIND.SoldAuction,A.097bafa4e0b48eef.FIND.WithdrawnSale,A.097bafa4e0b48eef.FIND.ForAuction,A.097bafa4e0b48eef.FIND.DirectOfferRejected")
+                .get("https://prod-main-net-dashboard-api.azurewebsites.net/api/company/04bd44ea-0ff1-44be-a5a0-e502802c56d8/search?eventType=A.097bafa4e0b48eef.FIND.Sold,A.097bafa4e0b48eef.FIND.ForSale,A.097bafa4e0b48eef.FIND.AuctionCanceled,A.097bafa4e0b48eef.FIND.AuctionCanceledReservePrice,,A.097bafa4e0b48eef.FIND.AuctionStarted,A.097bafa4e0b48eef.FIND.AuctionBid,A.097bafa4e0b48eef.FIND.DirectOffer,A.097bafa4e0b48eef.FIND.DirectOfferCanceled,A.097bafa4e0b48eef.FIND.Register,A.097bafa4e0b48eef.FIND.Moved,A.097bafa4e0b48eef.FIND.SoldAuction,A.097bafa4e0b48eef.FIND.WithdrawnSale,A.097bafa4e0b48eef.FIND.ForAuction,A.097bafa4e0b48eef.FIND.DirectOfferRejected&pageSize=50")
             data = res.data
             setEventsData(data)
 

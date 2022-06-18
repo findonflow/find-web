@@ -4,8 +4,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@microsoft/signalr": "^5.0.10",
-    "@onflow/fcl": "^1.0.0-alpha.0",
-    "@onflow/transport-grpc": "^0.0.2",
+    "@onflow/fcl": "^1.0.2",
     "@onflow/types": "^0.0.6",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
